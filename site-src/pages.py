@@ -110,8 +110,6 @@ def home():
 <span class="spine"><b>{t}</b></span>
 <span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Explore {t.lower()} control {I["arrow"]}</span></span></a>'''
         for i, (h, im, t, sub, tag) in enumerate(pests_cards))
-    steps = [("Inspect & identify", "Understand the property, pest activity, harbourage, entry points and conducive conditions."), ("Prevent", "Address the conditions that allow pests to enter, survive and reproduce."), ("Monitor", "Track activity over time to understand infestation levels, movement and behaviour."), ("Targeted treatment", "The right solution to the right problem, at the right location: physical, exclusion, baiting or targeted chemical."), ("Evaluate & improve", "Review effectiveness and adapt: from reactive treatment towards long-term prevention.")]
-    steps_html = "".join(f'<div class="step"><h4>{t}</h4><p>{d}</p></div>' for t, d in steps)
     proj = "".join(card_img("projects.html", p["img"], p["name"], p["blurb"], p["sector"]) for p in PROJECTS)
     # Slanted certificate wall. Columns run left to right; the right-of-centre
     # columns sit in the clear part of the image, so the strongest credentials go there.
@@ -152,15 +150,20 @@ def home():
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}{btn("Contact for quotation", "#enquiry", "lime")}</div></div>
 </div></div></section>
 </div></div>
-<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>
-<div class="marquee logos"><div class="track">{row1}</div></div>
-<div class="marquee logos rev"><div class="track">{row2}</div></div></section>
-
 <section class="section"><div class="container">
  <div class="section-head center-head"><div class="reveal"><div class="eyebrow">Pests we treat</div><h2 class="h2 line-reveal">Pests We Treat</h2></div></div>
  <div class="elastic reveal" data-elastic>{cards}</div>
  <p class="muted mt-3 center">Once the plan is confirmed, our team will implement the recommended pest management measures, target the source of the infestation, treat affected areas, and arrange follow-up monitoring to help provide lasting protection.</p>
 </div></section>
+
+<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>
+<div class="marquee logos"><div class="track">{row1}</div></div>
+<div class="marquee logos rev"><div class="track">{row2}</div></div></section>
+
+<section class="section dark slant-section"><div class="slant-stage" data-slant><div class="slant-wall">{slant_cols}</div><div class="slant-veil"></div></div>
+ <div class="container slant-copy"><div class="reveal left"><div class="eyebrow">Certifications &amp; compliance</div><h2 class="h2">Professional standards. Responsible practice.</h2><p class="lead mt-2">Our certifications, licences and compliance credentials are presented here for transparency. ISO 9001, 14001 and 45001 certified, bizSAFE Star and NEA-registered. Click any certificate to view it.</p><div class="btn-row mt-3">{btn("View all certifications", "certifications.html", "lime")}</div></div></div>
+</section>
+
 
 <section class="section white"><div class="container split">
  <div class="frame parallax reveal left"><img src="assets/img/tp-training-2.jpg" alt="Pestimesh technician installing stainless-steel termite mesh"><div class="badge"><b>15<small>+</small></b><span>years protecting<br>Singapore properties</span></div></div>
@@ -168,12 +171,6 @@ def home():
   <p class="lead mt-2">With over a decade of experience, Pestimesh provides professional pest control solutions for homes, businesses and large-scale facilities across Singapore. We combine proven expertise with modern technology and responsible pest management practices to deliver effective, tailored solutions.</p>
   {checks(["<b>Established in 2011</b> — Over a decade of industry experience", "<b>Proven Track Record</b> — Experience serving major facilities and organisations", "<b>Professional &amp; Sustainable</b> — Effective solutions with a focus on responsible pest management"])}
   {link_arrow("Learn More About Us", "about.html")}</div>
-</div></section>
-
-<section class="section"><div class="container">
- <div class="section-head"><div class="reveal"><div class="eyebrow">Our approach</div><h2 class="h2">Smarter pest management starts with prevention</h2></div><p class="lead reveal">Our Integrated Pest Management approach combines inspection, prevention, monitoring, targeted treatment and ongoing evaluation, prioritising the safety of people, properties and the environment.</p></div>
- <div class="steps reveal-stagger">{steps_html}</div>
- <div class="mt-3">{link_arrow("Explore our IPM approach", "ipm.html")}</div>
 </div></section>
 
 <section class="section dark"><div class="container split rev">
@@ -198,9 +195,7 @@ def home():
  <div class="auto-slider projects" data-autoscroll><div class="track">{proj}</div></div>
  <div class="container">{link_arrow("View all projects", "projects.html")}</div></section>
 
-<section class="section dark slant-section"><div class="slant-stage" data-slant><div class="slant-wall">{slant_cols}</div><div class="slant-veil"></div></div>
- <div class="container slant-copy"><div class="reveal left"><div class="eyebrow">Certifications &amp; compliance</div><h2 class="h2">Professional standards. Responsible practice.</h2><p class="lead mt-2">Our certifications, licences and compliance credentials are presented here for transparency. ISO 9001, 14001 and 45001 certified, bizSAFE Star and NEA-registered. Click any certificate to view it.</p><div class="btn-row mt-3">{btn("View all certifications", "certifications.html", "lime")}</div></div></div>
-</section>
+
 
 <section class="section"><div class="container">
  <div class="section-head"><div class="reveal"><div class="eyebrow">Sustainability &amp; ESG</div><h2 class="h2">Responsible pest management for a more sustainable future</h2></div><p class="lead reveal">Our first GRI-referenced sustainability report sets a FY2025 baseline across environment, social and governance.</p></div>
