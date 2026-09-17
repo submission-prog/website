@@ -151,13 +151,8 @@ def home():
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}{btn("Contact for quotation", "#enquiry", "lime")}</div></div>
 </div></div></section>
-<div class="trustbar"><div class="container">
- <div class="trust"><span class="ic">{I["clock"]}</span><div><b>Since 2011</b><span>Singapore Experience</span></div></div>
- <div class="trust"><span class="ic">{I["layers"]}</span><div><b>IPM</b><span>Prevention-led approach</span></div></div>
- <div class="trust"><span class="ic">{I["shield"]}</span><div><b>Safety First</b><span>People &amp; Site Protection</span></div></div>
- <div class="trust"><span class="ic">{I["leaf"]}</span><div><b>ESG</b><span>Responsible Growth</span></div></div>
 </div></div>
-<section class="section tight white" id="clients"><div class="container"><p class="center small muted" style="letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:26px">Trusted by</p></div>
+<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>
 <div class="marquee logos"><div class="track">{row1}</div></div>
 <div class="marquee logos rev"><div class="track">{row2}</div></div></section>
 

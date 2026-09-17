@@ -51,9 +51,9 @@ The home page opens on a termite-tunnel scene with its own headline. The page is
 
 ## Client logos (home page)
 
-Two marquees under the hero scroll in opposite directions, carrying the 22 client logos in
-`assets/logos/clients/`. They are shown unboxed on the page background, greyscale, turning to
-full colour on hover. White backgrounds were keyed out of the supplied files by flood-filling
+Under the heading "Projects We Have Done", two marquees scroll in opposite directions carrying
+the 22 client logos in `assets/logos/clients/`. They are shown unboxed on the page background,
+always in full colour, lifting slightly on hover. White backgrounds were keyed out of the supplied files by flood-filling
 from the border, so white *inside* a mark is preserved.
 
 Rows are `CLIENT_LOGOS_ROW1` (landmark facilities) and `CLIENT_LOGOS_ROW2` (construction
