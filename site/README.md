@@ -49,10 +49,16 @@ The home page opens on a termite-tunnel scene with its own headline. The page is
 - Frames live in `assets/heroseq/`: `f_001…121.jpg` (1600px, desktop) and `m_001…121.jpg` (900px, phones). They were extracted from the source MP4 with ffmpeg.
 - Intro wording is in the `seq-intro` block of `home()` in `site-src/pages.py`. Speed is `DURATION` in the hero sequence block of `js/main.js`.
 
-## Logo sliders (home page)
+## Client logos (home page)
 
-- **Accreditations & memberships** slider uses real logos extracted from the certificates: `assets/logos/` (NEA, bizSAFE Star, WSH Council, SBF, SPMA, Tchoukball Singapore) plus ISO text badges.
-- **Trusted by** client slider currently shows client names as text. To show logos, drop PNG files into `assets/logos/clients/` and set the file name in `CLIENT_LOGOS` in `site-src/pages.py`, e.g. `("psa", "PSA")` for `assets/logos/clients/psa.png`.
+Two marquees under the hero scroll in opposite directions, carrying the 22 client logos in
+`assets/logos/clients/`. They are shown unboxed on the page background, greyscale, turning to
+full colour on hover. White backgrounds were keyed out of the supplied files by flood-filling
+from the border, so white *inside* a mark is preserved.
+
+Rows are `CLIENT_LOGOS_ROW1` (landmark facilities) and `CLIENT_LOGOS_ROW2` (construction
+partners) in `site-src/pages.py`. Accreditation and membership logos are **not** shown on the
+home page; they live on the Certifications page.
 
 ## Cache busting
 

@@ -54,10 +54,22 @@ NEWS = [
 ]
 
 
-# Logos for the home-page sliders. ACCRED_LOGOS files live in assets/logos/.
-ACCRED_LOGOS = [("nea", "National Environment Agency — registered Vector Control Operator"), ("bizsafe-star", "bizSAFE Star"), ("wsh-council", "Workplace Safety and Health Council"), ("sbf", "Singapore Business Federation"), ("spma", "Singapore Pest Management Association"), ("tchoukball", "Tchoukball Association of Singapore")]
-# (file-or-None, display name). Put client logo PNGs in assets/logos/clients/ and set the file name to enable the image.
-CLIENT_LOGOS = [(None, "PSA"), (None, "ICA"), (None, "Singapore Zoo"), (None, "Banyan Tree Hotel"), (None, "Family Justice Courts"), (None, "PUB Tuas Water Reclamation Plant"), (None, "Changi Airport Terminal 2"), (None, "Indigo Hotel"), (None, "Singapore Aviation Academy"), (None, "Bedok Market 216")]
+# Client logos for the home-page marquee. Files live in assets/logos/clients/.
+# Row one carries the landmark facilities, row two the construction partners.
+CLIENT_LOGOS_ROW1 = [
+    ("changi-airport-group", "Changi Airport Group"), ("pub", "PUB, Singapore's National Water Agency"),
+    ("singapore-zoo", "Mandai Singapore Zoo"), ("banyan-tree", "Mandai Rainforest Resort by Banyan Tree"),
+    ("family-justice-courts", "Family Justice Courts"), ("hotel-indigo", "Hotel Indigo"),
+    ("singapore-aviation-academy", "Singapore Aviation Academy"), ("obayashi", "Obayashi Corporation"),
+    ("lum-chang", "Lum Chang Holdings"), ("soil-build", "Soilbuild Construction Group"),
+    ("china-construction", "China State Construction"),
+]
+CLIENT_LOGOS_ROW2 = [
+    ("bhcc", "BHCC Construction"), ("chiu-teng", "Chiu Teng Construction"), ("forsea", "Forsea"),
+    ("hitek", "Hi-Tek Construction"), ("kwan-yong", "Kwan Yong Construction"), ("lbd", "LBD Construction Group"),
+    ("lc-t-builder", "LC&T Builder"), ("lim-wen-heng", "Lim Wen Heng Construction"),
+    ("pal-link", "PAL-Link Construction"), ("qing-feng", "Qingfeng Construction"), ("sanwah", "Sanwah"),
+]
 
 # ---------------------------------------------------------------- helpers
 
@@ -86,11 +98,11 @@ HOME_FAQ = [
 
 def home():
     pests_cards = [
-        ("termites.html", "hero-termite", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
-        ("mosquitoes.html", "tp-fogging", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
-        ("bedbugs.html", "tp-misting", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
-        ("cockroaches.html", "bedok-wide", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
-        ("rodents.html", "tp-building", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
+        ("termites.html", "pest-termite", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
+        ("mosquitoes.html", "pest-mosquito", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
+        ("bedbugs.html", "pest-bedbug", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
+        ("cockroaches.html", "pest-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
+        ("rodents.html", "pest-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
         ("disinfection.html", "bedok-1", "Disinfection", "Professional disinfection services designed to help reduce harmful microorganisms on surfaces and high-contact areas.", ""),
     ]
     cards = "".join(
@@ -123,11 +135,9 @@ def home():
         col_cards = "".join(slant_card(c) for c in items)   # NB: distinct name; `cards` holds the pest panels
         cols.append(f'<div class="slant-col" data-dir="{1 if i % 2 == 0 else -1}"><div class="slant-inner">{col_cards}{col_cards}</div></div>')
     slant_cols = "".join(cols)
-    # Accreditation / membership logos (real logos extracted from the certificates and ESG report)
-    marq = "".join(f'<span class="item logo"><img src="assets/logos/{f}.png" alt="{n}" title="{n}"></span>' for f, n in ACCRED_LOGOS)
-    marq += "".join(f'<span class="item badge-iso"><b>ISO</b>{x}</span>' for x in ["9001:2015", "14001:2015", "45001:2018"])
-    # Client logo slider: drop logo files into assets/logos/clients/ and list them in CLIENT_LOGOS; names show until then
-    clients = "".join((f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}"></span>' if f else f'<span class="item client">{n}</span>') for f, n in CLIENT_LOGOS)
+    logo_item = lambda f, n: f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></span>'
+    row1 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW1)
+    row2 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW2)
     body = f'''
 <section class="hero hero-seq" data-heroseq data-frames="121">
 <canvas class="seq-canvas" aria-hidden="true"></canvas>
@@ -147,8 +157,9 @@ def home():
  <div class="trust"><span class="ic">{I["shield"]}</span><div><b>Safety First</b><span>People &amp; Site Protection</span></div></div>
  <div class="trust"><span class="ic">{I["leaf"]}</span><div><b>ESG</b><span>Responsible Growth</span></div></div>
 </div></div>
-<section class="section tight white" id="accreditations"><div class="container"><p class="center small muted" style="letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:22px">Accreditations &amp; memberships</p></div><div class="marquee"><div class="track">{marq}</div></div>
-<div class="container"><p class="center small muted" style="letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:44px 0 22px">Trusted by</p></div><div class="marquee rev"><div class="track">{clients}</div></div></section>
+<section class="section tight white" id="clients"><div class="container"><p class="center small muted" style="letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:26px">Trusted by</p></div>
+<div class="marquee logos"><div class="track">{row1}</div></div>
+<div class="marquee logos rev"><div class="track">{row2}</div></div></section>
 
 <section class="section"><div class="container">
  <div class="section-head center-head"><div class="reveal"><div class="eyebrow">Pests we treat</div><h2 class="h2 line-reveal">Pests We Treat</h2></div></div>

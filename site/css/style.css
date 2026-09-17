@@ -194,8 +194,10 @@ p+p{margin-top:1em}
 .marquee .item i{width:10px;height:10px;border-radius:50%;background:var(--lime-600);display:inline-block}
 .marquee.light .item{color:#fff}
 .marquee.rev .track{animation-direction:reverse;animation-duration:26s}
-.marquee .item.logo img{height:64px;width:auto;max-width:220px;object-fit:contain;filter:grayscale(1);opacity:.75;transition:.35s}
+.marquee.logos .track{gap:64px}
+.marquee .item.logo img{height:auto;width:auto;max-height:56px;max-width:246px;object-fit:contain;filter:grayscale(1);opacity:.62;transition:filter .35s,opacity .35s}
 .marquee .item.logo:hover img{filter:none;opacity:1}
+.marquee.logos+.marquee.logos{margin-top:30px}
 .marquee .item.badge-iso{font-family:var(--font-head);font-size:26px;color:var(--teal-900);border:2px solid var(--teal-900);border-radius:12px;padding:8px 16px;display:inline-flex;gap:8px;align-items:baseline}
 .marquee .item.badge-iso b{font-size:14px;letter-spacing:.12em;color:var(--teal-600)}
 .marquee .item.client{font-family:var(--font-head);font-size:24px;letter-spacing:.04em;color:var(--teal-800);padding:10px 22px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
