@@ -635,9 +635,13 @@ body.preloading{overflow:hidden}
 #preload .pl-half{position:absolute;left:0;right:0;height:50.5%;background:var(--teal-900);transition:transform .9s cubic-bezier(.76,0,.24,1)}
 #preload .pl-half.t{top:0}
 #preload .pl-half.b{bottom:0}
-#preload img{position:relative;z-index:2;height:clamp(48px,7vw,74px);width:auto;opacity:0;transform:translateY(8px);animation:plIn .8s .1s var(--ease) forwards;transition:opacity .35s ease,transform .35s ease}
-@keyframes plIn{to{opacity:1;transform:none}}
-#preload.done img{opacity:0;transform:scale(.96)}
+/* Intro and exit are both transitions. A CSS animation here would still be running when the
+   exit class lands, and a running animation overrides transitions, so the logo would snap. */
+#preload img{position:relative;z-index:2;height:clamp(48px,7vw,74px);width:auto;
+  opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+#preload.ready img{opacity:1;transform:none}
+/* the logo rides up with the top panel, so both clear the screen together */
+#preload.done img{opacity:0;transform:translateY(-50vh);transition:transform .9s cubic-bezier(.76,0,.24,1),opacity .5s .3s ease}
 #preload.done .pl-half.t{transform:translateY(-100%)}
 #preload.done .pl-half.b{transform:translateY(100%)}
 #preload.gone{display:none}

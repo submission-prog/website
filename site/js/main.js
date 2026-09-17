@@ -10,7 +10,8 @@
   (function () {
     const pl = document.getElementById('preload');
     if (!pl) { document.body.classList.remove('preloading'); return; }
-    const MIN = matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 900;
+    requestAnimationFrame(() => pl.classList.add('ready'));   // fade the logo in
+    const MIN = matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 1000;
     const t0 = performance.now();
     let done = false;
     const open = () => {
