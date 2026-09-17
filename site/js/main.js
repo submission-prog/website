@@ -19,7 +19,7 @@
       setTimeout(() => {
         pl.classList.add('done');
         document.body.classList.remove('preloading');
-        setTimeout(() => pl.classList.add('gone'), 950);
+        setTimeout(() => pl.classList.add('gone'), 1500);   // .5s logo fade + .9s split
       }, Math.max(0, MIN - (performance.now() - t0)));
     };
     document.readyState === 'complete' ? open() : addEventListener('load', open);

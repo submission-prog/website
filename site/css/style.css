@@ -632,7 +632,7 @@ html.seq-lock,html.seq-lock body{overflow:hidden;height:100%}
 /* ---------- Preloader: logo on dark green, then the panels open ---------- */
 body.preloading{overflow:hidden}
 #preload{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;pointer-events:none}
-#preload .pl-half{position:absolute;left:0;right:0;height:50.5%;background:var(--teal-900);transition:transform .9s cubic-bezier(.76,0,.24,1)}
+#preload .pl-half{position:absolute;left:0;right:0;height:50.5%;background:var(--teal-900);transition:transform .9s .5s cubic-bezier(.76,0,.24,1)}
 #preload .pl-half.t{top:0}
 #preload .pl-half.b{bottom:0}
 /* Intro and exit are both transitions. A CSS animation here would still be running when the
@@ -640,8 +640,8 @@ body.preloading{overflow:hidden}
 #preload img{position:relative;z-index:2;height:clamp(48px,7vw,74px);width:auto;
   opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
 #preload.ready img{opacity:1;transform:none}
-/* the logo rides up with the top panel, so both clear the screen together */
-#preload.done img{opacity:0;transform:translateY(-50vh);transition:transform .9s cubic-bezier(.76,0,.24,1),opacity .5s .3s ease}
+/* exit order: the logo fades out in place first, then the panels split */
+#preload.done img{opacity:0;transform:none;transition:opacity .45s ease}
 #preload.done .pl-half.t{transform:translateY(-100%)}
 #preload.done .pl-half.b{transform:translateY(100%)}
 #preload.gone{display:none}
