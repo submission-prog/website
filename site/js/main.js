@@ -5,6 +5,26 @@
 
 
 
+
+  /* ---- Preloader: hold on the logo, then split the panels open ---- */
+  (function () {
+    const pl = document.getElementById('preload');
+    if (!pl) { document.body.classList.remove('preloading'); return; }
+    const MIN = matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 900;
+    const t0 = performance.now();
+    let done = false;
+    const open = () => {
+      if (done) return; done = true;
+      setTimeout(() => {
+        pl.classList.add('done');
+        document.body.classList.remove('preloading');
+        setTimeout(() => pl.classList.add('gone'), 950);
+      }, Math.max(0, MIN - (performance.now() - t0)));
+    };
+    document.readyState === 'complete' ? open() : addEventListener('load', open);
+    setTimeout(open, 5000);                       // never trap the visitor behind a slow asset
+  })();
+
   /* ---- Home hero sequence: a frame sequence drawn on canvas. The page is held on the
          opening scene; the first scroll (or tap on the cue) plays it once to the end
          scene, reveals the hero copy, and releases the page. ---- */
@@ -43,7 +63,7 @@
       if (instant) load(N - 1).then(() => draw(N - 1));
     };
     const play = () => {
-      if (state !== 'intro') return;
+      if (state !== 'intro' || document.body.classList.contains('preloading')) return;
       state = 'playing'; hero.classList.add('playing');
       const t0 = performance.now();
       const tick = t => {

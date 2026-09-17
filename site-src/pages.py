@@ -197,16 +197,6 @@ def home():
 
 
 
-<section class="section"><div class="container">
- <div class="section-head"><div class="reveal"><div class="eyebrow">Sustainability &amp; ESG</div><h2 class="h2">Responsible pest management for a more sustainable future</h2></div><p class="lead reveal">Our first GRI-referenced sustainability report sets a FY2025 baseline across environment, social and governance.</p></div>
- <div class="pillars reveal-stagger">
-  <div class="pillar"><span class="big">E</span><h3 class="h3">Environment</h3><p>Prevention before treatment, physical protection with stainless-steel mesh, and responsible, targeted intervention. Emissions and water tracked from a FY2025 baseline.</p></div>
-  <div class="pillar"><span class="big">S</span><h3 class="h3">Social</h3><p>Zero recordable injuries in FY2025. Training, PPE and toolbox meetings for every technician. Dengue talks, Bedok Market hygiene works and tchoukball sponsorship for the community.</p></div>
-  <div class="pillar"><span class="big">G</span><h3 class="h3">Governance</h3><p>NEA compliance, ISO-aligned processes, zero corruption incidents and 24/7 whistleblowing access for every employee.</p></div>
- </div>
- <div class="mt-3">{link_arrow("Explore Sustainability & ESG", "sustainability.html")}</div>
-</div></section>
-
 <section class="section white"><div class="container">
  <div class="section-head"><div class="reveal"><div class="eyebrow">News &amp; community</div><h2 class="h2">What we're doing and contributing</h2></div>{link_arrow("All news & community", "news.html")}</div>
  <div class="grid grid-3 reveal-stagger">{"".join(news_card(n) for n in NEWS[:3])}</div>

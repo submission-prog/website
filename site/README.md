@@ -42,6 +42,15 @@ If you prefer, you can also edit the generated `.html` files directly.
 - Blog / insights articles ("to be updated in the future" in the sitemap) — the News page has placeholder cards.
 - Form submission: the form currently opens the visitor's email client (pre-filled) or WhatsApp (pre-filled message). To store submissions, connect the `<form>` to a service such as Formspree, Netlify Forms or Web3Forms.
 
+## Preloader
+
+Each page opens on a dark green screen with the logo, then two panels split apart to reveal the
+page. It waits for the page to load, shows for at least 0.9 seconds, and gives up after 5
+seconds if an asset is slow. Reduced-motion visitors get a quick fade.
+
+Timing is `MIN` in the preloader block of `js/main.js`; the markup is in `page()` in
+`site-src/common.py`.
+
 ## Home hero sequence
 
 The home page opens on a termite-tunnel scene with its own headline. The page is held there; the first scroll, swipe, arrow key or tap on the cue plays a 121-frame sequence once (tunnel, smoke, technician) over 3 seconds, then reveals the main hero copy and buttons and releases the page. It never replays on scrolling back up. Visitors arriving with a `#link`, or with reduced motion enabled, go straight to the end scene.

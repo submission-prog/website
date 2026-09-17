@@ -628,3 +628,17 @@ html.seq-lock,html.seq-lock body{overflow:hidden;height:100%}
 .hero-seq.ended .seq-end .btn-row{animation-delay:.75s}
 
 .logos-head{margin-bottom:44px;font-weight:700;letter-spacing:.01em}
+
+/* ---------- Preloader: logo on dark green, then the panels open ---------- */
+body.preloading{overflow:hidden}
+#preload{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;pointer-events:none}
+#preload .pl-half{position:absolute;left:0;right:0;height:50.5%;background:var(--teal-900);transition:transform .9s cubic-bezier(.76,0,.24,1)}
+#preload .pl-half.t{top:0}
+#preload .pl-half.b{bottom:0}
+#preload img{position:relative;z-index:2;height:clamp(48px,7vw,74px);width:auto;opacity:0;transform:translateY(8px);animation:plIn .8s .1s var(--ease) forwards;transition:opacity .35s ease,transform .35s ease}
+@keyframes plIn{to{opacity:1;transform:none}}
+#preload.done img{opacity:0;transform:scale(.96)}
+#preload.done .pl-half.t{transform:translateY(-100%)}
+#preload.done .pl-half.b{transform:translateY(100%)}
+#preload.gone{display:none}
+@media(prefers-reduced-motion:reduce){#preload .pl-half{transition:opacity .3s}#preload.done .pl-half{transform:none;opacity:0}}
