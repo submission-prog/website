@@ -169,7 +169,7 @@ def home():
  <div class="frame parallax reveal left"><img src="assets/img/tp-training-2.jpg" alt="Pestimesh technician installing stainless-steel termite mesh"><div class="badge"><b>15<small>+</small></b><span>years protecting<br>Singapore properties</span></div></div>
  <div class="reveal right"><div class="eyebrow">Why Choose Pestimesh?</div><h2 class="h2">Trusted Pest Control Since 2011</h2>
   <p class="lead mt-2">With over a decade of experience, Pestimesh provides professional pest control solutions for homes, businesses and large-scale facilities across Singapore. We combine proven expertise with modern technology and responsible pest management practices to deliver effective, tailored solutions.</p>
-  {checks(["<b>Established in 2011</b> — Over a decade of industry experience", "<b>Proven Track Record</b> — Experience serving major facilities and organisations", "<b>Professional &amp; Sustainable</b> — Effective solutions with a focus on responsible pest management"])}
+  {checks(["<b>Since 2011</b> — Singapore Experience", "<b>IPM</b> — Prevention-led approach", "<b>Safety First</b> — People &amp; Site Protection", "<b>ESG</b> — Responsible Growth"])}
   {link_arrow("Learn More About Us", "about.html")}</div>
 </div></section>
 
