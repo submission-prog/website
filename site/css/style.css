@@ -23,8 +23,8 @@
   --radius-sm:14px;
   --shadow:0 20px 50px -20px rgba(11,47,49,.35);
   --shadow-sm:0 10px 30px -14px rgba(11,47,49,.28);
-  --font-head:"Oswald","Barlow Condensed",Impact,sans-serif;
-  --font-body:"Outfit","Inter",system-ui,sans-serif;
+  --font-head:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-body:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;
   --nav-h:84px;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -646,3 +646,71 @@ body.preloading{overflow:hidden}
 #preload.done .pl-half.b{transform:translateY(100%)}
 #preload.gone{display:none}
 @media(prefers-reduced-motion:reduce){#preload .pl-half{transition:opacity .3s}#preload.done .pl-half{transform:none;opacity:0}}
+
+/* ============================================================
+   Typography v2: one grotesque family (Inter Tight).
+   Light uppercase for hero lines, sentence-case medium for section
+   headings, small tight body copy, small uppercase buttons.
+   ============================================================ */
+body{font-size:16px;line-height:1.62;letter-spacing:-.003em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,.h1,.h2,.h3,.display{text-transform:none;font-weight:500;letter-spacing:-.028em;line-height:1.08}
+.display{text-transform:uppercase;font-weight:300;letter-spacing:-.03em;line-height:1.02;font-size:clamp(32px,4.5vw,66px)}
+.hero-seq .seq-intro .display{font-size:clamp(32px,4.5vw,66px);max-width:16ch}
+.h1{font-size:clamp(30px,3.7vw,54px)}
+.page-hero .h1{text-transform:uppercase;font-weight:300;letter-spacing:-.03em;line-height:1.04;max-width:26ch}
+.h2{font-size:clamp(27px,3vw,42px)}
+.h3{font-size:clamp(19px,1.7vw,24px);letter-spacing:-.02em;line-height:1.2}
+h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
+.lead{font-size:clamp(15.5px,1.2vw,17.5px);line-height:1.6}
+.page-hero .lead{font-size:clamp(15px,1.15vw,17px)}
+.hero .lead{font-size:clamp(15.5px,1.2vw,17.5px);max-width:54ch}
+.logos-head{font-weight:500;letter-spacing:-.028em}
+.cta-band .h2{max-width:22ch}
+.enquiry .h2{max-width:16ch}
+
+/* buttons, nav, small controls */
+.btn{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:14px 22px;gap:10px}
+.btn svg{width:15px;height:15px}
+.btn-sm{font-size:11.5px;padding:10px 16px}
+.nav-links>li>a{font-size:14px;font-weight:500;letter-spacing:-.005em}
+.link-arrow{font-size:14.5px;font-weight:600}
+.mega b{font-size:14.5px;letter-spacing:-.01em}
+.mega span{font-size:12.5px}
+.mega .col-title,.field label{letter-spacing:.1em}
+.mobile-menu a{text-transform:none;font-weight:500;letter-spacing:-.02em;font-size:26px}
+.filters button{font-size:12.5px;font-weight:600;letter-spacing:.06em;padding:12px 20px;border-width:1.5px}
+.subnav a{font-size:13.5px}
+.acc summary{font-size:16.5px;font-weight:500;letter-spacing:-.012em}
+
+/* component titles that used the condensed face */
+.card-img .cap b{text-transform:none;font-weight:500;font-size:19px;letter-spacing:-.02em;line-height:1.15}
+.card-img .cap small{font-size:12.5px;line-height:1.45}
+.elastic .open b{text-transform:none;font-weight:500;letter-spacing:-.028em;font-size:clamp(24px,2.4vw,36px)}
+.elastic .open small{letter-spacing:.14em;font-size:11px}
+.elastic .open .desc{font-size:14.5px}
+.elastic .open .go{font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.elastic .spine b{font-weight:500;font-size:13px;letter-spacing:.14em}
+.card .num{font-weight:300;font-size:44px;letter-spacing:-.03em}
+.card p,.news-card p{font-size:14.5px}
+.news-card .kind{font-size:11px;letter-spacing:.12em}
+.step::before{font-weight:300;letter-spacing:-.03em}
+.step p{font-size:14px}
+.stat b{font-weight:400;letter-spacing:-.035em}
+.stat span{text-transform:none;font-weight:600;font-size:15px;letter-spacing:-.01em}
+.tile b{font-weight:400;letter-spacing:-.035em}
+.pillar .big{font-weight:300}
+.frame .badge b{font-weight:500;letter-spacing:-.03em}
+.iso-card b{font-weight:600;font-size:21px;letter-spacing:-.02em}
+.logo-wall div{text-transform:none;font-weight:500;font-size:15.5px;letter-spacing:-.015em}
+.cert-logo{text-transform:none;font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.cert .meta b{font-size:14.5px;letter-spacing:-.01em}
+.footer h5{font-size:12px;font-weight:600;letter-spacing:.12em}
+.footer{font-size:14px}
+.quote p{font-weight:400;letter-spacing:-.015em}
+.infobox .row{font-size:14px}
+.prose{font-size:16px}
+.badge-lime{letter-spacing:.08em;font-size:11px}
+.marquee .item{font-weight:500;letter-spacing:-.01em;text-transform:none}
+.flow span{font-size:13px}
+.slant-card span{font-size:12px}
+@media(max-width:620px){.display,.hero-seq .seq-intro .display{font-size:clamp(28px,8.4vw,40px)}.page-hero .h1{font-size:clamp(26px,7.4vw,36px)}}
