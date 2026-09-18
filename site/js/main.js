@@ -129,7 +129,9 @@
   /* ---- Hero headline: one sentence per line, each line rises into place ---- */
   $$('.hero .display[data-split]').forEach(h => {
     const lines = h.textContent.trim().split(/(?<=\.)\s+/).filter(Boolean);
-    h.innerHTML = lines.map((l, i) => `<span class="ln"><span style="animation-delay:${0.15 + i * 0.12}s">${l}</span></span>`).join('');
+    // last word of each line ("People.", "Properties.", "Communities.") takes a shade of the logo orange
+    const tint = l => { const k = l.lastIndexOf(' '); return k < 0 ? l : `${l.slice(0, k)} <em class="hl">${l.slice(k + 1)}</em>`; };
+    h.innerHTML = lines.map((l, i) => `<span class="ln"><span style="animation-delay:${0.15 + i * 0.12}s">${tint(l)}</span></span>`).join('');
   });
 
   /* ---- Reveal on scroll ---- */

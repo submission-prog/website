@@ -714,3 +714,10 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .flow span{font-size:13px}
 .slant-card span{font-size:12px}
 @media(max-width:620px){.display,.hero-seq .seq-intro .display{font-size:clamp(28px,8.4vw,40px)}.page-hero .h1{font-size:clamp(26px,7.4vw,36px)}}
+
+/* Home hero headline only: heavier, with the logo's orange stepping through three shades */
+.hero-seq .seq-end .display{font-weight:600;letter-spacing:-.032em}
+.hero-seq .seq-end .display .hl{font-style:normal}
+.hero-seq .seq-end .display .ln:nth-child(1) .hl{color:#f6c56e}
+.hero-seq .seq-end .display .ln:nth-child(2) .hl{color:#eeab3a}
+.hero-seq .seq-end .display .ln:nth-child(3) .hl{color:#e08a1e}
