@@ -2,7 +2,7 @@
 
 Static site: plain HTML, CSS and JavaScript. No build tools or hosting requirements beyond a static web server (Netlify, Vercel, GitHub Pages, cPanel, S3, etc.). Upload the contents of this `site/` folder as-is.
 
-## Pages (19)
+## Pages (18)
 
 | File | Page |
 |---|---|
@@ -20,7 +20,6 @@ Static site: plain HTML, CSS and JavaScript. No build tools or hosting requireme
 | `technology.html` | Technology & Innovation |
 | `news.html` | News & Community |
 | `contact.html` | Contact Us |
-| `faq.html` | All FAQs |
 
 Every page ends with the enquiry form (per the sitemap) and the footer.
 

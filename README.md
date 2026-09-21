@@ -21,7 +21,7 @@ Copy lives in the Python templates, not the generated HTML:
 - `site-src/common.py` — contact details, navigation, footer, enquiry form, icons
 - `site-src/pests.py` — the five pest pages
 - `site-src/pages.py` — every other page, plus the project, certificate and news lists
-- `site-src/build.py` — regenerates all 19 pages
+- `site-src/build.py` — regenerates all 18 pages
 
 ```bash
 python3 site-src/build.py

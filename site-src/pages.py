@@ -85,15 +85,6 @@ def gallery(items, group):
     return '<div class="masonry">' + "".join(f'<a href="#" data-lightbox="{group}" data-full="assets/img/{img}.jpg" data-title="{escape(lbl)}"><img src="assets/img/{img}.jpg" alt="{escape(lbl)}" loading="lazy"><span class="lbl">{escape(lbl)}</span></a>' for img, lbl in items) + '</div>'
 
 
-HOME_FAQ = [
-    ("How much does pest control cost?", "The cost depends on factors such as the pest involved, property size, infestation severity, treatment method and whether follow-up treatments are required."),
-    ("How long does a treatment take?", "Treatment duration depends on the pest, property and treatment approach. We can provide a more accurate estimate after understanding your requirements."),
-    ("Do I need to leave my home during treatment?", "Requirements vary depending on the treatment method and area being treated. We will advise you on any necessary preparation and re-entry requirements."),
-    ("How often should pest control be carried out?", "This depends on the pest and situation. Some problems may require a one-time treatment, while others may benefit from a scheduled programme."),
-    ("Can you treat commercial premises?", "Yes. We provide pest-control solutions for various commercial environments, including F&B, construction, educational and other business premises."),
-    ("I'm not sure what pest I have. Can you help?", "Yes. You can contact us or use our pest-identification feature to provide a photo and details of the problem."),
-]
-
 # ---------------------------------------------------------------- HOME
 
 def home():
@@ -165,14 +156,6 @@ def home():
 </section>
 
 
-<section class="section white"><div class="container split">
- <div class="frame parallax reveal left"><img src="assets/img/tp-training-2.jpg" alt="Pestimesh technician installing stainless-steel termite mesh"><div class="badge"><b>15<small>+</small></b><span>years protecting<br>Singapore properties</span></div></div>
- <div class="reveal right"><div class="eyebrow">Why Choose Pestimesh?</div><h2 class="h2">Trusted Pest Control Since 2011</h2>
-  <p class="lead mt-2">With over a decade of experience, Pestimesh provides professional pest control solutions for homes, businesses and large-scale facilities across Singapore. We combine proven expertise with modern technology and responsible pest management practices to deliver effective, tailored solutions.</p>
-  {checks(["<b>Since 2011</b> — Singapore Experience", "<b>IPM</b> — Prevention-led approach", "<b>Safety First</b> — People &amp; Site Protection", "<b>ESG</b> — Responsible Growth"])}
-  {link_arrow("Learn More About Us", "about.html")}</div>
-</div></section>
-
 <section class="section dark"><div class="container split rev">
  <div class="frame reveal right"><img src="assets/img/mesh-roll.jpg" alt="Woven stainless-steel termite mesh"></div>
  <div class="reveal left"><div class="eyebrow">Physical protection</div><h2 class="h2">Stainless-steel mesh. Long-term pest prevention.</h2>
@@ -182,11 +165,11 @@ def home():
 </div></section>
 
 <section class="section white"><div class="container">
- <div class="stats reveal-stagger">
-  <div class="stat"><span class="ic">{I["clock"]}</span><div><b data-count="2011">0</b><span>Established</span><em>Singapore-grown since 2011</em></div></div>
-  <div class="stat"><span class="ic">{I["award"]}</span><div><b>3<small>×</small></b><span>ISO certified</span><em>9001 · 14001 · 45001</em></div></div>
-  <div class="stat"><span class="ic">{I["shield"]}</span><div><b data-count="0">0</b><span>Recordable injuries</span><em>FY2025, ISO 45001 aligned</em></div></div>
-  <div class="stat"><span class="ic">{I["building"]}</span><div><b data-count="10" data-suffix="+">0</b><span>Landmark projects</span><em>Airports, courts, hotels, plants</em></div></div>
+ <div class="stats words reveal-stagger">
+  <div class="stat"><span class="ic">{I["clock"]}</span><div><b>Since 2011</b><span>Singapore Experience</span></div></div>
+  <div class="stat"><span class="ic">{I["layers"]}</span><div><b>IPM</b><span>Prevention-led approach</span></div></div>
+  <div class="stat"><span class="ic">{I["shield"]}</span><div><b>Safety First</b><span>People &amp; Site Protection</span></div></div>
+  <div class="stat"><span class="ic">{I["leaf"]}</span><div><b>ESG</b><span>Responsible Growth</span></div></div>
  </div>
 </div></section>
 
@@ -202,10 +185,6 @@ def home():
  <div class="grid grid-3 reveal-stagger">{"".join(news_card(n) for n in NEWS[:3])}</div>
 </div></section>
 
-<section class="section"><div class="container split" style="align-items:start">
- <div class="reveal left"><div class="eyebrow">FAQs</div><h2 class="h2">Frequently asked questions</h2><p class="lead mt-2">For pest-specific questions, see each service page.</p><div class="mt-3">{link_arrow("View all FAQs", "faq.html")}</div></div>
- <div class="reveal right">{faq(HOME_FAQ)}</div>
-</div></section>
 {cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
     return "index.html", page("index.html", "Pest Control & Termite Protection Singapore", "Pestimesh Pte Ltd — NEA-registered pest management and termite protection specialists in Singapore since 2011. IPM, stainless-steel mesh, mosquito, rodent, bedbug and cockroach control.", body)
 
@@ -298,7 +277,6 @@ def disinfection():
 <div class="grid grid-4 reveal-stagger"><div class="card dark glow"><div class="ic">{I["users"]}</div><h4>Professional Service</h4><p>Our team provides professional disinfection services for residential, commercial and other facilities.</p></div><div class="card dark glow"><div class="ic">{I["target"]}</div><h4>Targeted Approach</h4><p>We focus on relevant surfaces and high-contact areas based on the requirements of the property.</p></div><div class="card dark glow"><div class="ic">{I["building"]}</div><h4>Suitable for Different Environments</h4><p>Our services can be adapted for homes, offices, commercial premises and other facilities.</p></div><div class="card dark glow"><div class="ic">{I["refresh"]}</div><h4>Supports Ongoing Hygiene</h4><p>Professional disinfection can form part of a broader approach to maintaining a cleaner and more hygienic environment.</p></div></div></div></section>
 <section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Case study</div><h2 class="h2">Bedok Market 216</h2></div><p class="lead reveal">Our team carried out disinfection and environmental hygiene works at Bedok Market 216, helping the market reopen with a cleaner, safer environment for operators and the public. The works were covered by The Straits Times and Lianhe Zaobao and recognised by East Coast Town Council.</p></div>
 {gallery([("bedok-wide","Disinfection in progress"),("bedok-2","The Pestimesh team"),("news-2","Lianhe Zaobao coverage"),("bedok-3","With community leaders"),("bedok-5","On-site briefing"),("news-1","The Straits Times coverage")], "bedok")}</div></section>
-<section class="section"><div class="container split" style="align-items:start"><div class="reveal left"><div class="eyebrow">FAQs</div><h2 class="h2">Disinfection questions</h2></div><div class="reveal right">{faq(fq)}</div></div></section>
 {cta_band("Cleaner environment. Professional protection.", "Tell us about your premises and we'll recommend a disinfection approach suited to your requirements.", "bedok-wide")}'''
     return "disinfection.html", page("disinfection.html", "Disinfection & Hygiene", "Professional disinfection services for homes, offices, commercial premises and public facilities in Singapore.", body)
 
@@ -324,7 +302,6 @@ def mesh():
 <section class="section white"><div class="container split rev"><div class="frame parallax reveal right"><img src="assets/img/tp-training-2.jpg" alt="Installing stainless-steel termite mesh on a construction site"></div>
 <div class="reveal left"><div class="eyebrow">Applications</div><h2 class="h2">Where Can Stainless-Steel Mesh Be Used?</h2><p class="lead mt-2">The suitability of mesh protection depends on the structure and potential pest entry points identified during assessment. Potential applications may include:</p>{checks(apps)}<p class="muted">Our team can assess the property and determine whether stainless-steel mesh is suitable for the specific application.</p>
 <h3 class="h3 mt-4">Is Stainless-Steel Mesh Right for Your Property?</h3><p class="muted mt-1">Every property is different. The suitability of mesh protection depends on factors such as the type of pest, potential entry points, building structure, location and accessibility, existing pest activity and long-term protection requirements. A professional site assessment can determine whether physical exclusion is appropriate.</p></div></div></section>
-<section class="section"><div class="container split" style="align-items:start"><div class="reveal left"><div class="eyebrow">FAQs</div><h2 class="h2">Mesh protection questions</h2><p class="lead mt-2">A more responsible approach to pest protection, relevant to our focus on prevention, precision, safety and responsible innovation.</p></div><div class="reveal right">{faq(fq)}</div></div></section>
 {cta_band("Planning a construction project?", "Talk to us early. Stainless-steel mesh is most effective when designed into the build before slabs are poured.", "tp-building")}'''
     return "mesh.html", page("mesh.html", "Stainless-Steel Mesh Protection", "Woven stainless-steel termite mesh: a physical, long-term pest barrier for construction and buildings in Singapore.", body)
 
@@ -342,7 +319,6 @@ def baiting():
 <section class="section dark"><div class="container split"><div class="reveal left"><div class="eyebrow">Why Consider Termite Baiting?</div><h2 class="h2">Why Consider Termite Baiting?</h2>{checks(["<b>Targeted Approach</b> — Baiting focuses on areas where termite activity is identified or suspected.", "<b>Monitoring-Based</b> — Regular monitoring helps track termite activity rather than relying solely on a one-time treatment.", "<b>Suitable for Ongoing Management</b> — Baiting can form part of a longer-term termite management programme.", "<b>Works Alongside Other Solutions</b> — Depending on the property and situation, baiting may be combined with other termite protection measures."])}</div>
 <div class="reveal right"><h3 class="h3">Baiting as part of IPM</h3><div class="flow"><span>Inspection</span><i></i><span>Monitoring</span><i></i><span>Baiting</span><i></i><span>Physical protection</span><i></i><span>Treatment</span></div><p class="lead">The appropriate combination depends on the property, termite activity and site conditions.</p>
 <h3 class="h3 mt-4">Detection &amp; technology</h3><p class="mt-1" style="color:rgba(255,255,255,.75)">Pestimesh uses the Termatrac T3i, combining radar, moisture and thermal sensing, to help decide where monitoring or treatment is appropriate.</p><div class="mt-2">{btn("Explore technology & innovation", "technology.html", "lime")}</div></div></div></section>
-<section class="section"><div class="container split" style="align-items:start"><div class="reveal left"><div class="eyebrow">FAQs</div><h2 class="h2">Termite baiting questions</h2></div><div class="reveal right">{faq(fq)}</div></div></section>
 {cta_band("Suspect termite activity?", "Termites stay hidden. Book an inspection with Termatrac detection and let us recommend the right programme.")}'''
     return "termite-baiting.html", page("termite-baiting.html", "Termite Baiting", "Termite baiting systems with inspection, monitoring and ongoing management in Singapore.", body)
 
@@ -487,7 +463,7 @@ def news():
 {gallery([("tchoukball-6","Founding Tchoukball Benefactors"),("tchoukball-1","With the national youth team"),("tchoukball-4","Team Singapore"),("tchoukball-2","Youth players"),("tchoukball-3","Match day"),("tchoukball-5","Post-match celebration")], "tbas")}</div></section>
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Education &amp; outreach</div><h2 class="h2">Dengue awareness &amp; career sharing</h2></div><p class="lead reveal">Sharing knowledge on dengue prevention with site workers, and opening our doors to students exploring careers in pest management.</p></div>
 {gallery([("dengue-1","Dengue awareness talk"),("dengue-2","Site team briefing"),("bendemeer-1","Bendemeer Secondary School visit"),("bendemeer-2","Career sharing"),("bendemeer-3","Office tour"),("temple","Community event")], "outreach")}</div></section>
-<section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Pest management insights</div><h2 class="h2">Practical guides, coming soon</h2></div><p class="lead reveal">Prevention tips, pest identification, seasonal pest issues and property protection guidance. In the meantime, each service page has detailed prevention advice and FAQs.</p></div>
+<section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Pest management insights</div><h2 class="h2">Practical guides, coming soon</h2></div><p class="lead reveal">Prevention tips, pest identification, seasonal pest issues and property protection guidance. In the meantime, each service page has detailed prevention advice.</p></div>
 <div class="grid grid-4 reveal-stagger"><div class="card glow"><div class="ic">{I["shield"]}</div><h4>Pest prevention tips</h4><p>Simple property and hygiene measures that reduce pest risks.</p></div><div class="card glow"><div class="ic">{I["search"]}</div><h4>Pest identification</h4><p>Common signs of activity and when to call for an inspection.</p></div><div class="card glow"><div class="ic">{I["clock"]}</div><h4>Seasonal pest issues</h4><p>Pest risks that become more relevant at different times of year.</p></div><div class="card glow"><div class="ic">{I["building"]}</div><h4>Property protection</h4><p>Practical guidance for homes, businesses and facilities.</p></div></div>
 <div class="btn-row mt-4"><a class="btn btn-outline" href="{LINKEDIN}" target="_blank" rel="noopener">Follow on LinkedIn {I["in"]}</a><a class="btn btn-outline" href="{INSTAGRAM}">Follow on Instagram {I["ig"]}</a></div></div></section>'''
     return "news.html", page("news.html", "News & Community", "Pestimesh company news, press coverage, community initiatives, tchoukball sponsorship and dengue awareness.", body)
@@ -505,15 +481,4 @@ def contact():
 <div class="frame reveal right" style="aspect-ratio:4/3"><iframe title="Pestimesh office map" src="https://www.google.com/maps?q=80+Playfair+Road+Singapore+367998&output=embed" style="width:100%;height:100%;border:0;min-height:360px" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>'''
     return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp.", body)
 
-# ---------------------------------------------------------------- FAQ
-
-def faq_page():
-    secs = f'<div class="reveal"><h3 class="h3">General</h3>{faq(HOME_FAQ)}</div>'
-    for slug, d in PESTS.items():
-        secs += f'<div class="reveal mt-5"><h3 class="h3">{d["short"]}</h3>{faq(d["faqs"])}<div class="mt-2">{link_arrow("See " + d["name"], slug+".html")}</div></div>'
-    body = page_hero("FAQs", "Frequently asked questions.", "Practical answers about costs, treatment, preparation and prevention. Can't find what you need? Send us a message.", "tp-misting", "FAQs")
-    body += f'<section class="section"><div class="container prose">{secs}</div></section>'
-    return "faq.html", page("faq.html", "FAQs", "Frequently asked questions about pest control, termites, bedbugs, cockroaches, rodents and mosquitoes in Singapore.", body)
-
-
-ALL = [home, about, services, ipm, disinfection, mesh, baiting, projects, certifications, sustainability, technology, news, contact, faq_page]
+ALL = [home, about, services, ipm, disinfection, mesh, baiting, projects, certifications, sustainability, technology, news, contact]

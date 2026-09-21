@@ -218,7 +218,7 @@ def build_pest(slug, d):
     prevent_list = checks(d["prevent"]) if d["prevent"] else ""
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{d["name"]}', d["name"], d["tagline"], d["hero"], "Pest control")
     body += f'''
-<div class="subnav"><div class="container"><ul><li><a href="#what">What are {s}?</a></li><li><a href="#signs">Signs</a></li><li><a href="#treatment">Treatment</a></li><li><a href="#prevent">Prevention</a></li><li><a href="#faq">FAQs</a></li><li><a href="#enquiry">Get a quote</a></li></ul></div></div>
+<div class="subnav"><div class="container"><ul><li><a href="#what">What are {s}?</a></li><li><a href="#signs">Signs</a></li><li><a href="#treatment">Treatment</a></li><li><a href="#prevent">Prevention</a></li><li><a href="#enquiry">Get a quote</a></li></ul></div></div>
 <section class="section"><div class="container two-col">
  <div class="prose">
   <div id="what" class="reveal"><div class="eyebrow">Know your pest</div><h2 class="h2">What Are {s}?</h2><div class="mt-2">{paras(d["what"])}</div></div>
@@ -246,7 +246,5 @@ def build_pest(slug, d):
  <div class="frame reveal left"><img src="assets/img/tp-training-2.jpg" alt="Pestimesh technician on site"></div>
  <div class="reveal right"><div class="eyebrow">Prevention</div><h2 class="h2">{d["prevent_title"]}</h2><div class="mt-2 muted">{paras(d["prevent_intro"])}</div>{prevent_list}{f'<p class="muted">{d["prevent_outro"]}</p>' if d["prevent_outro"] else ''}</div>
 </div></section>
-<section class="section white" id="faq"><div class="container"><div class="section-head"><div><div class="eyebrow">FAQs</div><h2 class="h2">{s} FAQs</h2></div><p class="lead">Still unsure? Send us a photo and a short description and our team will advise on the next step.</p></div>{faq(d["faqs"])}
-<div class="mt-4"><div class="eyebrow">{s} Blogs &amp; Resources</div><p class="muted">{d["resources"]}</p><p class="small muted">To be updated in the future.</p></div></div></section>
 {cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
     return file, page(file, d["name"], d["tagline"], body)
