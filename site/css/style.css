@@ -721,3 +721,6 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .hero-seq .seq-end .display .ln:nth-child(1) .hl{color:#f6c56e}
 .hero-seq .seq-end .display .ln:nth-child(2) .hl{color:#eeab3a}
 .hero-seq .seq-end .display .ln:nth-child(3) .hl{color:#e08a1e}
+
+/* leadership portraits */
+.quote footer img{width:68px;height:68px;object-position:50% 22%}
