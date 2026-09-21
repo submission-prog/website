@@ -103,8 +103,7 @@ PESTS = {
              "Effective termite control begins with a thorough inspection to identify the termite species and extent of infestation. Based on the findings, we recommend the most suitable treatment to eliminate termite activity and help prevent recurrence."],
   methods=[("Soil Treatment","Primarily used during the pre-construction phase, soil treatment creates an anti-termite barrier beneath the building. Termiticides are applied before concrete slabs are laid to help prevent subterranean termite damage. A 5-year warranty is provided upon completion of treatment."),
            ("Corrective Treatment","Corrective treatment involves drilling or coring at intervals around the property and injecting termite-control solution into each hole before sealing it with concrete and waterproofing cement. This creates a chemical barrier designed to protect the property, with a 5-year warranty provided."),
-           ("Woven Stainless Steel Barrier","An environmentally friendly termite barrier made from high-quality materials and installed using carefully researched techniques. It provides long-term physical protection against termite entry without relying solely on chemical treatments."),
-           ("Termatrac T3i","The Termatrac T3i is an advanced termite detection system that combines radar, moisture and thermal sensing technologies to detect and track termite activity. This allows technicians to identify termite presence more accurately, particularly as subterranean termites require moisture to survive."),
+           ("Woven Stainless Steel Mesh","An environmentally friendly termite mesh made from high-quality materials and installed using carefully researched techniques. It provides long-term physical protection against termite entry without relying solely on chemical treatments."),
            ("Termite Baiting System","Termite baiting uses a food source containing a slow-acting toxicant. Foraging termites consume the bait and share it with other colony members, including the queen and king, through trophallaxis. Colony elimination typically takes 2–12 weeks, depending on the size of the colony, with most cases taking around 6–8 weeks.")],
   pro_title="Why Choose Professional Termite Control?",
   pro_intro=["Termites can remain hidden for long periods, causing damage before an infestation becomes obvious. DIY treatments may only address visible termites without reaching the colony or identifying the source of the infestation.",
@@ -209,42 +208,25 @@ def sign_grid(signs):
     return '<div class="sign-grid">' + "".join(f'<div class="sign"><i>{I["alert"]}</i><div><b>{b}</b><span>{t}</span></div></div>' for b, t in signs) + '</div>'
 
 
+PEST_PHOTO = {"termites": "pest-termite", "mosquitoes": "pest-mosquito", "bedbugs": "pest-bedbug",
+              "cockroaches": "pest-cockroach", "rodents": "pest-rodent"}
+
+
 def build_pest(slug, d):
+    """Service page, deliberately minimal: hero, the treatment solutions, then the enquiry form."""
     file = f"{slug}.html"
-    s = d["short"]; sg = d["singular"]
-    methods = f'<div class="grid grid-3 reveal-stagger mt-4">' + "".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{m}</h4><p>{t}</p></div>' for m, t in d["methods"]) + '</div>' if d["methods"] else ""
-    pro_list = checks(d["pro"]) if d["pro"] else ""
-    pro_outro = f'<p class="muted">{d["pro_outro"]}</p>' if d.get("pro_outro") else ""
-    prevent_list = checks(d["prevent"]) if d["prevent"] else ""
+    n = len(d["methods"])
+    cards = "".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{m}</h4><p>{txt}</p></div>' for m, txt in d["methods"])
+    methods = f'<div class="grid {"grid-2" if n in (2, 4) else "grid-3"} reveal-stagger mt-5">{cards}</div>' if n else ""
+    text = "".join((f'<p class="lead mt-2">{p}</p>' if k == 0 else f'<p class="mt-2 muted">{p}</p>') for k, p in enumerate(d["treatment"]))
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{d["name"]}', d["name"], d["tagline"], d["hero"], "Pest control")
     body += f'''
-<div class="subnav"><div class="container"><ul><li><a href="#what">What are {s}?</a></li><li><a href="#signs">Signs</a></li><li><a href="#treatment">Treatment</a></li><li><a href="#prevent">Prevention</a></li><li><a href="#enquiry">Get a quote</a></li></ul></div></div>
-<section class="section"><div class="container two-col">
- <div class="prose">
-  <div id="what" class="reveal"><div class="eyebrow">Know your pest</div><h2 class="h2">What Are {s}?</h2><div class="mt-2">{paras(d["what"])}</div></div>
-  <div class="reveal"><h3 class="h3">Why Are {s} a Problem?</h3>{paras(d["why"])}</div>
-  <div class="reveal"><h3 class="h3">{sg} Damage to Businesses</h3>{paras(d["business"])}</div>
-  <div id="signs" class="reveal"><h3 class="h3">Signs of {'a ' if sg != 'Cockroach' and sg != 'Mosquito' else ''}{sg if sg not in ('Cockroach','Mosquito') else s} Infestation{'?' if sg in ('Cockroach','Mosquito') else ''}</h3><p>{d["signs_intro"]}</p>{sign_grid(d["signs"])}<p>{d["signs_outro"]}</p></div>
-  <div class="reveal"><h3 class="h3">Where Do {s} Hide?</h3>{paras(d["hide"])}</div>
+<section class="section"><div class="container">
+ <div class="split">
+  <div class="reveal left"><h2 class="h2">{d["treatment_title"]}</h2>{text}
+   <div class="btn-row mt-4">{btn("Request a quote", "#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}</div></div>
+  <div class="frame tall reveal right"><img src="assets/img/{PEST_PHOTO[slug]}.jpg" alt="{d["name"]} by Pestimesh"></div>
  </div>
- <aside class="infobox reveal right">
-  <span class="badge-lime">Quick facts</span><h4 class="mt-2">{d["name"]}</h4>
-  <div class="row"><b>Approach</b><span>Inspect → Identify → Targeted treatment → Follow-up</span></div>
-  <div class="row"><b>Suitable for</b><span>Residential, commercial, F&amp;B, hospitality, construction and facilities</span></div>
-  <div class="row"><b>Framework</b><span>Integrated Pest Management (IPM), prevention-led</span></div>
-  <div class="row"><b>Compliance</b><span>NEA-registered · ISO 9001 · ISO 14001 · ISO 45001 · bizSAFE Star</span></div>
-  {btn("Request a quote", "#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}
- </aside>
-</div></section>
-<section class="section dark" id="treatment"><div class="container">
- <div class="section-head" style="align-items:start"><div class="reveal"><div class="eyebrow">Our treatment</div><h2 class="h2">{d["treatment_title"]}</h2></div><div class="reveal">{"".join(f'<p class="lead">{p}</p>' for p in d["treatment"])}</div></div>
  {methods}
- <div class="split mt-5"><div class="reveal left"><h3 class="h3">{d["pro_title"]}</h3><div class="mt-2 light">{paras(d["pro_intro"])}</div>{pro_list}{pro_outro}</div>
- <div class="frame parallax reveal right"><img src="assets/img/{d["hero"]}.jpg" alt="{d["name"]} by Pestimesh"><div class="badge"><b>2011</b><span>Protecting Singapore<br>properties since</span></div></div></div>
-</div></section>
-<section class="section" id="prevent"><div class="container split">
- <div class="frame reveal left"><img src="assets/img/tp-training-2.jpg" alt="Pestimesh technician on site"></div>
- <div class="reveal right"><div class="eyebrow">Prevention</div><h2 class="h2">{d["prevent_title"]}</h2><div class="mt-2 muted">{paras(d["prevent_intro"])}</div>{prevent_list}{f'<p class="muted">{d["prevent_outro"]}</p>' if d["prevent_outro"] else ''}</div>
-</div></section>
-{cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
+</div></section>'''
     return file, page(file, d["name"], d["tagline"], body)
