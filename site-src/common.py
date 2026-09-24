@@ -164,6 +164,9 @@ def footer():
 
 def page(file, title, desc, body, with_form=True):
     import re as _re
+    home = file == "index.html"          # only the home page gets the preloader
+    body_class = ' class="preloading"' if home else ''
+    preload = '<div id="preload" aria-hidden="true"><span class="pl-half t"></span><span class="pl-half b"></span><img src="assets/logo-light.png" alt=""></div>' if home else ''
     html = f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -173,8 +176,8 @@ def page(file, title, desc, body, with_form=True):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v={BUILD}">
-</head><body class="preloading">
-<div id="preload" aria-hidden="true"><span class="pl-half t"></span><span class="pl-half b"></span><img src="assets/logo-light.png" alt=""></div>
+</head><body{body_class}>
+{preload}
 {nav(file)}
 <main>{body}{enquiry() if with_form else ""}</main>
 {footer()}

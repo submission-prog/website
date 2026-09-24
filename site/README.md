@@ -43,7 +43,7 @@ If you prefer, you can also edit the generated `.html` files directly.
 
 ## Preloader
 
-Each page opens on a dark green screen with the logo, then two panels split apart to reveal the
+The home page opens on a dark green screen with the logo, then two panels split apart to reveal the
 page. It waits for the page to load, shows for at least 0.9 seconds, and gives up after 5
 seconds if an asset is slow. Reduced-motion visitors get a quick fade.
 

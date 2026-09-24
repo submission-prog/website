@@ -747,3 +747,41 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 
 .card-img.still{cursor:default}
 .card-img.still:hover img{transform:scale(1.04)}
+
+/* ============================================================
+   Flat pass: no gradients, no glows. Overlays on photos are a single
+   flat tint; captions sit on solid panels for legibility.
+   ============================================================ */
+/* section backgrounds and decorative effects */
+.enquiry::before{display:none}
+.page-hero .grid-mesh{display:none}
+.page-hero .veil{background:rgba(5,26,21,.82)}
+.cta-band .veil{background:rgba(5,26,21,.80)}
+.hero .veil{background:rgba(5,26,21,.46)}
+.hero-seq::after{background:rgba(5,26,21,.38)}
+.card.glow::before{display:none}
+.cert .thumb::after{display:none}
+.line-reveal,.section.dark .line-reveal{background:none;-webkit-background-clip:initial;background-clip:initial;color:inherit;transition:none}
+.section.dark .line-reveal{color:#fff}
+.marquee,.auto-slider{-webkit-mask-image:none;mask-image:none}
+/* photo cards: flat tint + solid caption panel */
+.card-img::after{background:rgba(5,26,21,.28)}
+.card-img .cap{left:14px;right:14px;bottom:14px;background:rgba(6,26,21,.88);padding:14px 16px;border-radius:12px}
+.card-img .cap small{opacity:1;transform:none}
+/* pest gallery panels */
+.elastic .panel .veil{background:rgba(5,26,21,.40)}
+.elastic .open{left:18px;right:18px;bottom:18px;background:rgba(6,26,21,.88);padding:22px 24px;border-radius:14px}
+.elastic .spine{background:none}
+/* certificate wall */
+.slant-veil{background:rgba(5,26,21,.58)}
+.slant-copy>*{background:rgba(6,26,21,.92);padding:38px 40px;border-radius:16px;max-width:560px}
+.slant-card span{background:rgba(6,26,21,.88)}
+/* buttons: flat, no glow, no pulse */
+.btn,.btn-lime,.btn-dark,.btn-wa,.btn-ghost,.btn-outline{box-shadow:none}
+.btn:hover{transform:none;box-shadow:none}
+.btn-lime:hover{background:#c99a41}
+.btn-ghost{backdrop-filter:none;background:rgba(255,255,255,.10)}
+.wa-float{box-shadow:none}
+.wa-float::after{display:none}
+.wa-float:hover{transform:none;background:#26b062}
+.link-arrow:hover .ic{transform:none}
