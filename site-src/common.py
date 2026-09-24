@@ -197,4 +197,4 @@ def cta_band(title, text, bg="fogging-wide"):
 
 
 def card_img(href, img, title, sub="", tag="", cls=""):
-    return f'''<a class="card-img {cls}" href="{href}"><img src="assets/img/{img}.jpg" alt="{escape(title)}" loading="lazy"><div class="cap"><div><b>{title}</b><small>{sub}</small></div><span class="ic">{I["arrow"]}</span></div></a>'''
+    return f'''<a class="card-img {cls}" href="{href}"><img src="assets/img/{img}.jpg" alt="{escape(title)}" loading="lazy"><div class="cap"><div><b>{title}</b><small>{sub}</small></div></div></a>'''

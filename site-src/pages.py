@@ -9,10 +9,10 @@ PROJECTS = [
     dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", blurb="Prevention-led pest management for a nature-integrated resort, balancing guest experience with sensitivity to the surrounding ecosystem."),
     dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", blurb="Pest management programme for critical national water infrastructure."),
     dict(name="Family Justice Courts", sector="Government", img="proj-fjc", blurb="Pest control and termite-related works for an institutional facility where hygiene and discretion matter."),
-    dict(name="Singapore Zoo", sector="Attractions", img="fogging-close", blurb="Pest management in a wildlife environment, using approaches that limit harm to animals and the surrounding ecosystem."),
+    dict(name="Singapore Zoo", sector="Attractions", img="proj-zoo", blurb="Pest management in a wildlife environment, using approaches that limit harm to animals and the surrounding ecosystem."),
     dict(name="PSA", sector="Port & logistics", img="tp-misting", blurb="Pest management support across large-scale port and logistics operations."),
-    dict(name="Indigo Hotel", sector="Hospitality", img="tp-fogging-2", blurb="Discreet, hospitality-grade pest management with minimal disruption to guests."),
-    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", blurb="Structured pest management programme for a training campus environment."),
+    dict(name="Indigo Hotel", sector="Hospitality", img="proj-indigo", blurb="Discreet, hospitality-grade pest management with minimal disruption to guests."),
+    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="proj-saa", blurb="Structured pest management programme for a training campus environment."),
     dict(name="Bedok Market 216", sector="Community", img="bedok-wide", blurb="Large-scale disinfection and environmental hygiene works at a hawker centre and market, supporting a cleaner, safer public space."),
 ]
 
@@ -74,6 +74,11 @@ CLIENT_LOGOS_ROW2 = [
 ]
 
 # ---------------------------------------------------------------- helpers
+
+def project_card(p, cls=""):
+    """Project tile: photo, name and blurb on hover. Not a link, no arrow."""
+    return f'''<div class="card-img still {cls}"><img src="assets/img/{p["img"]}.jpg" alt="{escape(p["name"])}" loading="lazy"><div class="cap"><div><b>{p["name"]}</b><small>{p["blurb"]}</small></div></div></div>'''
+
 
 def news_card(n):
     return f'<article class="news-card"><div class="img"><img src="assets/img/{n["img"]}.jpg" alt="{escape(n["title"])}" loading="lazy"></div><div class="body"><span class="kind">{n["kind"]}</span><h4>{escape(n["title"])}</h4><p>{n["text"]}</p></div></article>'
@@ -284,21 +289,17 @@ def baiting():
 # ---------------------------------------------------------------- PROJECTS
 
 def projects():
-    feat = "".join(card_img("#enquiry", p["img"], p["name"], p["blurb"], p["sector"]) for p in PROJECTS[:5])
-    rest = "".join(card_img("#enquiry", p["img"], p["name"], p["blurb"], p["sector"], "wide") for p in PROJECTS[5:])
-    wall = "".join(f'<div>{p["name"]}<small>{p["sector"]}</small></div>' for p in PROJECTS)
+    feat = "".join(project_card(p) for p in PROJECTS[:5])
+    rest = "".join(project_card(p, "wide") for p in PROJECTS[5:])
     body = page_hero("Projects", "Trusted by Singapore's landmark facilities.", "Our portfolio includes pest control and termite-related projects for major facilities, and pest management programmes for developers and project teams throughout the construction phase of condominium and commercial developments.", "tp-building", "Projects")
     body += f'''
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Featured projects</div><h2 class="h2">Where we've worked</h2></div><p class="lead reveal">From airports and courts to hotels, plants and community markets, each programme is built around the site's risks, operations and safety requirements.</p></div>
 <div class="proj-feature reveal-stagger">{feat}</div>
 <div class="grid grid-3 mt-3 reveal-stagger">{rest}</div></div></section>
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Client portfolio</div><h2 class="h2">Facilities we've protected</h2></div></div><div class="logo-wall reveal-stagger">{wall}</div></div></section>
-<section class="section white"><div class="container split"><div class="frame parallax reveal left"><img src="assets/img/tp-training.jpg" alt="Construction-phase termite protection"></div>
-<div class="reveal right"><div class="eyebrow">Construction partners</div><h2 class="h2">Pest management through the construction phase</h2><p class="lead mt-2">We support developers and project management teams with pest management programmes throughout the construction phase of condominium and commercial property developments: pre-construction soil treatment, stainless-steel mesh installation, mosquito control on site and hand-over protection.</p>
-{checks(["Pre-construction anti-termite soil treatment with 5-year warranty", "Woven stainless-steel mesh at slab penetrations and soil-contact areas", "On-site mosquito misting, larviciding and thermal fogging", "Toolbox briefings, risk assessments and ISO 45001-aligned safe work"])}
-{btn("Discuss your project", "#enquiry", "dark")}</div></div></section>
+
+
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">On site</div><h2 class="h2">Treatment in action</h2></div></div>
-{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}</div></section>
+{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}<p class="small muted center" style="margin-top:34px;max-width:70ch;margin-inline:auto">Venue photographs: Singapore Zoo entrance by Dan arndt (CC BY-SA 4.0); Singapore Aviation Academy by Apetrov09703 (CC BY-SA 4.0); Katong Square by Chainwit (CC BY 4.0), via Wikimedia Commons.</p></div></section>
 {cta_band("Planning a programme for your facility?", "Tell us about the site and its operating requirements. We'll propose a practical, targeted pest management programme.")}'''
     return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Changi Airport T2, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
 

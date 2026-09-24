@@ -72,6 +72,17 @@ home page; they live on the Certifications page.
 
 `css/style.css` and `js/main.js` are linked with a `?v=` build stamp, so visitors always get the current files instead of a stale cached copy. The stamp is regenerated on every build.
 
+## Venue photographs (projects)
+
+Three project tiles use Creative Commons photos from Wikimedia Commons, which require the credit line
+shown at the foot of the Projects page. Keep that line if the photos stay.
+
+| File | Source | Licence |
+|---|---|---|
+| `assets/img/proj-zoo.jpg` | "Entrance - Singapore Zoo (02)" by Dan arndt | CC BY-SA 4.0 |
+| `assets/img/proj-saa.jpg` | "SAA Entrance" by Apetrov09703 | CC BY-SA 4.0 |
+| `assets/img/proj-indigo.jpg` | "86 East Coast Rd (Katong Square), Singapore (2025) - img 04" by Chainwit | CC BY 4.0 |
+
 ## Assets
 
 - `assets/img/` — photos (web-optimised JPG, max 1600 px)
