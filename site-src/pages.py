@@ -419,14 +419,16 @@ def news():
 # ---------------------------------------------------------------- CONTACT
 
 def contact():
+    """Contact details beside the form, with the map as a wide band underneath."""
     body = page_hero("Contact Us", "Let's talk about your pest management needs.", "Whether you are dealing with an active pest problem, looking for preventive protection or planning a pest management programme for your property, our team is ready to help.", "team-bedok", "Contact Pestimesh")
+    body += enquiry()
     body += f'''
-<section class="section"><div class="container"><div class="grid grid-3 reveal-stagger">
-<a class="card glow" href="{WA}" target="_blank" rel="noopener"><div class="ic">{I["wa"]}</div><h4>WhatsApp us</h4><p>For a quick enquiry, message our team directly. Include your name, pest concern, property type and a brief description.</p></a>
-<a class="card glow" href="tel:{PHONE_TEL}"><div class="ic">{I["phone"]}</div><h4>{PHONE}</h4><p>Call us now for urgent pest problems or to arrange a site assessment.</p></a>
-<a class="card glow" href="mailto:{EMAIL}"><div class="ic">{I["mail"]}</div><h4>{EMAIL}</h4><p>Email us for project quotations, tenders and programme enquiries.</p></a></div></div></section>
-<section class="section white" style="padding-top:0"><div class="container split"><div class="reveal left"><div class="eyebrow">Find our office</div><h2 class="h2">Pestimesh Pte Ltd</h2><p class="lead mt-2">{ADDRESS[0]}<br>{ADDRESS[1]}<br>{ADDRESS[2]}</p><p class="muted mt-2">Company registration no. 201114018K<br>NEA Vector Control Operator NEA201114018K</p><div class="btn-row mt-3"><a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&query=80+Playfair+Road+Singapore+367998" target="_blank" rel="noopener">Open in Google Maps {I["pin"]}</a></div></div>
-<div class="frame reveal right" style="aspect-ratio:4/3"><iframe title="Pestimesh office map" src="https://www.google.com/maps?q=80+Playfair+Road+Singapore+367998&output=embed" style="width:100%;height:100%;border:0;min-height:360px" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div></div></section>'''
-    return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp.", body)
+<section class="section"><div class="container">
+ <div class="mapband reveal"><iframe title="Pestimesh office location" src="https://www.google.com/maps?q=80+Playfair+Road+Singapore+367998&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+ <div class="mapfoot"><div><b>Pestimesh Pte Ltd</b><span>{ADDRESS[0]}, {ADDRESS[1]}, {ADDRESS[2]}</span><span>Company registration no. 201114018K · NEA Vector Control Operator NEA201114018K</span></div>
+ <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&query=80+Playfair+Road+Singapore+367998" target="_blank" rel="noopener">Open in Google Maps {I["pin"]}</a></div>
+</div></section>'''
+    return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp.", body, with_form=False)
+
 
 ALL = [home, about, services, ipm, disinfection, mesh, baiting, projects, certifications, sustainability, technology, news, contact]
