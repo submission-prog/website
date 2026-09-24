@@ -16,6 +16,8 @@ PROJECTS = [
     dict(name="Bedok Market 216", sector="Community", img="bedok-wide", blurb="Large-scale disinfection and environmental hygiene works at a hawker centre and market, supporting a cleaner, safer public space."),
 ]
 
+CERTS_UPDATED = "September 2026"   # shown on the certifications page; refresh when credentials change
+
 CERTS = {
     "Management systems": [
         ("iso9001", "ISO 9001:2015", "Quality Management System — provision of pest control services & anti-termite woven stainless-steel mesh", False),
@@ -186,7 +188,8 @@ def home():
 </div></section>
 
 {cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
-    return "index.html", page("index.html", "Pest Control & Termite Protection Singapore", "Pestimesh Pte Ltd — NEA-registered pest management and termite protection specialists in Singapore since 2011. IPM, stainless-steel mesh, mosquito, rodent, bedbug and cockroach control.", body)
+    body = body.replace('href="#enquiry"', 'href="contact.html#enquiry"')   # the form lives on the contact page
+    return "index.html", page("index.html", "Pest Control & Termite Protection Singapore", "Pestimesh Pte Ltd — NEA-registered pest management and termite protection specialists in Singapore since 2011. IPM, stainless-steel mesh, mosquito, rodent, bedbug and cockroach control.", body, with_form=False)
 
 # ---------------------------------------------------------------- ABOUT
 
@@ -315,24 +318,13 @@ def certifications():
  <div class="filters center reveal">{filters}</div>
  <div class="cert-grid reveal-stagger" id="certgrid">{all_cards}</div>
  <p class="center muted small mt-4" data-count-label>Showing all {total} credentials</p>
+ <p class="center muted small" style="margin-top:6px">Credentials, licences and memberships last reviewed in {CERTS_UPDATED}.</p>
 </div></section>
-<section class="section white"><div class="container">
- <div class="split"><div class="reveal left"><h2 class="h2">NEA-registered. ISO-certified. bizSAFE Star.</h2><p class="lead mt-2">Pestimesh operates with consideration for applicable Singapore regulatory and industry requirements relevant to professional pest management. Our technicians and service practices are aligned with the requirements applicable to the work being carried out.</p>
-  <div class="cert-strip mt-3"><div class="cert-logo"><img src="assets/logos/nea.png" alt="National Environment Agency"><span>NEA Vector Control Operator<br><small style="font-family:var(--font-body);text-transform:none;color:var(--muted)">Reg. NEA201114018K · valid to 08.04.2028</small></span></div>
-  <div class="cert-logo"><img src="assets/logos/bizsafe-star.png" alt="bizSAFE Star"><span>bizSAFE Star<br><small style="font-family:var(--font-body);text-transform:none;color:var(--muted)">WSH Council · valid to 03.07.2027</small></span></div></div></div>
-  <div class="reveal right"><div class="iso-cards">
-   <div class="iso-card"><span class="ring">{I["award"]}</span><b>ISO 9001<small>:2015</small></b><span class="scope">Quality Management System</span></div>
-   <div class="iso-card"><span class="ring">{I["leaf"]}</span><b>ISO 14001<small>:2015</small></b><span class="scope">Environmental Management System</span></div>
-   <div class="iso-card"><span class="ring">{I["shield"]}</span><b>ISO 45001<small>:2018</small></b><span class="scope">Occupational Health &amp; Safety Management System</span></div>
-  </div>
-  <div class="accred"><div class="plates"><img src="assets/logos/saara.png" alt="SAARA Management System Private Limited"><img src="assets/logos/uaf.png" alt="United Accreditation Foundation"><img src="assets/logos/iaf.png" alt="IAF Multilateral Recognition Arrangement"></div>
-   <p class="small muted">Certified by SAARA Management System Private Limited, accredited by the United Accreditation Foundation (UAF), accreditation no. CB-MS-2809, a signatory of the IAF Multilateral Recognition Arrangement. Scope: provision of pest control services &amp; anti-termite woven stainless-steel mesh.</p></div></div></div></div></section>
-<section class="section dark" id="safety"><div class="container"><div class="grid grid-3">
-<div class="reveal"><div class="eyebrow">Professional Competence</div><h3 class="h3">Knowledge, experience and proper application</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Effective pest management depends on knowledge, experience and proper application. Our team works across residential, commercial and large-scale facilities and applies practical pest management methods according to the pest, property and site requirements.</p></div>
+<section class="section dark" id="safety"><div class="container"><div class="grid grid-2">
 <div class="reveal"><div class="eyebrow">Safe Pest Management</div><h3 class="h3">Safety is an important part of our approach.</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Our service planning considers:</p>{checks(safety)}<p class="small" style="color:rgba(255,255,255,.6)">The appropriate safety measures depend on the service and property.</p></div>
 <div class="reveal"><div class="eyebrow">Documentation &amp; Service Records</div><h3 class="h3">Professional programmes, properly documented</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Depending on the scope of the programme, this may include:</p>{checks(docs)}<p class="small" style="color:rgba(255,255,255,.6)">These records can help customers understand the pest management programme and track ongoing activity.</p></div></div>
 <div class="divider" style="background:rgba(255,255,255,.12)"></div>
-<div class="split"><div class="reveal left"><h3 class="h3">Responsible Product &amp; Chemical Use</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Where chemical treatment is required, responsible application is an important part of professional pest management. Our approach is to select appropriate treatment methods based on the pest, site conditions and requirements, rather than treating every situation in the same way. This supports our wider prevention-led Integrated Pest Management approach.</p></div><div class="reveal right"><h3 class="h3">Our Commitment</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Pestimesh is committed to maintaining professional standards across our services while continuing to improve our knowledge, processes and practices.</p></div></div></div></section>
+<div class="reveal"><h3 class="h3">Our Commitment</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Pestimesh is committed to maintaining professional standards across our services while continuing to improve our knowledge, processes and practices.</p></div></div></section>
 {cta_band("Need documentation for your programme?", "We provide service records, inspection findings and monitoring information to support your compliance requirements.")}'''
     return "certifications.html", page("certifications.html", "Certifications & Compliance", "Pestimesh certifications: ISO 9001, ISO 14001, ISO 45001, bizSAFE Star, NEA registration, awards, memberships and letters of appreciation.", body)
 

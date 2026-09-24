@@ -175,6 +175,13 @@ PESTS = {
   signs=[("Visible mosquitoes","around your home or property"),("Frequent mosquito bites","especially when spending time outdoors"),("High-pitched buzzing noise","around your ears, particularly at night"),("Standing or stagnant water","in drains, plant pots, contains, gutters or other areas where mosquitoes can breed."),("Mosquito larvae or pupae","in stagnant water.")],
   signs_outro="If you notice these signs, early professional treatment can help reduce mosquito activity and prevent further breeding.",
   hide=["Mosquitoes prefer cool, shaded and sheltered areas, especially during the day. They can be found around dense vegetation, bushes, drains, gutters, under outdoor furniture and other damp areas. Mosquitoes also breed in stagnant or standing water, including plant pots, containers, or poorly drained areas."],
+  screens_title="Stainless-Steel Mesh Screens",
+  screens_intro="Made from durable stainless steel, the mesh provides a strong and reliable barrier that keeps mosquitoes and other insects out, while allowing fresh air and natural ventilation into your home. Ideal for windows, doors and other screen applications, and safe around pets.",
+  screens_types_intro="Each type is designed to suit different window and door configurations while providing durability, security and a clean, practical finish.",
+  screens=[("Casement","mesh-casement","Hinged to swing open with a casement window."),
+           ("Sliding","mesh-sliding","Runs on its own track alongside a sliding window."),
+           ("Fixed","mesh-fixed","A fixed panel for openings that do not need to open."),
+           ("Attached with grilles","mesh-grilles","Fitted to existing window grilles.")],
   treatment_title="Our Mosquito Treatment Solutions",
   treatment=["Mosquitoes thrive in Singapore's warm and humid climate and can become a nuisance around homes and commercial properties. Effective mosquito control requires both adult mosquito control and targeted treatment of breeding areas.",
              "Our technicians will assess the property and recommend the most suitable treatment based on mosquito activity and potential breeding sites."],
@@ -223,6 +230,15 @@ def build_pest(slug, d):
     cards = "".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{m}</h4><p>{txt}</p></div>' for m, txt in d["methods"])
     methods = f'<div class="grid {"grid-2" if n in (2, 4) else "grid-3"} reveal-stagger mt-5">{cards}</div>' if n else ""
     text = "".join((f'<p class="lead mt-2">{p}</p>' if k == 0 else f'<p class="mt-2 muted">{p}</p>') for k, p in enumerate(d["treatment"]))
+    screens = ""
+    if d.get("screens"):
+        scards = "".join(f'<div class="imgcard"><img src="assets/img/{im}.jpg" alt="{nm} stainless-steel mesh screen" loading="lazy"><div><h4>{nm}</h4><p>{txt}</p></div></div>' for nm, im, txt in d["screens"])
+        screens = (f'<section class="section white"><div class="container">'
+                   f'<div class="split"><div class="reveal left"><h2 class="h2">{d["screens_title"]}</h2>'
+                   f'<p class="lead mt-2">{d["screens_intro"]}</p>'
+                   f'<p class="mt-2 muted">{d["screens_types_intro"]}</p></div>'
+                   f'<div class="frame reveal right"><img src="assets/img/mesh-window.jpg" alt="Stainless-steel mesh screen fitted to a window"></div></div>'
+                   f'<div class="grid grid-4 reveal-stagger mt-5">{scards}</div></div></section>')
     types = ""
     if d.get("types"):
         tcards = "".join(f'<div class="card dark glow"><div class="ic">{I["bug"]}</div><h4>{nm}</h4><p>{txt}</p></div>' for nm, txt in d["types"])
@@ -240,5 +256,6 @@ def build_pest(slug, d):
  </div>
  {methods}
 </div></section>
+{screens}
 {types}'''
     return file, page(file, d["name"], d["tagline"], body)
