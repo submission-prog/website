@@ -199,15 +199,6 @@ def about():
   <h3 class="h3 mt-4">Our Approach</h3><p class="mt-1">We believe effective pest control starts with understanding each property's specific needs. Our experienced team assesses the situation carefully and recommends a suitable treatment plan based on the type and extent of the infestation.</p><p class="mt-1">Our goal is to provide reliable, effective and professional pest control solutions while minimising disruption to our customers.</p></div>
  <div class="frame parallax reveal right"><img src="assets/img/tp-training.jpg" alt="Pestimesh technician on a construction site"><div class="badge"><b>2011</b><span>Established<br>in Singapore</span></div></div>
 </div></section>
-<section class="section dark"><div class="container">
- <div class="section-head"><div class="reveal"><div class="eyebrow">Vision &amp; mission</div><h2 class="h2">To be the leader in the pest control industry</h2></div><p class="lead reveal">Providing the best services and quality solutions, through excellent, efficient and innovative pest control.</p></div>
- <div class="grid grid-4 reveal-stagger">
-  <div class="card dark glow"><div class="num">a</div><h4>Protect</h4><p>Protecting the health and properties of customers, friends and neighbours.</p></div>
-  <div class="card dark glow"><div class="num">b</div><h4>Serve</h4><p>Providing an unparalleled customer service experience.</p></div>
-  <div class="card dark glow"><div class="num">c</div><h4>Respect</h4><p>Modelling courtesy and respect in every community we serve.</p></div>
-  <div class="card dark glow"><div class="num">d</div><h4>Value</h4><p>Valuing our employees the same way we value our customers.</p></div>
- </div>
-</div></section>
 <section class="section"><div class="container">
  <div class="section-head"><div class="reveal"><div class="eyebrow">Leadership</div><h2 class="h2">People behind the protection</h2></div></div>
  <div class="grid grid-2">

@@ -98,6 +98,10 @@ PESTS = {
         "As the colony grows the worker termites expand their underground colony and set many other nesting sites and expand to gather more food. This is when the termites start surfacing above to buildings and homes to gather food. These termites do not forge in open and other travel through tunnels inside the walls to trap moisture for their survival.",
         "<b>Drywood Termites</b><br>Drywood termites do not require as much moisture as the subterranean termites. These pests live and grow their colonies inside wooden structures and are not required to move out for food. As they live in wood that provides them with shelter and source of food. Unlike subterranean termites, drywood termites are capable of producing the amount of moisture they require. These termites enjoy damp wood from leaking pipes and rainfall.",
         "High levels of humidity and moisture can grow drywood termite colonies quickly. Once the termites colony matures, the winged swarmer termites will begin to look for new places to grow their colonies."],
+  types_intro="Termites, or white ants, are small, soft-bodied insects that live in large colonies made up of a Queen, King, workers, soldiers and alates. There are over 3,000 known species. Three main types are found in Singapore.",
+  types=[("Subterranean Termites","<em>Coptotermes</em> species. They live underground where it is moist and damp, keeping the King and Queen's chamber at 25℃ to 35℃ so the queen can lay more eggs and grow the colony. As the colony grows, worker termites surface into buildings and homes to gather food, travelling through tunnels inside walls to trap the moisture they need to survive."),
+         ("Drywood Termites","They do not require as much moisture as subterranean termites. They live and grow their colonies inside wooden structures and are not required to move out for food, producing the moisture they need themselves. They enjoy damp wood from leaking pipes and rainfall, and once a colony matures the winged swarmers look for new places to grow."),
+         ("Dampwood Termites","The third of the three main types found in Singapore. A professional inspection identifies the species present and the extent of activity before a treatment method is recommended.")],
   treatment_title="Our Termite Treatment Solutions",
   treatment=["Termites, also known as “white ants,” thrive in Singapore's tropical climate and can cause extensive property damage. The two main types found in Singapore are subterranean termites and drywood termites.",
              "Effective termite control begins with a thorough inspection to identify the termite species and extent of infestation. Based on the findings, we recommend the most suitable treatment to eliminate termite activity and help prevent recurrence."],
@@ -219,6 +223,13 @@ def build_pest(slug, d):
     cards = "".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{m}</h4><p>{txt}</p></div>' for m, txt in d["methods"])
     methods = f'<div class="grid {"grid-2" if n in (2, 4) else "grid-3"} reveal-stagger mt-5">{cards}</div>' if n else ""
     text = "".join((f'<p class="lead mt-2">{p}</p>' if k == 0 else f'<p class="mt-2 muted">{p}</p>') for k, p in enumerate(d["treatment"]))
+    types = ""
+    if d.get("types"):
+        tcards = "".join(f'<div class="card dark glow"><div class="ic">{I["bug"]}</div><h4>{nm}</h4><p>{txt}</p></div>' for nm, txt in d["types"])
+        types = (f'<section class="section dark"><div class="container">'
+                 f'<div class="section-head"><div class="reveal"><h2 class="h2">Types of {d["short"]} in Singapore</h2></div>'
+                 f'<p class="lead reveal">{d["types_intro"]}</p></div>'
+                 f'<div class="grid grid-3 reveal-stagger">{tcards}</div></div></section>')
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{d["name"]}', d["name"], d["tagline"], d["hero"], "Pest control")
     body += f'''
 <section class="section"><div class="container">
@@ -228,5 +239,6 @@ def build_pest(slug, d):
   <div class="frame tall reveal right"><img src="assets/img/{PEST_PHOTO[slug]}.jpg" alt="{d["name"]} by Pestimesh"></div>
  </div>
  {methods}
-</div></section>'''
+</div></section>
+{types}'''
     return file, page(file, d["name"], d["tagline"], body)
