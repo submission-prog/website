@@ -1,6 +1,6 @@
 # All non-pest pages for the Pestimesh site.
 from common import *
-from pests import PESTS
+import re
 
 # ---------------------------------------------------------------- data
 PROJECTS = [
@@ -229,64 +229,17 @@ def about():
 # ---------------------------------------------------------------- SERVICES OVERVIEW
 
 def services():
-    imgs = {"ipm.html": "tp-training", "termites.html": "hero-termite", "mosquitoes.html": "tp-fogging", "bedbugs.html": "tp-misting", "cockroaches.html": "bedok-wide", "rodents.html": "tp-building", "disinfection.html": "bedok-1", "mesh.html": "mesh-roll", "termite-baiting.html": "mesh-rebar"}
-    cards = "".join(card_img(h, imgs[h], n, d, "Treatment & protection" if h in ("mesh.html", "termite-baiting.html") else "Pest control") for h, n, d, _ in SERVICES)
-    envs = [("Residential", "Protecting homes and families from common household pests.", "home"), ("Commercial", "Practical pest prevention and ongoing management for businesses.", "building"), ("Hotels & hospitality", "Managing pest risks around guest experience and operations.", "heart"), ("Industrial & facilities", "Structured programmes for complex operating environments.", "layers"), ("Construction", "Pre-construction soil treatment and stainless-steel mesh for developers.", "mesh"), ("Public & institutional", "Where safety, hygiene and continuity of operations matter.", "users")]
-    body = page_hero("Services", "Pest control and protection, tailored to your property.", "From homes and commercial properties to construction sites and national facilities, every programme starts with an inspection and a plan built around prevention.", "fogging-wide", "Our services")
-    body += f'''
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">All services</div><h2 class="h2">Pest control &amp; treatment methods</h2></div><p class="lead reveal">Prevention-led programmes, targeted treatment and physical protection, delivered by an NEA-registered, ISO-certified team.</p></div>
-<div class="grid grid-3 reveal-stagger">{cards}</div></div></section>
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Environments</div><h2 class="h2">IPM across different environments</h2></div></div>
-<div class="grid grid-3 reveal-stagger">{"".join(f'<div class="card dark glow"><div class="ic">{I[ic]}</div><h4>{t}</h4><p>{d}</p></div>' for t, d, ic in envs)}</div></div></section>
-{cta_band("Not sure which service you need?", "Send us a photo and a short description. Our team will identify the pest and recommend the right approach.")}'''
-    return "services.html", page("services.html", "Services", "Pest control, termite protection, mosquito control, disinfection and stainless-steel mesh services in Singapore.", body)
-
-# ---------------------------------------------------------------- IPM
-
-def ipm():
-    steps = [("Inspect & Identify", "We begin by understanding the property and the pest situation. Our team assesses areas of activity, potential harbourage, entry points, conducive conditions and other factors that may contribute to pest presence. Accurate identification allows us to determine the appropriate management strategy rather than applying a one-size-fits-all solution."), ("Prevent", "Where possible, we address the conditions that allow pests to enter, survive and reproduce: potential pest entry points, food and water sources, harbourage areas, structural gaps and openings, sanitation and housekeeping factors, and environmental conditions that encourage pest activity. Prevention is the first line of defence."), ("Monitor", "Effective pest management requires more than a single treatment. Monitoring helps us understand pest activity over time and identify changes in infestation levels, movement and behaviour. Where appropriate, monitoring and detection technologies can support more precise identification of pest activity."), ("Targeted Treatment", "When intervention is required, we select the appropriate control method based on the pest, site conditions and level of activity. Depending on the situation, this may include physical control, exclusion, baiting, monitoring or targeted chemical treatment. Our objective is to apply the right solution to the right problem, at the right location."), ("Evaluate & Improve", "Pest management is an ongoing process. We review pest activity and treatment effectiveness to determine whether further action, preventive measures or adjustments are required. This continuous approach helps move pest management from reactive treatment towards long-term prevention and control.")]
-    combo = [("Inspection", "Understanding where and why pest activity is occurring.", "search"), ("Sanitation & housekeeping", "Reducing food, water and harbourage opportunities.", "spray"), ("Exclusion & proofing", "Physical protection and sealing potential entry points.", "mesh"), ("Monitoring", "Tracking activity to support informed decisions.", "eye"), ("Targeted treatment", "Appropriate control measures when intervention is required.", "target"), ("Follow-up", "Reviewing results and adapting the strategy.", "refresh")]
-    why = [("More prevention", "Addressing the conditions that contribute to pest activity rather than only visible pests."), ("More precision", "Inspection, monitoring and the right control methods to target the actual problem."), ("Greater safety focus", "People, property and site requirements shape the strategy."), ("Long-term protection", "Treatment combined with preventive measures reduces recurring activity."), ("Responsible management", "Physical, preventive and targeted measures rather than routine chemical intervention.")]
-    body = page_hero('<a href="services.html">Services</a><span>/</span>Integrated Pest Management', "Smarter pest management starts with prevention.", "Effective pest management is not simply about treating pests when they appear. It is about understanding why pests are present, addressing the conditions that attract them, and preventing recurring activity.", "tp-training", "Integrated Pest Management")
-    body += f'''
-<section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Our IPM Approach</div><h2 class="h2">Our IPM Approach</h2></div></div>
-<div class="steps reveal-stagger">{"".join(f'<div class="step"><h4>{t}</h4><p>{d}</p></div>' for t, d in steps)}</div></div></section>'''
-    return "ipm.html", page("ipm.html", "Integrated Pest Management", "Pestimesh's prevention-led Integrated Pest Management approach: inspect, prevent, monitor, treat and evaluate.", body)
-
-# ---------------------------------------------------------------- DISINFECTION
-
-def disinfection():
-    fq = [("What is professional disinfection?", "A service designed to reduce harmful microorganisms on relevant surfaces and high-contact areas."), ("Is disinfection the same as cleaning?", "No. Cleaning removes dirt and contaminants; disinfection reduces harmful microorganisms on treated surfaces."), ("How often should disinfection be carried out?", "It depends on the property, its usage and your requirements. Our team can advise based on the situation."), ("Can you disinfect offices and commercial premises?", "Yes. We provide disinfection for homes, offices, commercial premises and other facilities."), ("Do I need to prepare the area?", "Preparation varies by area and service. Our team advises on any necessary preparation beforehand."), ("How long does disinfection take?", "It depends on the size of the property and scope of service. We provide an estimate after understanding your requirements.")]
-    body = page_hero('<a href="services.html">Services</a><span>/</span>Disinfection &amp; Hygiene', "Professional disinfection for cleaner, more hygienic environments.", "Cleaner environment. Professional protection. We help reduce harmful microorganisms on surfaces and high-contact areas in homes, workplaces, commercial premises and shared community spaces.", "bedok-wide", "Disinfection & Hygiene")
-    body += f'''
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Why Choose Professional Disinfection?</div><h2 class="h2">Why Choose Professional Disinfection?</h2></div></div>
-<div class="grid grid-4 reveal-stagger"><div class="card dark glow"><div class="ic">{I["users"]}</div><h4>Professional Service</h4><p>Our team provides professional disinfection services for residential, commercial and other facilities.</p></div><div class="card dark glow"><div class="ic">{I["target"]}</div><h4>Targeted Approach</h4><p>We focus on relevant surfaces and high-contact areas based on the requirements of the property.</p></div><div class="card dark glow"><div class="ic">{I["building"]}</div><h4>Suitable for Different Environments</h4><p>Our services can be adapted for homes, offices, commercial premises and other facilities.</p></div><div class="card dark glow"><div class="ic">{I["refresh"]}</div><h4>Supports Ongoing Hygiene</h4><p>Professional disinfection can form part of a broader approach to maintaining a cleaner and more hygienic environment.</p></div></div></div></section>'''
-    return "disinfection.html", page("disinfection.html", "Disinfection & Hygiene", "Professional disinfection services for homes, offices, commercial premises and public facilities in Singapore.", body)
-
-# ---------------------------------------------------------------- MESH
-
-def mesh():
-    fq = [("What is stainless-steel mesh used for?", "It is a physical barrier that prevents pests from entering through suitable openings and vulnerable areas, especially termites in construction."), ("Does stainless-steel mesh replace pest treatment?", "Not necessarily. Mesh is primarily a prevention and exclusion measure. Where active infestation exists, other measures may also be required."), ("Is stainless-steel mesh environmentally friendly?", "Physical exclusion reduces reliance on chemical intervention, water and chemical consumption where appropriate. Benefits depend on the application and overall programme."), ("How long does mesh protection last?", "Service life depends on installation, location, environmental conditions and site factors. Stainless steel is designed for long-term durability.")]
-    apps = ["Building openings", "Gaps and access points", "Ventilation-related openings", "Vulnerable structural areas", "Other locations where pest exclusion is appropriate"]
-    body = page_hero('<a href="services.html">Services</a><span>/</span>Stainless-Steel Mesh Protection', "Physical protection. Long-term pest prevention.", "Not every pest problem needs to be solved with chemical treatment. Pestimesh's woven stainless-steel mesh is a physical barrier that prevents termites and pests from entering vulnerable areas of a property, at the source.", "mesh-roll", "Stainless-Steel Mesh")
-    body += f'''
-<section class="section"><div class="container split"><div class="reveal left"><div class="eyebrow">Prevent Entry. Protect Your Property.</div><h2 class="h2">What Is Stainless-Steel Mesh Protection?</h2><p class="lead mt-2">Stainless-steel mesh is a physical pest exclusion solution designed to block potential pest entry points. Rather than treating pests after they have entered a building, physical exclusion focuses on preventing access in the first place.</p><p class="muted mt-2">The mesh can be used to protect suitable openings and vulnerable areas where pests may otherwise gain access. This approach is particularly relevant where long-term physical protection is preferred or where exclusion forms part of an Integrated Pest Management programme.</p>
-<p class="muted mt-2">Pestimesh has developed specialised expertise in physical anti-termite protection using stainless-steel termite mesh systems, with Australian-sourced mesh technology and techniques refined for Singapore's construction industry. Our ISO 9001, 14001 and 45001 certifications explicitly cover the provision of anti-termite woven stainless-steel mesh.</p></div>
-<div class="grid" style="gap:14px"><div class="frame reveal right"><img src="assets/img/mesh-collar.jpg" alt="Stainless-steel mesh collar" style="aspect-ratio:16/10"></div><div class="frame reveal right"><img src="assets/img/mesh-rebar.jpg" alt="Mesh collars fitted to pipe penetrations before concrete pour" style="aspect-ratio:16/10"></div></div></div></section>'''
-    return "mesh.html", page("mesh.html", "Stainless-Steel Mesh Protection", "Woven stainless-steel termite mesh: a physical, long-term pest barrier for construction and buildings in Singapore.", body)
-
-# ---------------------------------------------------------------- TERMITE BAITING
-
-def baiting():
-    fq = [("Does termite baiting eliminate termites immediately?", "Baiting is a monitoring and management process rather than an immediate treatment. Colony elimination typically takes 2–12 weeks depending on colony size, with most cases around 6–8 weeks."), ("Is termite baiting suitable for every property?", "Not necessarily. A professional inspection determines the appropriate termite management approach."), ("How often are bait stations checked?", "Monitoring frequency depends on the property, system used and level of termite activity."), ("Can baiting be combined with other treatments?", "Yes. Baiting may form part of a broader programme alongside soil treatment, corrective treatment or stainless-steel mesh."), ("Do I need baiting if I don't see termites?", "Not necessarily. Termites remain concealed, which is why professional inspection helps identify potential activity and risks.")]
-    steps = [("Inspection", "We first assess the property for signs of termite activity and potential areas of concern."), ("Bait Placement", "Where appropriate, bait stations or suitable baiting systems are positioned based on the property's requirements and identified termite activity."), ("Monitoring", "The baiting system is monitored to assess termite activity and determine whether further action is required."), ("Ongoing Management", "Termite baiting is an ongoing process. Monitoring and follow-up help our team assess activity and adjust the management approach where necessary.")]
-    body = page_hero('<a href="services.html">Services</a><span>/</span>Termite Baiting', "Targeted termite management with ongoing monitoring.", "Detect. Monitor. Manage. Protect. Termite baiting uses termite behaviour to manage active colonies, with inspection, monitoring and follow-up forming an important part of the process.", "hero-termite", "Termite Baiting")
-    body += f'''
-<section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">How Termite Baiting Works</div><h2 class="h2">How Termite Baiting Works</h2></div></div>
-<div class="steps reveal-stagger" style="grid-template-columns:repeat(4,1fr)">{"".join(f'<div class="step"><h4>{t}</h4><p>{d}</p></div>' for t, d in steps)}</div></div></section>'''
-    return "termite-baiting.html", page("termite-baiting.html", "Termite Baiting", "Termite baiting systems with inspection, monitoring and ongoing management in Singapore.", body)
-
-# ---------------------------------------------------------------- PROJECTS
+    from services import PAGES
+    def first_sentence(t):
+        m = re.match(r"(.+?[.!?])(\s|$)", t)
+        return m.group(1) if m else t
+    groups = ""
+    for g, items in SERVICE_GROUPS:
+        cards = "".join(card_img(h, PAGES[h]["card"], escape(n), first_sentence(PAGES[h]["lead"][0])) for h, n, _ in items)
+        groups += f'<div class="mt-5"><h2 class="h2 mb-3">{escape(g)}</h2><div class="grid grid-3 reveal-stagger">{cards}</div></div>'
+    body = page_hero("Services", "Pest control and protection, tailored to your property.", "From homes and commercial properties to construction sites and national facilities, every programme starts with an inspection and a plan built around prevention.", "fogging-wide")
+    body += f'''<section class="section" style="padding-top:20px"><div class="container">{groups}</div></section>'''
+    return "services.html", page("services.html", "Services", "Pest control, termite control and protection, mosquito control, disinfection and stainless-steel mesh services in Singapore.", body)
 
 def projects():
     feat = "".join(project_card(p) for p in PROJECTS[:5])
@@ -385,9 +338,8 @@ def technology():
     flow = [("Inspection", "Understand the property and pest activity.", "search"), ("Detection", "Use appropriate tools to investigate areas of concern.", "radar"), ("Assessment", "Interpret findings and identify potential sources.", "eye"), ("Targeted intervention", "Apply appropriate control measures.", "target"), ("Monitoring", "Track activity and evaluate results.", "refresh")]
     body = page_hero("Technology &amp; Innovation", "Smarter detection. Greater precision. Better pest management.", "Technology helps pest management teams see beyond what is immediately visible. We use modern tools and practical innovation to support more accurate inspection, targeted intervention and informed decisions, using the right technology where it makes pest management more precise and effective.", "hero-termite", "Technology & Innovation")
     body += f'''
-<section class="section"><div class="container split"><div class="reveal left"><div class="eyebrow">Termatrac T3i</div><h2 class="h2">Advanced Termite Detection</h2><p class="lead mt-2">Termites can remain hidden within structures, making early detection challenging. Pestimesh uses the Termatrac T3i as part of termite inspection and detection. The device combines radar, moisture detection and thermal sensing to help detect and track termite activity. This can provide our technicians with additional information when assessing potential termite activity.</p>
-<div class="grid grid-3 mt-3 reveal-stagger"><div class="card glow"><div class="ic">{I["radar"]}</div><h4>Radar</h4><p>Detects movement behind walls, floors and timber.</p></div><div class="card glow"><div class="ic">{I["drop"]}</div><h4>Moisture</h4><p>Subterranean termites need moisture; moisture mapping reveals where.</p></div><div class="card glow"><div class="ic">{I["thermo"]}</div><h4>Thermal</h4><p>Identifies temperature anomalies associated with nests and activity.</p></div></div></div>
-<div class="frame parallax reveal right"><img src="assets/img/hero-termite.jpg" alt="Termites inside a tunnel"><div class="badge"><b>T3i</b><span>radar · moisture<br>· thermal</span></div></div></div></section>
+<section class="section"><div class="container split"><div class="reveal left"><h2 class="h2">Thermal Scanning &amp; Inspection</h2><p class="lead mt-2">Thermal scanning technology helps identify potential termite activity, moisture issues, and concealed areas of concern without invasive investigation. Combined with professional inspections, it allows for more accurate assessment and treatment planning.</p></div>
+<div class="frame reveal right"><img src="assets/img/pest-termite.jpg" alt="Termite inspection"></div></div></section>
 <section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Precision Pest Management</div><h2 class="h2">Technology That Supports Better Decisions</h2></div><p class="lead reveal">Effective pest management starts with understanding the problem. Technology can help our team identify activity, investigate concealed areas and gather additional information during inspection. Technology is most valuable when it improves decision-making. Our broader approach connects technology with our wider Integrated Pest Management philosophy.</p></div>
 <div class="steps reveal-stagger">{"".join(f'<div class="step"><h4>{t}</h4><p>{d}</p></div>' for t, d, _ in flow)}</div></div></section>
 <section class="section white"><div class="container split rev"><div class="frame reveal right"><img src="assets/img/mesh-rebar.jpg" alt="Stainless-steel mesh collars"></div>
@@ -396,8 +348,8 @@ def technology():
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Technology With a Purpose</div><h2 class="h2">Our approach to innovation is practical.</h2></div><p class="lead reveal">We focus on technology and methods that can help us:</p></div>
 <div class="grid grid-4 reveal-stagger">{"".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{t}</h4></div>' for t in ["Improve inspection", "Detect concealed activity", "Increase treatment precision", "Support monitoring", "Reduce unnecessary intervention", "Improve customer outcomes", "Strengthen preventive pest management", "Innovation that supports sustainability"])}</div>
 <div class="btn-row mt-4">{btn("Explore our IPM approach", "ipm.html", "dark")}{btn("Explore Sustainability & ESG", "sustainability.html", "outline")}</div></div></section>
-{cta_band("Book a Termatrac inspection.", "Find hidden termite activity before it becomes structural damage.")}'''
-    return "technology.html", page("technology.html", "Technology & Innovation", "Termatrac T3i termite detection, stainless-steel mesh and digital innovation at Pestimesh.", body)
+{cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
+    return "technology.html", page("technology.html", "Technology & Innovation", "Thermal scanning, stainless-steel mesh and digital innovation at Pestimesh.", body)
 
 # ---------------------------------------------------------------- NEWS
 
@@ -432,4 +384,4 @@ def contact():
     return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp.", body, with_form=False)
 
 
-ALL = [home, about, services, ipm, disinfection, mesh, baiting, projects, certifications, sustainability, technology, news, contact]
+ALL = [home, about, services, projects, certifications, sustainability, technology, news, contact]

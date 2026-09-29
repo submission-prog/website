@@ -785,3 +785,17 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .wa-float::after{display:none}
 .wa-float:hover{transform:none;background:#26b062}
 .link-arrow:hover .ic{transform:none}
+
+/* service pages: plain bullet list for "Signs of ..." and similar */
+.dotlist{margin:18px 0 22px;display:grid;gap:10px}
+.dotlist li{position:relative;padding-left:22px;color:var(--ink);font-size:15.5px}
+.dotlist li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.card p+p{margin-top:.8em}
+/* services mega menu: two real columns */
+.mega{grid-template-columns:1fr 1fr;align-items:start}
+.mega-col{display:flex;flex-direction:column;gap:2px}
+.mega-col .col-title{padding:6px 12px 8px}
+.mega a{align-items:center}
+.mega-all{grid-column:1/-1;justify-content:center;font-weight:600;color:var(--teal-700);border-top:1px solid var(--line);border-radius:0!important;margin-top:8px;padding-top:14px!important}
+
+.step h4{padding-right:48px}

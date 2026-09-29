@@ -53,17 +53,24 @@ I = {
     "quote": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-4 5v-2c1 0 2-1 2-3H7zm8 0h4v4c0 3-2 5-4 5v-2c1 0 2-1 2-3h-2z"/></svg>',
 }
 
-SERVICES = [
-    ("ipm.html", "Integrated Pest Management", "Prevention-led programmes for every property", "layers"),
-    ("termites.html", "Termites Protection", "Soil treatment, corrective, baiting & mesh", "bug"),
-    ("mosquitoes.html", "Mosquitoes & Dengue Prevention", "Misting, larviciding & thermal fogging", "drop"),
-    ("bedbugs.html", "Bedbugs Control", "Targeted treatment for active infestations", "home"),
-    ("cockroaches.html", "Cockroaches Control", "Gel baiting & targeted applications", "search"),
-    ("rodents.html", "Rodents Management", "Control, monitoring & proofing", "target"),
-    ("disinfection.html", "Disinfection & Hygiene", "Cleaner, more hygienic environments", "spray"),
-    ("mesh.html", "Stainless-Steel Mesh Protection", "Physical, long-term termite barrier", "mesh"),
-    ("termite-baiting.html", "Termite Baiting", "Colony management with monitoring", "radar"),
+# Services menu, exactly as the client's services write-up (Sep 2026).
+SERVICE_GROUPS = [
+    ("Pest Control", [
+        ("mosquitoes.html", "Mosquito & Dengue Prevention", "drop"),
+        ("cockroaches.html", "Cockroach Control", "search"),
+        ("bedbugs.html", "Bed Bug Control", "home"),
+        ("rodents.html", "Rodent Management", "target"),
+        ("termites.html", "Termite Control", "bug"),
+    ]),
+    ("Treatment & Protection", [
+        ("ipm.html", "Integrated Pest Management", "layers"),
+        ("mesh.html", "Woven Stainless-Steel Termite Barrier", "mesh"),
+        ("mosquito-mesh.html", "Mosquito Mesh Barrier", "mesh"),
+        ("termite-protection.html", "Termites Protection", "shield"),
+        ("disinfection.html", "Disinfection & Hygiene", "spray"),
+    ]),
 ]
+SERVICES = [(h, n, "", ic) for _, items in SERVICE_GROUPS for h, n, ic in items]   # flat list for footer / mobile menu
 
 NAV = [
     ("index.html", "Home"), ("about.html", "About Us"), ("services.html", "Services"),
@@ -94,11 +101,12 @@ def faq(items, cls=""):
 
 
 def mega():
-    items = "".join(
-        f'<a href="{h}"><span class="ico">{I[ic]}</span><span><b>{escape(n)}</b><span>{escape(d)}</span></span></a>'
-        for h, n, d, ic in SERVICES)
-    return f'<div class="mega"><div class="col-title">Pest Control</div><div class="col-title">Treatment &amp; Protection</div>{items}<a href="services.html" style="grid-column:1/-1;justify-content:center;font-weight:600;color:var(--teal-700)">View all services {I["arrow"]}</a></div>'
-
+    cols = "".join(
+        f'<div class="mega-col"><div class="col-title">{escape(g)}</div>'
+        + "".join(f'<a href="{h}"><span class="ico">{I[ic]}</span><span><b>{escape(n)}</b></span></a>' for h, n, ic in items)
+        + '</div>'
+        for g, items in SERVICE_GROUPS)
+    return f'<div class="mega">{cols}<a class="mega-all" href="services.html">View all services {I["arrow"]}</a></div>'
 
 def nav(active):
     lis = []
@@ -190,7 +198,7 @@ def page_hero(crumb, title, lead, bg, eyebrow=None):
     return f'''<section class="page-hero"><div class="bg" style="background-image:url('assets/img/{bg}.jpg')"></div><div class="veil"></div><div class="grid-mesh"></div>
 <div class="container"><div class="crumbs"><a href="index.html">Home</a><span>/</span>{crumb}</div>
 {f'<div class="eyebrow light">{eyebrow}</div>' if eyebrow else ''}
-<h1 class="h1">{title}</h1><p class="lead">{lead}</p></div></section>'''
+<h1 class="h1">{title}</h1>{"".join(f'<p class="lead">{x}</p>' for x in (lead if isinstance(lead, list) else [lead]))}</div></section>'''
 
 
 def cta_band(title, text, bg="fogging-wide"):

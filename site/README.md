@@ -2,24 +2,24 @@
 
 Static site: plain HTML, CSS and JavaScript. No build tools or hosting requirements beyond a static web server (Netlify, Vercel, GitHub Pages, cPanel, S3, etc.). Upload the contents of this `site/` folder as-is.
 
-## Pages (18)
+## Pages (19)
 
 | File | Page |
 |---|---|
 | `index.html` | Home |
 | `about.html` | About Us |
-| `services.html` | Services overview |
-| `ipm.html` | Integrated Pest Management |
-| `termites.html`, `mosquitoes.html`, `bedbugs.html`, `cockroaches.html`, `rodents.html` | Pest control pages |
-| `disinfection.html` | Disinfection & Hygiene |
-| `mesh.html` | Stainless-Steel Mesh Protection |
-| `termite-baiting.html` | Termite Baiting |
+| `services.html` | Services overview (both groups) |
+| `mosquitoes.html`, `cockroaches.html`, `bedbugs.html`, `rodents.html`, `termites.html` | Pest Control services |
+| `ipm.html`, `mesh.html`, `mosquito-mesh.html`, `termite-protection.html`, `disinfection.html` | Treatment & Protection services |
 | `projects.html` | Projects |
-| `certifications.html` | Certifications & Compliance (click any certificate to view it full-size / open the PDF) |
+| `certifications.html` | Certifications & Compliance |
 | `sustainability.html` | Sustainability & ESG |
 | `technology.html` | Technology & Innovation |
 | `news.html` | News & Community |
 | `contact.html` | Contact Us |
+
+Service page wording is the client's "Pestimesh Writeup_Services.pdf" (Sep 2026), held verbatim in
+`site-src/services.py`. The services menu groups live in `SERVICE_GROUPS` in `site-src/common.py`.
 
 Every page ends with the enquiry form (per the sitemap) and the footer.
 
@@ -28,8 +28,8 @@ Every page ends with the enquiry form (per the sitemap) and the footer.
 The HTML is generated from `../site-src/` (Python 3, no dependencies):
 
 - `common.py` — contact details, nav, footer, enquiry form, icons, shared components
-- `pests.py` — copy for the five pest pages
-- `pages.py` — all other pages, plus the **PROJECTS**, **CERTS** and **NEWS** lists at the top
+- `services.py` — all ten service pages (exact client wording) and the page builder
+- `pages.py` — home, about, overview, projects, certifications, ESG, technology, news, contact, plus the **PROJECTS**, **CERTS** and **NEWS** lists
 - `build.py` — run `python3 site-src/build.py` from the project root to regenerate all pages
 
 If you prefer, you can also edit the generated `.html` files directly.
