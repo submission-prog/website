@@ -7,7 +7,7 @@ import re
 
 PAGES = {
  "mosquitoes.html": dict(
-  title="Mosquitoes & Dengue Prevention", hero="tp-fogging", card="pest-mosquito",
+  title="Mosquitoes & Dengue Prevention", hero="hero-mosquito", card="pest-mosquito",
   lead=["Mosquito activity can be more than a nuisance. Certain mosquito species can transmit diseases such as dengue, making effective mosquito management important for homes, businesses and outdoor spaces."],
   blocks=[
    ("list", "Signs of Mosquito Activity", "Common signs include:",
@@ -26,7 +26,7 @@ PAGES = {
   ]),
 
  "cockroaches.html": dict(
-  title="Cockroach Control", hero="bedok-wide", card="pest-cockroach",
+  title="Cockroach Control", hero="hero-cockroach", card="pest-cockroach",
   lead=["Cockroaches can contaminate food and surfaces and are particularly difficult to control because they can hide in small, inaccessible areas. Without effective treatment, infestations can spread quickly."],
   blocks=[
    ("list", "Signs of Cockroach Activity", "Common signs include:",
@@ -43,7 +43,7 @@ PAGES = {
   ]),
 
  "bedbugs.html": dict(
-  title="Bed Bug Control", hero="tp-misting", card="pest-bedbug",
+  title="Bed Bug Control", hero="hero-bedbug", card="pest-bedbug",
   lead=["Bed bugs are persistent pests that can hide in mattresses, bed frames, furniture and other concealed areas. Pestimesh provides targeted bed bug control solutions designed to identify infestations and treat affected areas effectively."],
   blocks=[
    ("list", "Signs of Bed Bug Activity", "Common signs of bed bug activity include:",
@@ -57,7 +57,7 @@ PAGES = {
   ]),
 
  "rodents.html": dict(
-  title="Rodent Management", hero="tp-building", card="pest-rodent",
+  title="Rodent Management", hero="hero-rodent", card="pest-rodent",
   lead=["Rats and mice can contaminate food, damage property and create hygiene concerns when they gain access to a building. Pestimesh provides targeted rodent management solutions designed to identify activity, control infestations and reduce the risk of recurring problems."],
   blocks=[
    ("list", "Signs of Rodent Activity", "Common signs of rodent activity include:",
@@ -73,7 +73,7 @@ PAGES = {
   ]),
 
  "termites.html": dict(
-  title="Termite Control", hero="hero-termite", card="pest-termite",
+  title="Termite Control", hero="hero-termite-svc", card="pest-termite",
   lead=["Termites can remain hidden for long periods while feeding on wood and other cellulose-based materials. Without early detection and appropriate treatment, termite activity can cause significant damage to a property."],
   blocks=[
    ("list", "Signs of Termite Activity", "Common signs include:",
@@ -269,6 +269,8 @@ def _block(b, shade):
 def build_service(file, d):
     title = escape(d["title"])
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{title}', title, d["lead"], d["hero"])
+    if d["hero"].startswith("hero-"):
+        body = body.replace('<section class="page-hero">', '<section class="page-hero photo">', 1)
     shades = ["", "white"]
     k = 0
     for b in d["blocks"]:

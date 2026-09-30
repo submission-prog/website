@@ -826,3 +826,12 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 /* contact map: gentler corners; Google Maps button stacks under the address, clear of the WhatsApp button */
 .mapband{border-radius:10px}
 .mapfoot{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:16px}
+
+/* service heroes with dedicated photos: show the photo, keep the heading on its dark left side */
+.page-hero.photo{min-height:min(62vh,560px);display:flex;align-items:center}
+.page-hero.photo .bg{opacity:1;background-position:72% center}
+.page-hero.photo .veil{background:rgba(5,26,21,.42)}
+.page-hero.photo .lead{max-width:52ch}
+@media(max-width:760px){.page-hero.photo .veil{background:rgba(5,26,21,.68)}}
+/* home hero end scene: the termite footage is busy, so the headline gets a firmer flat backing */
+.hero-seq .veil{background:rgba(5,26,21,.6)}

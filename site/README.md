@@ -54,9 +54,9 @@ Timing is `MIN` in the preloader block of `js/main.js`; the markup is in `page()
 
 ## Home hero sequence
 
-The home page opens on a termite-tunnel scene with its own headline. The page is held there; the first scroll, swipe, arrow key or tap on the cue plays a 121-frame sequence once (tunnel, smoke, technician) over 3 seconds, then reveals the main hero copy and buttons and releases the page. It never replays on scrolling back up. Visitors arriving with a `#link`, or with reduced motion enabled, go straight to the end scene.
+The home page opens on a termite-tunnel scene with its own headline. The page is held there; the first scroll, swipe, arrow key or tap on the cue plays a 121-frame sequence once (termites tunnelling up to a stainless-steel mesh pipe collar) over 3 seconds, then reveals the main hero copy and buttons and releases the page. It never replays on scrolling back up. Visitors arriving with a `#link`, or with reduced motion enabled, go straight to the end scene.
 
-- Frames live in `assets/heroseq/`: `f_001…121.jpg` (1600px, desktop) and `m_001…121.jpg` (900px, phones). They were extracted from the source MP4 with ffmpeg.
+- Frames live in `assets/heroseq/`: `f_001…121.jpg` (1440px, desktop) and `m_001…121.jpg` (860px, phones), extracted with ffmpeg from `hf_20260930_104908_…578.mp4` (30 Sep 2026). The end scene sits under a flat 60% tint so the headline stays readable.
 - Intro wording is in the `seq-intro` block of `home()` in `site-src/pages.py`. Speed is `DURATION` in the hero sequence block of `js/main.js`.
 
 ## Client logos (home page)
@@ -73,6 +73,12 @@ home page; they live on the Certifications page.
 ## Cache busting
 
 `css/style.css` and `js/main.js` are linked with a `?v=` build stamp, so visitors always get the current files instead of a stale cached copy. The stamp is regenerated on every build.
+
+## Service hero photos
+
+Mosquito, Bed Bug, Cockroach, Rodent and Termite Control use dedicated wide hero photos
+(`assets/img/hero-mosquito.jpg`, `hero-bedbug`, `hero-cockroach`, `hero-rodent`, `hero-termite-svc`).
+Any service whose `hero` starts with `hero-` gets the brighter "photo" hero style; originals are in `Service Photos/`.
 
 ## Venue photographs (projects)
 
