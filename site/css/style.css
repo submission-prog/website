@@ -835,3 +835,12 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 @media(max-width:760px){.page-hero.photo .veil{background:rgba(5,26,21,.68)}}
 /* home hero end scene: the termite footage is busy, so the headline gets a firmer flat backing */
 .hero-seq .veil{background:rgba(5,26,21,.6)}
+
+/* solution cards with a photo behind them: heavy flat tint, white text */
+.card.photo{position:relative;overflow:hidden;border:0;color:#fff;background-color:var(--teal-900);background-size:cover;background-position:center}
+.card.photo::before{content:"";position:absolute;inset:0;background:rgba(6,26,21,.80)}
+.card.photo>*{position:relative}
+.card.photo h4{color:#fff}
+.card.photo p{color:rgba(255,255,255,.84)}
+.card.photo .ic{background:var(--lime);color:var(--teal-950)}
+.card.dark.photo::before{background:rgba(6,26,21,.78)}

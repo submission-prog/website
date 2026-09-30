@@ -80,6 +80,13 @@ Mosquito, Bed Bug, Cockroach, Rodent and Termite Control use dedicated wide hero
 (`assets/img/hero-mosquito.jpg`, `hero-bedbug`, `hero-cockroach`, `hero-rodent`, `hero-termite-svc`).
 Any service whose `hero` starts with `hero-` gets the brighter "photo" hero style; originals are in `Service Photos/`.
 
+## Solution card photos
+
+Cards on the service pages can carry a photo behind a heavy flat tint. The mapping is `CARD_PHOTOS`
+in `site-src/services.py` (page → card title → image). Cards with no accurate photo are left plain
+on purpose. Five images come from Wikimedia Commons and are credited at the foot of their page
+(`PAGE_CREDITS`); details in `site-src/cc_credits.json`.
+
 ## Venue photographs (projects)
 
 Three project tiles use Creative Commons photos from Wikimedia Commons, which require the credit line

@@ -1,9 +1,67 @@
 # Service pages. Copy is taken verbatim from "Pestimesh Writeup_Services.pdf" (client, Sep 2026).
 # Each page = hero + a list of blocks. Keep wording exactly as supplied; layout lives in build_service().
 from common import *
-import re
+import re, json
 
 # Menu structure (SERVICE_GROUPS) lives in common.py so the nav, footer and overview can share it.
+
+# Photo behind a solution card (heavy flat tint over it). Cards without an entry stay plain.
+CARD_PHOTOS = {
+ "mosquitoes.html": {
+  "Water-Based Misting": "tp-misting",
+  "Larviciding Treatment": "tp-larviciding",
+  "Thermal Fogging": "tp-fogging"
+ },
+ "cockroaches.html": {
+  "Gel Baiting": "pest-cockroach",
+  "Targeted Insecticide Treatment": "pest-termite"
+ },
+ "bedbugs.html": {
+  "Heat Treatment": "hero-bedbug"
+ },
+ "rodents.html": {
+  "Rodent Baiting": "hero-rodent",
+  "Rodent Trapping": "cc-rat-trap",
+  "Monitoring &amp; Follow-Up": "pest-rodent"
+ },
+ "termites.html": {
+  "Woven Stainless-Steel Barrier": "mesh-collar",
+  "Subterranean Termites": "cc-coptotermes",
+  "Drywood Termites": "cc-cryptotermes"
+ },
+ "mesh.html": {
+  "Marine-Grade 317L Stainless Steel": "mesh-roll",
+  "Long-Term Physical Protection": "mesh-collar",
+  "Ideal for Construction Projects": "tp-training-2"
+ },
+ "mosquito-mesh.html": {
+  "Long-Term Physical Insect Protection": "mesh-detail",
+  "Ideal for Homes &amp; Commercial Buildings": "mesh-window"
+ },
+ "termite-protection.html": {
+  "Woven Stainless-Steel Termite Barrier": "mesh-rebar"
+ },
+ "disinfection.html": {
+  "Surface Disinfection": "bedok-wide",
+  "Commercial &amp; Facility Disinfection": "bedok-1"
+ },
+ "bee-treatment.html": {
+  "Nest Assessment": "cc-hornet-nest",
+  "Nest Treatment &amp; Removal": "pest-bee"
+ },
+ "bird-spike.html": {
+  "Site Assessment": "cc-pigeon-ledge",
+  "Spike Installation": "pest-birdspike"
+ }
+}
+
+# Attribution the Creative Commons licences require; shown small at the foot of the page.
+PAGE_CREDITS = {
+ "termites.html": "Termite photographs: Coptotermes formosanus by Scott Bauer, USDA (public domain); Cryptotermes domesticus by Ra Inta, CSIRO (CC BY 3.0), via Wikimedia Commons.",
+ "rodents.html": "Trap photograph by NY State IPM Program, Cornell University (CC BY 2.0), via Wikimedia Commons.",
+ "bee-treatment.html": "Hornet nest photograph by Thresiamma Varghese (CC BY-SA 4.0), via Wikimedia Commons.",
+ "bird-spike.html": "Pigeon photograph by PattayaPatrol (CC BY-SA 4.0), via Wikimedia Commons."
+}
 
 PAGES = {
  "mosquitoes.html": dict(
@@ -217,7 +275,16 @@ def _paras(ps, first_lead=False):
     return "".join((f'<p class="lead mt-2">{p}</p>' if first_lead and k == 0 else f'<p class="mt-2">{p}</p>') for k, p in enumerate(ps))
 
 
-def _block(b, shade):
+def _card(title, body, img, icon, dark=False):
+    cls = "card dark" if dark else "card"
+    if img:
+        return (f'<div class="{cls} photo" style="background-image:url(\'assets/img/{img}.jpg\')">'
+                f'<div class="ic">{icon}</div><h4>{title}</h4>{body}</div>')
+    return f'<div class="{cls}"><div class="ic">{icon}</div><h4>{title}</h4>{body}</div>'
+
+
+def _block(b, shade, photos=None):
+    photos = photos or {}
     kind = b[0]
     if kind == "list":
         _, title, intro, items, img, outro = b
@@ -231,7 +298,7 @@ def _block(b, shade):
         _, title, intro, label, items = b
         n = len(items)
         cols = "grid-2" if n in (2, 4) else "grid-3"
-        cards = "".join(f'<div class="card"><div class="ic">{I["check"]}</div><h4>{t}</h4>{"".join(f"<p>{p}</p>" for p in ps)}</div>' for t, ps in items)
+        cards = "".join(_card(t, "".join(f"<p>{p}</p>" for p in ps), photos.get(t), I["check"]) for t, ps in items)
         head = ""
         if title or intro:
             h2 = f'<h2 class="h2">{title}</h2>' if title else ""
@@ -260,7 +327,7 @@ def _block(b, shade):
                 f'<p class="lead reveal">{intro}</p></div><div class="grid grid-4 reveal-stagger">{cards}</div></div></section>')
     if kind == "types":
         _, title, intro, items = b
-        cards = "".join(f'<div class="card dark"><div class="ic">{I["bug"]}</div><h4>{t}</h4><p>{p}</p></div>' for t, p in items)
+        cards = "".join(_card(t, f"<p>{p}</p>", photos.get(t), I["bug"], dark=True) for t, p in items)
         return (f'<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">{title}</h2></div>'
                 f'<p class="lead reveal">{intro}</p></div><div class="grid grid-3 reveal-stagger">{cards}</div></div></section>')
     raise ValueError(kind)
@@ -275,9 +342,11 @@ def build_service(file, d):
     k = 0
     for b in d["blocks"]:
         if b[0] == "types":
-            body += _block(b, "dark")
+            body += _block(b, "dark", CARD_PHOTOS.get(file))
         else:
-            body += _block(b, shades[k % 2]); k += 1
+            body += _block(b, shades[k % 2], CARD_PHOTOS.get(file)); k += 1
+    if file in PAGE_CREDITS:
+        body += f'<section class="section tight"><div class="container"><p class="small muted center">{PAGE_CREDITS[file]}</p></div></section>'
     desc = re.sub(r"<[^>]+>", "", d["lead"][0])[:155]
     return file, page(file, d["title"], desc, body)
 
