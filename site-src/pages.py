@@ -102,11 +102,13 @@ def home():
         ("cockroaches.html", "pest-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
         ("rodents.html", "pest-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
         ("disinfection.html", "bedok-1", "Disinfection", "Professional disinfection services designed to help reduce harmful microorganisms on surfaces and high-contact areas.", ""),
+        ("bee-treatment.html", "pest-bee", "Bee Treatment", "Safe treatment and removal of bee and hornet nests by trained technicians.", ""),
+        ("bird-spike.html", "pest-birdspike", "Bird Spike", "Humane physical deterrents that stop birds landing, roosting and nesting on exposed surfaces.", ""),
     ]
     cards = "".join(
         f'''<a class="panel{" on" if i == 0 else ""}" href="{h}" data-panel="{i}"><img src="assets/img/{im}.jpg" alt="{t}" loading="lazy"><span class="veil"></span>
 <span class="spine"><b>{t}</b></span>
-<span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Explore {t.lower()} control {I["arrow"]}</span></span></a>'''
+<span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Learn more {I["arrow"]}</span></span></a>'''
         for i, (h, im, t, sub, tag) in enumerate(pests_cards))
     proj = "".join(card_img("projects.html", p["img"], p["name"], p["blurb"], p["sector"]) for p in PROJECTS)
     # Slanted certificate wall. Columns run left to right; the right-of-centre

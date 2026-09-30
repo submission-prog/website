@@ -799,3 +799,6 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .mega-all{grid-column:1/-1;justify-content:center;font-weight:600;color:var(--teal-700);border-top:1px solid var(--line);border-radius:0!important;margin-top:8px;padding-top:14px!important}
 
 .step h4{padding-right:48px}
+
+.elastic .spine b{font-size:12px}
+@media(min-width:901px){.elastic .panel.on{flex-grow:3.4}}

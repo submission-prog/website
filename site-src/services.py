@@ -178,6 +178,36 @@ PAGES = {
      ("High-Contact Area Treatment", ["Focused disinfection of frequently touched surfaces such as door handles, switches, railings, counters and shared-contact points. These areas receive particular attention due to frequent contact by multiple people."]),
      ("Commercial &amp; Facility Disinfection", ["Disinfection solutions for offices, commercial premises, shared facilities and other high-traffic environments. Treatments can be adapted to the size and usage of the premises to support ongoing hygiene management."])]),
   ]),
+ # DRAFT wording (not from the client's write-up): replace once the client supplies copy.
+ "bee-treatment.html": dict(
+  title="Bee Treatment", hero="pest-bee", card="pest-bee",
+  lead=["Bee and hornet nests near homes, workplaces and public areas can pose a safety risk, particularly to people who are allergic to stings. Pestimesh provides bee treatment carried out by trained technicians with the appropriate protective equipment."],
+  blocks=[
+   ("list", "Signs of Bee Activity", "Common signs include:",
+    ["Increased bee or hornet activity around a particular spot", "A visible nest or hive on trees, eaves, ceilings or wall cavities", "Bees entering and leaving through a gap or opening", "Buzzing sounds from within walls, ceilings or roof spaces"],
+    "pest-bee", None),
+   ("cards", "Our Bee Treatment Solutions",
+    ["Our technicians assess the nest location, the species involved and the surrounding area before recommending the safest treatment approach."],
+    None,
+    [("Nest Assessment", ["We locate the nest, identify the species and assess access, height and risk to occupants before treatment."]),
+     ("Nest Treatment &amp; Removal", ["Treatment is carried out by technicians in protective equipment, and the nest is removed where it is safe and practical to do so."]),
+     ("Prevention Advice", ["We identify gaps, openings and conditions that may attract nesting and advise on sealing or managing them to reduce the risk of recurrence."])]),
+  ]),
+
+ "bird-spike.html": dict(
+  title="Bird Spike", hero="pest-birdspike", card="pest-birdspike",
+  lead=["Bird spikes provide a humane physical deterrent that prevents birds from landing, roosting and nesting on ledges, beams, signage and other exposed surfaces."],
+  blocks=[
+   ("list", "Signs of Bird Activity", "Common signs include:",
+    ["Bird droppings on ledges, walkways and vehicles", "Nesting material in gutters, roof spaces or signage", "Birds roosting on beams, parapets or air-conditioning units", "Noise, feathers and debris around the property"],
+    "pest-birdspike", None),
+   ("cards", "Our Bird Spike Solutions",
+    ["Our technicians assess the property to identify landing and roosting points before recommending where spikes should be installed."],
+    None,
+    [("Site Assessment", ["We identify the surfaces birds are using and the extent of activity, so spikes are placed only where they are needed."]),
+     ("Spike Installation", ["Stainless-steel spikes are fixed to ledges, beams, pipes and other roosting surfaces to prevent birds from landing without harming them."]),
+     ("Cleaning &amp; Maintenance", ["Affected areas can be cleaned before installation, and spikes checked and adjusted as part of ongoing pest management."])]),
+  ]),
 }
 
 
@@ -195,7 +225,7 @@ def _block(b, shade):
         return (f'<section class="section {shade}"><div class="container split">'
                 f'<div class="reveal left"><h2 class="h2">{title}</h2><p class="mt-2">{intro}</p><ul class="dotlist">{lis}</ul>'
                 + (f'<p class="muted">{outro}</p>' if outro else "") +
-                f'<div class="btn-row mt-4">{btn("Request a quote", "#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}</div></div>'
+                f'<div class="btn-row mt-4">{btn("Request a quote", "contact.html#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}</div></div>'
                 f'<div class="frame tall reveal right"><img src="assets/img/{img}.jpg" alt="{escape(title)}"></div></div></section>')
     if kind == "cards":
         _, title, intro, label, items = b

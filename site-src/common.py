@@ -61,6 +61,8 @@ SERVICE_GROUPS = [
         ("bedbugs.html", "Bed Bug Control", "home"),
         ("rodents.html", "Rodent Management", "target"),
         ("termites.html", "Termite Control", "bug"),
+        ("bee-treatment.html", "Bee Treatment", "bug"),
+        ("bird-spike.html", "Bird Spike", "shield"),
     ]),
     ("Treatment & Protection", [
         ("ipm.html", "Integrated Pest Management", "layers"),
@@ -170,7 +172,7 @@ def footer():
 <a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="WhatsApp Pestimesh">{I["wa"]}</a>'''
 
 
-def page(file, title, desc, body, with_form=True):
+def page(file, title, desc, body, with_form=False):
     import re as _re
     home = file == "index.html"          # only the home page gets the preloader
     body_class = ' class="preloading"' if home else ''
@@ -204,7 +206,7 @@ def page_hero(crumb, title, lead, bg, eyebrow=None):
 def cta_band(title, text, bg="fogging-wide"):
     return f'''<section class="cta-band"><div class="bg" style="background-image:url('assets/img/{bg}.jpg')"></div><div class="veil"></div>
 <div class="container center reveal"><h2 class="h2">{title}</h2><p class="lead light mt-2">{text}</p>
-<div class="btn-row mt-3" style="justify-content:center">{btn("Get a free quote", "#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div></section>'''
+<div class="btn-row mt-3" style="justify-content:center">{btn("Get a free quote", "contact.html#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div></section>'''
 
 
 def card_img(href, img, title, sub="", tag="", cls=""):

@@ -2,14 +2,14 @@
 
 Static site: plain HTML, CSS and JavaScript. No build tools or hosting requirements beyond a static web server (Netlify, Vercel, GitHub Pages, cPanel, S3, etc.). Upload the contents of this `site/` folder as-is.
 
-## Pages (19)
+## Pages (21)
 
 | File | Page |
 |---|---|
 | `index.html` | Home |
 | `about.html` | About Us |
 | `services.html` | Services overview (both groups) |
-| `mosquitoes.html`, `cockroaches.html`, `bedbugs.html`, `rodents.html`, `termites.html` | Pest Control services |
+| `mosquitoes.html`, `cockroaches.html`, `bedbugs.html`, `rodents.html`, `termites.html`, `bee-treatment.html`, `bird-spike.html` | Pest Control services |
 | `ipm.html`, `mesh.html`, `mosquito-mesh.html`, `termite-protection.html`, `disinfection.html` | Treatment & Protection services |
 | `projects.html` | Projects |
 | `certifications.html` | Certifications & Compliance |
@@ -21,7 +21,9 @@ Static site: plain HTML, CSS and JavaScript. No build tools or hosting requireme
 Service page wording is the client's "Pestimesh Writeup_Services.pdf" (Sep 2026), held verbatim in
 `site-src/services.py`. The services menu groups live in `SERVICE_GROUPS` in `site-src/common.py`.
 
-Every page ends with the enquiry form (per the sitemap) and the footer.
+The enquiry form appears on the Contact page only; every other page's quote buttons link to it.
+
+`bee-treatment.html` and `bird-spike.html` carry DRAFT wording (not from the client's write-up) marked as such in `site-src/services.py`; replace once the client supplies copy.
 
 ## Editing content
 
