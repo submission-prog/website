@@ -334,22 +334,12 @@ def sustainability():
 # ---------------------------------------------------------------- TECHNOLOGY
 
 def technology():
-    flow = [("Inspection", "Understand the property and pest activity.", "search"), ("Detection", "Use appropriate tools to investigate areas of concern.", "radar"), ("Assessment", "Interpret findings and identify potential sources.", "eye"), ("Targeted intervention", "Apply appropriate control measures.", "target"), ("Monitoring", "Track activity and evaluate results.", "refresh")]
-    body = page_hero("Technology &amp; Innovation", "Smarter detection. Greater precision. Better pest management.", "Technology helps pest management teams see beyond what is immediately visible. We use modern tools and practical innovation to support more accurate inspection, targeted intervention and informed decisions, using the right technology where it makes pest management more precise and effective.", "hero-termite", "Technology & Innovation")
-    body += f'''
+    """Exactly the client's services write-up, page 14: Thermal Scanning & Inspection only."""
+    body = page_hero("Technology", "Technology", [], "hero-termite")
+    body += '''
 <section class="section"><div class="container split"><div class="reveal left"><h2 class="h2">Thermal Scanning &amp; Inspection</h2><p class="lead mt-2">Thermal scanning technology helps identify potential termite activity, moisture issues, and concealed areas of concern without invasive investigation. Combined with professional inspections, it allows for more accurate assessment and treatment planning.</p></div>
-<div class="frame reveal right"><img src="assets/img/pest-termite.jpg" alt="Termite inspection"></div></div></section>
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Precision Pest Management</div><h2 class="h2">Technology That Supports Better Decisions</h2></div><p class="lead reveal">Effective pest management starts with understanding the problem. Technology can help our team identify activity, investigate concealed areas and gather additional information during inspection. Technology is most valuable when it improves decision-making. Our broader approach connects technology with our wider Integrated Pest Management philosophy.</p></div>
-<div class="steps reveal-stagger">{"".join(f'<div class="step"><h4>{t}</h4><p>{d}</p></div>' for t, d, _ in flow)}</div></div></section>
-<section class="section white"><div class="container split rev"><div class="frame reveal right"><img src="assets/img/mesh-rebar.jpg" alt="Stainless-steel mesh collars"></div>
-<div class="reveal left"><div class="eyebrow">Physical Innovation</div><h2 class="h2">Technology is not limited to electronic equipment.</h2><p class="lead mt-2">Pestimesh also uses physical protection solutions such as woven stainless-steel mesh to help prevent pest entry. Physical exclusion can provide long-term protection and, where appropriate, reduce reliance on chemical intervention.</p><div class="mt-3">{link_arrow("Explore stainless-steel mesh", "mesh.html")}</div>
-<h3 class="h3 mt-5">Digital &amp; AI</h3><p class="mt-1 muted">We are embracing AI and digital applications to streamline reporting and reduce repetitive administrative work, and exploring real-time monitoring, digital reporting and data-driven technologies so our people spend more time on site quality, safety and customer service.</p></div></div></section>
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Technology With a Purpose</div><h2 class="h2">Our approach to innovation is practical.</h2></div><p class="lead reveal">We focus on technology and methods that can help us:</p></div>
-<div class="grid grid-4 reveal-stagger">{"".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{t}</h4></div>' for t in ["Improve inspection", "Detect concealed activity", "Increase treatment precision", "Support monitoring", "Reduce unnecessary intervention", "Improve customer outcomes", "Strengthen preventive pest management", "Innovation that supports sustainability"])}</div>
-<div class="btn-row mt-4">{btn("Explore our IPM approach", "ipm.html", "dark")}{btn("Explore Sustainability & ESG", "sustainability.html", "outline")}</div></div></section>'''
-    return "technology.html", page("technology.html", "Technology & Innovation", "Thermal scanning, stainless-steel mesh and digital innovation at Pestimesh.", body)
-
-# ---------------------------------------------------------------- NEWS
+<div class="frame reveal right"><img src="assets/img/pest-termite.jpg" alt="Termite inspection"></div></div></section>'''
+    return "technology.html", page("technology.html", "Technology", "Thermal scanning and inspection at Pestimesh.", body)
 
 def news():
     body = page_hero("News &amp; Community", "Insights, updates &amp; our community.", "From practical pest prevention advice to company news, project updates and community initiatives, this is where we share what we are learning, doing and contributing.", "award-heartland", "News & Community")

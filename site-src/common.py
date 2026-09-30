@@ -158,19 +158,22 @@ def enquiry(title="Request a quote. Start with a site assessment.", sub="For pro
 
 
 def footer():
-    svc = "".join(f'<li><a href="{h}">{escape(n)}</a></li>' for h, n, _, _ in SERVICES)
+    """Logo plus page links only: the two service groups and the company pages."""
+    def col(title, links):
+        return f'<div><h5>{escape(title)}</h5><ul>' + "".join(f'<li><a href="{h}">{escape(n)}</a></li>' for h, n in links) + '</ul></div>'
+    svc_cols = "".join(col(g, [(h, n) for h, n, _ in items]) for g, items in SERVICE_GROUPS)
+    company = col("Company", [("index.html", "Home"), ("about.html", "About Us"), ("services.html", "Services"), ("projects.html", "Projects"),
+                              ("certifications.html", "Certifications"), ("sustainability.html", "Sustainability"), ("technology.html", "Technology"),
+                              ("news.html", "News"), ("contact.html", "Contact Us")])
     return f'''<footer class="footer"><div class="container">
   <div class="cols">
-    <div><img src="assets/logo-light.png" alt="Pestimesh"><p>NEA-registered pest management and termite protection specialists. Protecting people, properties and communities across Singapore since 2011.</p>
+    <div class="brandcol"><img src="assets/logo-light.png" alt="Pestimesh">
       <div class="social"><a href="{INSTAGRAM}" aria-label="Instagram">{I["ig"]}</a><a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">{I["in"]}</a></div></div>
-    <div><h5>Services</h5><ul>{svc}</ul></div>
-    <div><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="projects.html">Projects</a></li><li><a href="certifications.html">Certifications &amp; Compliance</a></li><li><a href="sustainability.html">Sustainability &amp; ESG</a></li><li><a href="technology.html">Technology &amp; Innovation</a></li><li><a href="news.html">News &amp; Community</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-    <div><h5>Contact</h5><ul><li>{ADDRESS[0]}<br>{ADDRESS[1]}<br>{ADDRESS[2]}</li><li><a href="tel:{PHONE_TEL}">{PHONE}</a></li><li><a href="mailto:{EMAIL}">{EMAIL}</a></li><li>Co. Reg. No. 201114018K</li></ul></div>
+    {svc_cols}{company}
   </div>
   <div class="bottom"><span>© <span data-year></span> {SITE}. All rights reserved.</span><span>Protecting People. Protecting Properties. Protecting Communities.</span></div>
 </div></footer>
 <a class="wa-float" href="{WA}" target="_blank" rel="noopener" aria-label="WhatsApp Pestimesh">{I["wa"]}</a>'''
-
 
 def page(file, title, desc, body, with_form=False):
     import re as _re

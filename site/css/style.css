@@ -811,3 +811,18 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .cert-hero .veil{z-index:-1;background:rgba(5,26,21,.74)}
 .cert-hero .container{position:relative}
 .cert-hero .slant-card{cursor:default}
+
+/* footer: logo + page links, columns top-aligned on one baseline */
+.footer .cols{grid-template-columns:1fr 1fr 1.25fr 1fr;gap:48px;align-items:start}
+.footer h5{margin:6px 0 18px;line-height:1}
+.footer ul{margin:0;padding:0}
+.footer li{margin:0 0 11px;line-height:1.35}
+.footer .brandcol img{height:54px;margin:0 0 22px}
+.footer .brandcol .social{margin-top:0}
+.footer .bottom{align-items:center}
+@media(max-width:900px){.footer .cols{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:560px){.footer .cols{grid-template-columns:1fr}}
+
+/* contact map: gentler corners; Google Maps button stacks under the address, clear of the WhatsApp button */
+.mapband{border-radius:10px}
+.mapfoot{flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:16px}
