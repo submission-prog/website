@@ -25,9 +25,7 @@ CARD_PHOTOS = {
   "Monitoring &amp; Follow-Up": "pest-rodent"
  },
  "termites.html": {
-  "Woven Stainless-Steel Barrier": "mesh-collar",
-  "Subterranean Termites": "cc-coptotermes",
-  "Drywood Termites": "cc-cryptotermes"
+  "Woven Stainless-Steel Barrier": "mesh-collar"
  },
  "mesh.html": {
   "Marine-Grade 317L Stainless Steel": "mesh-roll",
@@ -57,7 +55,6 @@ CARD_PHOTOS = {
 
 # Attribution the Creative Commons licences require; shown small at the foot of the page.
 PAGE_CREDITS = {
- "termites.html": "Termite photographs: Coptotermes formosanus by Scott Bauer, USDA (public domain); Cryptotermes domesticus by Ra Inta, CSIRO (CC BY 3.0), via Wikimedia Commons.",
  "rodents.html": "Trap photograph by NY State IPM Program, Cornell University (CC BY 2.0), via Wikimedia Commons.",
  "bee-treatment.html": "Hornet nest photograph by Thresiamma Varghese (CC BY-SA 4.0), via Wikimedia Commons.",
  "bird-spike.html": "Pigeon photograph by PattayaPatrol (CC BY-SA 4.0), via Wikimedia Commons."
@@ -148,12 +145,6 @@ PAGES = {
                                         "Unlike chemical-only treatments, it provides long-term physical protection without relying solely on chemical treatments, making it an important part of an integrated termite protection strategy."]),
      ("Termite Baiting System", ["Termite baiting uses a slow-acting toxicant that termites consume and share with other colony members through trophallaxis.",
                                  "The system is designed to target the termite colony rather than only visible termites, helping address termite activity at its source. Treatment duration varies depending on factors such as colony size, termite activity and site conditions."])]),
-   # Not in the write-up: kept because it was requested earlier. Remove this block if the client does not want it.
-   ("types", "Types of Termites in Singapore",
-    "Termites, or white ants, are small, soft-bodied insects that live in large colonies made up of a Queen, King, workers, soldiers and alates. There are over 3,000 known species. Three main types are found in Singapore.",
-    [("Subterranean Termites", "<em>Coptotermes</em> species. They live underground where it is moist and damp, keeping the King and Queen's chamber at 25℃ to 35℃ so the queen can lay more eggs and grow the colony. As the colony grows, worker termites surface into buildings and homes to gather food, travelling through tunnels inside walls to trap the moisture they need to survive."),
-     ("Drywood Termites", "They do not require as much moisture as subterranean termites. They live and grow their colonies inside wooden structures and are not required to move out for food, producing the moisture they need themselves. They enjoy damp wood from leaking pipes and rainfall, and once a colony matures the winged swarmers look for new places to grow."),
-     ("Dampwood Termites", "The third of the three main types found in Singapore. A professional inspection identifies the species present and the extent of activity before a treatment method is recommended.")]),
   ]),
 
  "ipm.html": dict(
