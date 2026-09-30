@@ -198,7 +198,7 @@ def page(file, title, desc, body, with_form=False):
 
 def page_hero(crumb, title, lead, bg, eyebrow=None):
     return f'''<section class="page-hero"><div class="bg" style="background-image:url('assets/img/{bg}.jpg')"></div><div class="veil"></div><div class="grid-mesh"></div>
-<div class="container"><div class="crumbs"><a href="index.html">Home</a><span>/</span>{crumb}</div>
+<div class="container">
 {f'<div class="eyebrow light">{eyebrow}</div>' if eyebrow else ''}
 <h1 class="h1">{title}</h1>{"".join(f'<p class="lead">{x}</p>' for x in (lead if isinstance(lead, list) else [lead]))}</div></section>'''
 

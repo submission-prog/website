@@ -802,3 +802,12 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 
 .elastic .spine b{font-size:12px}
 @media(min-width:901px){.elastic .panel.on{flex-grow:3.4}}
+
+/* projects: every tile the same size */
+.card-img.even{aspect-ratio:4/3}
+/* certifications hero: the certificate wall scrolls behind the heading */
+.cert-hero{min-height:min(74vh,640px);display:flex;align-items:flex-end}
+.cert-hero .slant-stage{position:absolute;inset:0;z-index:-2;height:auto;perspective:1400px}
+.cert-hero .veil{z-index:-1;background:rgba(5,26,21,.74)}
+.cert-hero .container{position:relative}
+.cert-hero .slant-card{cursor:default}

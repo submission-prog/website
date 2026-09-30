@@ -75,6 +75,28 @@ CLIENT_LOGOS_ROW2 = [
 
 # ---------------------------------------------------------------- helpers
 
+def slant_wall():
+    """Columns of certificates for the slanted wall (home section and certifications hero)."""
+    bykey = {c[0]: c for v in CERTS.values() for c in v}
+    SLANT_COLUMNS = [
+        ["fma", "ectc-letter", "gcte-fund"],                      # behind the headline
+        ["smm-membership", "amk-cma", "tbas-letter"],
+        ["spma-membership", "sbea-appreciation", "wsq-hazardous"],
+        ["iso14001", "bizsafe-star", "sbf-membership"],           # clear band starts here
+        ["iso9001", "iso45001", "es-award-2024"],                 # most visible column
+        ["bizsafe-star", "iso9001", "spma-membership"],           # partly clipped at the edge
+    ]
+    def slant_card(c):
+        k, n, d, land = c
+        return f'''<div class="slant-card" data-lightbox="home-certs" data-full="assets/certs/{k}.jpg" data-title="{escape(n)}" data-pdf="assets/certs/pdf/{k}.pdf"><img src="assets/certs/{k}.jpg" alt="{escape(n)}" loading="lazy"><span>{escape(n)}</span></div>'''
+    cols = []
+    for i, keys in enumerate(SLANT_COLUMNS):
+        items = [bykey[k] for k in keys]
+        while len(items) < 6: items = items + [bykey[k] for k in keys]
+        col_cards = "".join(slant_card(c) for c in items)   # NB: distinct name; `cards` holds the pest panels
+        cols.append(f'<div class="slant-col" data-dir="{1 if i % 2 == 0 else -1}"><div class="slant-inner">{col_cards}{col_cards}</div></div>')
+    return "".join(cols)
+
 def project_card(p, cls=""):
     """Project tile: photo, name and blurb on hover. Not a link, no arrow."""
     return f'''<div class="card-img still {cls}"><img src="assets/img/{p["img"]}.jpg" alt="{escape(p["name"])}" loading="lazy"><div class="cap"><div><b>{p["name"]}</b><small>{p["blurb"]}</small></div></div></div>'''
@@ -114,25 +136,7 @@ def home():
     # Slanted certificate wall. Columns run left to right; the right-of-centre
     # columns sit in the clear part of the image, so the strongest credentials go there.
     # Columns 0-1 fall behind the headline veil, so they carry the supporting documents.
-    bykey = {c[0]: c for v in CERTS.values() for c in v}
-    SLANT_COLUMNS = [
-        ["fma", "ectc-letter", "gcte-fund"],                      # behind the headline
-        ["smm-membership", "amk-cma", "tbas-letter"],
-        ["spma-membership", "sbea-appreciation", "wsq-hazardous"],
-        ["iso14001", "bizsafe-star", "sbf-membership"],           # clear band starts here
-        ["iso9001", "iso45001", "es-award-2024"],                 # most visible column
-        ["bizsafe-star", "iso9001", "spma-membership"],           # partly clipped at the edge
-    ]
-    def slant_card(c):
-        k, n, d, land = c
-        return f'''<div class="slant-card" data-lightbox="home-certs" data-full="assets/certs/{k}.jpg" data-title="{escape(n)}" data-pdf="assets/certs/pdf/{k}.pdf"><img src="assets/certs/{k}.jpg" alt="{escape(n)}" loading="lazy"><span>{escape(n)}</span></div>'''
-    cols = []
-    for i, keys in enumerate(SLANT_COLUMNS):
-        items = [bykey[k] for k in keys]
-        while len(items) < 6: items = items + [bykey[k] for k in keys]
-        col_cards = "".join(slant_card(c) for c in items)   # NB: distinct name; `cards` holds the pest panels
-        cols.append(f'<div class="slant-col" data-dir="{1 if i % 2 == 0 else -1}"><div class="slant-inner">{col_cards}{col_cards}</div></div>')
-    slant_cols = "".join(cols)
+    slant_cols = slant_wall()
     logo_item = lambda f, n: f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></span>'
     row1 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW1)
     row2 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW2)
@@ -147,7 +151,7 @@ def home():
 <div class="container seq-end"><div class="hero-grid">
  <div><h2 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h2>
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
-  <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}{btn("Contact for quotation", "#enquiry", "lime")}</div></div>
+  <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
 </div></div></section>
 </div></div>
 <section class="section"><div class="container">
@@ -193,8 +197,7 @@ def home():
  <div class="section-head"><div class="reveal"><div class="eyebrow">News &amp; community</div><h2 class="h2">What we're doing and contributing</h2></div>{link_arrow("All news & community", "news.html")}</div>
  <div class="grid grid-3 reveal-stagger">{"".join(news_card(n) for n in NEWS[:3])}</div>
 </div></section>
-
-{cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
+'''
     body = body.replace('href="#enquiry"', 'href="contact.html#enquiry"')   # the form lives on the contact page
     return "index.html", page("index.html", "Pest Control & Termite Protection Singapore", "Pestimesh Pte Ltd — NEA-registered pest management and termite protection specialists in Singapore since 2011. IPM, stainless-steel mesh, mosquito, rodent, bedbug and cockroach control.", body, with_form=False)
 
@@ -224,8 +227,7 @@ def about():
  <h3 class="h3 mt-3">Our Commitment</h3><p class="muted mt-1">At Pestimesh, we are committed to providing dependable pest control services that our customers can trust. Whether you are managing a home, office, hotel, industrial facility or large commercial property, our team is ready to help keep your environment pest-free.</p></div>
 </div></section>
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Our people</div><h2 class="h2">A team that grows together</h2></div><p class="lead reveal">33 employees across six nationalities. Birthday celebrations, gatherings and hands-on training are part of how we build a safe, inclusive workplace.</p></div>
-{gallery([("staff-1","Staff gathering"),("birthday-1","Birthday celebration"),("training-group-1","Site training"),("gathering-1","Team dinner"),("birthday-2","Celebrating milestones"),("staff-2","Team outing")], "team")}</div></section>
-{cta_band("Have a Pest Problem?", "Whether you're dealing with termites, bedbugs, mosquitoes, cockroaches or other pests, our team is here to help. Contact Pestimesh today for professional pest control services.")}'''
+{gallery([("staff-1","Staff gathering"),("birthday-1","Birthday celebration"),("training-group-1","Site training"),("gathering-1","Team dinner"),("birthday-2","Celebrating milestones"),("staff-2","Team outing")], "team")}</div></section>'''
     return "about.html", page("about.html", "About Us", "Established in 2011, Pestimesh Pte Ltd is an NEA-registered pest management and termite protection specialist in Singapore.", body)
 
 # ---------------------------------------------------------------- SERVICES OVERVIEW
@@ -244,18 +246,15 @@ def services():
     return "services.html", page("services.html", "Services", "Pest control, termite control and protection, mosquito control, disinfection and stainless-steel mesh services in Singapore.", body)
 
 def projects():
-    feat = "".join(project_card(p) for p in PROJECTS[:5])
-    rest = "".join(project_card(p, "wide") for p in PROJECTS[5:])
+    tiles = "".join(project_card(p, "even") for p in PROJECTS)
     body = page_hero("Projects", "Trusted by Singapore's landmark facilities.", "Our portfolio includes pest control and termite-related projects for major facilities, and pest management programmes for developers and project teams throughout the construction phase of condominium and commercial developments.", "tp-building", "Projects")
     body += f'''
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Featured projects</div><h2 class="h2">Where we've worked</h2></div><p class="lead reveal">From airports and courts to hotels, plants and community markets, each programme is built around the site's risks, operations and safety requirements.</p></div>
-<div class="proj-feature reveal-stagger">{feat}</div>
-<div class="grid grid-3 mt-3 reveal-stagger">{rest}</div></div></section>
+<div class="grid grid-3 reveal-stagger">{tiles}</div></div></section>
 
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">On site</div><h2 class="h2">Treatment in action</h2></div></div>
-{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}<p class="small muted center" style="margin-top:34px;max-width:70ch;margin-inline:auto">Venue photographs: Singapore Zoo entrance by Dan arndt (CC BY-SA 4.0); Singapore Aviation Academy by Apetrov09703 (CC BY-SA 4.0); Katong Square by Chainwit (CC BY 4.0), via Wikimedia Commons.</p></div></section>
-{cta_band("Planning a programme for your facility?", "Tell us about the site and its operating requirements. We'll propose a practical, targeted pest management programme.")}'''
+{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}<p class="small muted center" style="margin-top:34px;max-width:70ch;margin-inline:auto">Venue photographs: Singapore Zoo entrance by Dan arndt (CC BY-SA 4.0); Singapore Aviation Academy by Apetrov09703 (CC BY-SA 4.0); Katong Square by Chainwit (CC BY 4.0), via Wikimedia Commons.</p></div></section>'''
     return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Changi Airport T2, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
 
 # ---------------------------------------------------------------- CERTIFICATIONS
@@ -267,7 +266,8 @@ def certifications():
     filters = f'<button class="on" data-filter="all">All certificates <span>{total}</span></button>' + "".join(f'<button data-filter="{k}">{k} <span>{len(v)}</span></button>' for k, v in CERTS.items())
     safety = ["People and occupants", "Site conditions", "Appropriate treatment methods", "Product and chemical handling", "Application requirements", "Follow-up and monitoring", "Minimising disruption to operations"]
     docs = ["Service records", "Inspection findings", "Treatment details", "Monitoring information", "Recommendations", "Follow-up requirements"]
-    body = page_hero("Certifications &amp; Compliance", "Professional Standards. Responsible Practice.", "At Pestimesh, professional pest management means more than effective treatment. We believe responsible pest management requires appropriate training, regulatory compliance, safe working practices and proper handling of pest management products and equipment. Our commitment is to operate professionally and responsibly while protecting people, properties and the environments in which we work.", "team-site", "Certifications & Compliance")
+    body = f'''<section class="page-hero cert-hero"><div class="slant-stage" data-slant><div class="slant-wall">{slant_wall()}</div></div><div class="veil"></div>
+<div class="container"><h1 class="h1">Professional Standards. Responsible Practice.</h1><p class="lead">At Pestimesh, professional pest management means more than effective treatment. We believe responsible pest management requires appropriate training, regulatory compliance, safe working practices and proper handling of pest management products and equipment. Our commitment is to operate professionally and responsibly while protecting people, properties and the environments in which we work.</p></div></section>'''
     body += f'''
 <section class="section" id="credentials"><div class="container">
  <div class="section-head center-head"><div class="reveal"><h2 class="h2">Our Certifications &amp; Credentials</h2><p class="lead mt-2">Our certifications, licences and compliance credentials are presented here for transparency. Click any certificate to view it in full or open the original PDF.</p></div></div>
@@ -276,12 +276,10 @@ def certifications():
  <p class="center muted small mt-4" data-count-label>Showing all {total} credentials</p>
  <p class="center muted small" style="margin-top:6px">Credentials, licences and memberships last reviewed in {CERTS_UPDATED}.</p>
 </div></section>
-<section class="section dark" id="safety"><div class="container"><div class="grid grid-2">
-<div class="reveal"><div class="eyebrow">Safe Pest Management</div><h3 class="h3">Safety is an important part of our approach.</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Our service planning considers:</p>{checks(safety)}<p class="small" style="color:rgba(255,255,255,.6)">The appropriate safety measures depend on the service and property.</p></div>
+<section class="section dark" id="safety"><div class="container"><div class="grid" style="max-width:760px">
 <div class="reveal"><div class="eyebrow">Documentation &amp; Service Records</div><h3 class="h3">Professional programmes, properly documented</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Depending on the scope of the programme, this may include:</p>{checks(docs)}<p class="small" style="color:rgba(255,255,255,.6)">These records can help customers understand the pest management programme and track ongoing activity.</p></div></div>
 <div class="divider" style="background:rgba(255,255,255,.12)"></div>
-<div class="reveal"><h3 class="h3">Our Commitment</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Pestimesh is committed to maintaining professional standards across our services while continuing to improve our knowledge, processes and practices.</p></div></div></section>
-{cta_band("Need documentation for your programme?", "We provide service records, inspection findings and monitoring information to support your compliance requirements.")}'''
+<div class="reveal"><h3 class="h3">Our Commitment</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Pestimesh is committed to maintaining professional standards across our services while continuing to improve our knowledge, processes and practices.</p></div></div></section>'''
     return "certifications.html", page("certifications.html", "Certifications & Compliance", "Pestimesh certifications: ISO 9001, ISO 14001, ISO 45001, bizSAFE Star, NEA registration, awards, memberships and letters of appreciation.", body)
 
 # ---------------------------------------------------------------- SUSTAINABILITY
@@ -330,8 +328,7 @@ def sustainability():
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Looking ahead</div><h2 class="h2">Our sustainability priorities</h2></div></div>
 <div class="grid grid-3 reveal-stagger">{"".join(f'<div class="card glow"><div class="num">0{i+1}</div><h4>{t}</h4><p>{d}</p></div>' for i, (t, d) in enumerate(prio))}</div>
-<div class="quote mt-5 reveal"><p>“At Pestimesh, we believe that sustainability and business success go hand in hand. By working responsibly today, we can help build healthier, safer and more sustainable environments for future generations.”</p><footer><img src="assets/img/winnie.jpg" alt="Winnie Seng"><div><b>Winnie Seng</b><span>Managing Director</span></div></footer></div></div></section>
-{cta_band("Partner with a responsible pest management provider.", "Ask us about prevention-led programmes, physical protection and our ESG progress.")}'''
+<div class="quote mt-5 reveal"><p>“At Pestimesh, we believe that sustainability and business success go hand in hand. By working responsibly today, we can help build healthier, safer and more sustainable environments for future generations.”</p><footer><img src="assets/img/winnie.jpg" alt="Winnie Seng"><div><b>Winnie Seng</b><span>Managing Director</span></div></footer></div></div></section>'''
     return "sustainability.html", page("sustainability.html", "Sustainability & ESG", "Pestimesh's ESG approach: prevention-led pest management, stainless-steel mesh, safety-first culture, community initiatives and FY2025 GRI-referenced baseline.", body)
 
 # ---------------------------------------------------------------- TECHNOLOGY
@@ -349,8 +346,7 @@ def technology():
 <h3 class="h3 mt-5">Digital &amp; AI</h3><p class="mt-1 muted">We are embracing AI and digital applications to streamline reporting and reduce repetitive administrative work, and exploring real-time monitoring, digital reporting and data-driven technologies so our people spend more time on site quality, safety and customer service.</p></div></div></section>
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Technology With a Purpose</div><h2 class="h2">Our approach to innovation is practical.</h2></div><p class="lead reveal">We focus on technology and methods that can help us:</p></div>
 <div class="grid grid-4 reveal-stagger">{"".join(f'<div class="card glow"><div class="ic">{I["check"]}</div><h4>{t}</h4></div>' for t in ["Improve inspection", "Detect concealed activity", "Increase treatment precision", "Support monitoring", "Reduce unnecessary intervention", "Improve customer outcomes", "Strengthen preventive pest management", "Innovation that supports sustainability"])}</div>
-<div class="btn-row mt-4">{btn("Explore our IPM approach", "ipm.html", "dark")}{btn("Explore Sustainability & ESG", "sustainability.html", "outline")}</div></div></section>
-{cta_band("Don't Let Pests Take Over Your Space.", "Whether it's a single pest sighting or an ongoing infestation, getting the right solution early can help prevent the problem from becoming bigger. Tell us what you're experiencing and let our team recommend the appropriate next step.")}'''
+<div class="btn-row mt-4">{btn("Explore our IPM approach", "ipm.html", "dark")}{btn("Explore Sustainability & ESG", "sustainability.html", "outline")}</div></div></section>'''
     return "technology.html", page("technology.html", "Technology & Innovation", "Thermal scanning, stainless-steel mesh and digital innovation at Pestimesh.", body)
 
 # ---------------------------------------------------------------- NEWS

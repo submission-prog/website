@@ -225,7 +225,7 @@ def _block(b, shade):
         return (f'<section class="section {shade}"><div class="container split">'
                 f'<div class="reveal left"><h2 class="h2">{title}</h2><p class="mt-2">{intro}</p><ul class="dotlist">{lis}</ul>'
                 + (f'<p class="muted">{outro}</p>' if outro else "") +
-                f'<div class="btn-row mt-4">{btn("Request a quote", "contact.html#enquiry", "lime")}{btn("WhatsApp us", WA, "wa", "wa")}</div></div>'
+                f'<div class="btn-row mt-4">{btn("WhatsApp us", WA, "wa", "wa")}</div></div>'
                 f'<div class="frame tall reveal right"><img src="assets/img/{img}.jpg" alt="{escape(title)}"></div></div></section>')
     if kind == "cards":
         _, title, intro, label, items = b
