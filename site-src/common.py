@@ -121,7 +121,7 @@ def nav(active):
     return f'''<header class="nav"><div class="container">
   <a class="brand" href="index.html" aria-label="Pestimesh home"><img class="light" src="assets/logo-light.png" alt="Pestimesh — Integrated Pest Management"></a>
   <ul class="nav-links">{"".join(lis)}</ul>
-  <div class="nav-cta">{btn("Book an inspection", "contact.html#enquiry", "lime")}<button class="burger" aria-label="Menu">{I["menu"]}</button></div>
+  <div class="nav-cta"><button class="burger" aria-label="Menu">{I["menu"]}</button></div>
 </div></header>
 <nav class="mobile-menu">{mobile}<div class="btn-row mt-3">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></nav>'''
 
