@@ -9,10 +9,10 @@ PROJECTS = [
     dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", blurb="Prevention-led pest management for a nature-integrated resort, balancing guest experience with sensitivity to the surrounding ecosystem."),
     dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", blurb="Pest management programme for critical national water infrastructure."),
     dict(name="Family Justice Courts", sector="Government", img="proj-fjc", blurb="Pest control and termite-related works for an institutional facility where hygiene and discretion matter."),
-    dict(name="Singapore Zoo", sector="Attractions", img="proj-zoo", blurb="Pest management in a wildlife environment, using approaches that limit harm to animals and the surrounding ecosystem."),
+    dict(name="Singapore Zoo", sector="Attractions", img="fogging-close", blurb="Pest management in a wildlife environment, using approaches that limit harm to animals and the surrounding ecosystem."),
     dict(name="PSA", sector="Port & logistics", img="tp-misting", blurb="Pest management support across large-scale port and logistics operations."),
-    dict(name="Indigo Hotel", sector="Hospitality", img="proj-indigo", blurb="Discreet, hospitality-grade pest management with minimal disruption to guests."),
-    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="proj-saa", blurb="Structured pest management programme for a training campus environment."),
+    dict(name="Indigo Hotel", sector="Hospitality", img="tp-fogging-2", blurb="Discreet, hospitality-grade pest management with minimal disruption to guests."),
+    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", blurb="Structured pest management programme for a training campus environment."),
     dict(name="Bedok Market 216", sector="Community", img="bedok-wide", blurb="Large-scale disinfection and environmental hygiene works at a hawker centre and market, supporting a cleaner, safer public space."),
 ]
 
@@ -254,7 +254,7 @@ def projects():
 
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">On site</div><h2 class="h2">Treatment in action</h2></div></div>
-{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}<p class="small muted center" style="margin-top:34px;max-width:70ch;margin-inline:auto">Venue photographs: Singapore Zoo entrance by Dan arndt (CC BY-SA 4.0); Singapore Aviation Academy by Apetrov09703 (CC BY-SA 4.0); Katong Square by Chainwit (CC BY 4.0), via Wikimedia Commons.</p></div></section>'''
+{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}</div></section>'''
     return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Changi Airport T2, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
 
 # ---------------------------------------------------------------- CERTIFICATIONS
