@@ -117,18 +117,19 @@ def gallery(items, group):
 # ---------------------------------------------------------------- HOME
 
 def home():
+    PANEL_FOCUS = {'hero-termite-svc': '52%', 'hero-mosquito': '47%', 'hero-bedbug': '58%', 'hero-cockroach': '54%', 'hero-rodent': '50%'}   # technician's horizontal position per photo
     pests_cards = [
-        ("termites.html", "pest-termite", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
-        ("mosquitoes.html", "pest-mosquito", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
-        ("bedbugs.html", "pest-bedbug", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
-        ("cockroaches.html", "pest-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
-        ("rodents.html", "pest-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
+        ("termites.html", "hero-termite-svc", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
+        ("mosquitoes.html", "hero-mosquito", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
+        ("bedbugs.html", "hero-bedbug", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
+        ("cockroaches.html", "hero-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
+        ("rodents.html", "hero-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
         ("disinfection.html", "bedok-1", "Disinfection", "Professional disinfection services designed to help reduce harmful microorganisms on surfaces and high-contact areas.", ""),
         ("bee-treatment.html", "pest-bee", "Bee Treatment", "Safe treatment and removal of bee and hornet nests by trained technicians.", ""),
         ("bird-spike.html", "pest-birdspike", "Bird Spike", "Humane physical deterrents that stop birds landing, roosting and nesting on exposed surfaces.", ""),
     ]
     cards = "".join(
-        f'''<a class="panel{" on" if i == 0 else ""}" href="{h}" data-panel="{i}"><img src="assets/img/{im}.jpg" alt="{t}" loading="lazy"><span class="veil"></span>
+        f'''<a class="panel{" on" if i == 0 else ""}" href="{h}" data-panel="{i}"><img src="assets/img/{im}.jpg" alt="{t}" loading="lazy" style="object-position:{PANEL_FOCUS.get(im, "50%")} center"><span class="veil"></span>
 <span class="spine"><b>{t}</b></span>
 <span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Learn more {I["arrow"]}</span></span></a>'''
         for i, (h, im, t, sub, tag) in enumerate(pests_cards))

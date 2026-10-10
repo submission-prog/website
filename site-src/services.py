@@ -60,6 +60,8 @@ PAGE_CREDITS = {
  "bird-spike.html": "Pigeon photograph by PattayaPatrol (CC BY-SA 4.0), via Wikimedia Commons."
 }
 
+HERO_FOCUS = {'hero-termite-svc': '52%', 'hero-mosquito': '47%', 'hero-bedbug': '58%', 'hero-cockroach': '54%', 'hero-rodent': '50%'}   # keeps the technician in frame on the service heroes
+
 PAGES = {
  "mosquitoes.html": dict(
   title="Mosquitoes & Dengue Prevention", hero="hero-mosquito", card="pest-mosquito",
@@ -329,6 +331,7 @@ def build_service(file, d):
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{title}', title, d["lead"], d["hero"])
     if d["hero"].startswith("hero-"):
         body = body.replace('<section class="page-hero">', '<section class="page-hero photo">', 1)
+        body = body.replace("background-image:url('assets/img/" + d["hero"] + ".jpg')", "background-image:url('assets/img/" + d["hero"] + ".jpg');background-position:" + HERO_FOCUS.get(d["hero"], "50%") + " center", 1)
     shades = ["", "white"]
     k = 0
     for b in d["blocks"]:
