@@ -169,14 +169,6 @@ def home():
 </section>
 
 
-<section class="section dark"><div class="container split rev">
- <div class="frame reveal right"><img src="assets/img/mesh-roll.jpg" alt="Woven stainless-steel termite mesh"></div>
- <div class="reveal left"><div class="eyebrow">Physical protection</div><h2 class="h2">Stainless-steel mesh. Long-term pest prevention.</h2>
-  <p class="lead mt-2">Not every pest problem needs chemicals. Our woven stainless-steel mesh is a physical barrier that stops termites and pests at the source, providing durable protection without relying solely on chemical treatment.</p>
-  <div class="pills mt-3"><span class="pill">Pre-construction</span><span class="pill">Australian-sourced technology</span><span class="pill">ISO-certified scope</span><span class="pill">Reduces chemical use</span><span class="pill">Long service life</span></div>
-  <div class="btn-row mt-4">{btn("Explore mesh protection", "mesh.html", "lime")}{btn("Termite services", "termites.html", "ghost")}</div></div>
-</div></section>
-
 <section class="section white"><div class="container">
  <div class="stats words reveal-stagger">
   <div class="stat"><span class="ic">{I["clock"]}</span><div><b>Since 2011</b><span>Singapore Experience</span></div></div>
