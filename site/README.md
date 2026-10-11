@@ -45,11 +45,13 @@ If you prefer, you can also edit the generated `.html` files directly.
 ## Preloader
 
 The home page opens on a dark green screen with the logo, then two panels split apart to reveal the
-page. It waits for the page to load, shows for at least 0.9 seconds, and gives up after 5
-seconds if an asset is slow. Reduced-motion visitors get a quick fade.
+page. It shows for about 0.55 seconds once the page is parsed (it does not wait for the hero video),
+and plays **once per browser session**: a flag in `sessionStorage` (`pl`) makes later visits to the
+home page skip it, via a tiny inline script in the `<head>` that adds `pl-skip` to the `<html>`
+element before anything paints. Reduced-motion visitors get a quick fade.
 
-Timing is `MIN` in the preloader block of `js/main.js`; the markup is in `page()` in
-`site-src/common.py`.
+Timing is `MIN` in the preloader block of `js/main.js`; the markup and the inline script are in
+`page()` in `site-src/common.py`.
 
 ## Home hero video
 

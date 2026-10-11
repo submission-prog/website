@@ -9,9 +9,11 @@
   /* ---- Preloader: hold on the logo, then split the panels open ---- */
   (function () {
     const pl = document.getElementById('preload');
-    if (!pl) { document.body.classList.remove('preloading'); return; }
+    const skip = document.documentElement.classList.contains('pl-skip');
+    if (!pl || skip) { document.body.classList.remove('preloading'); pl && pl.remove(); return; }
+    try { sessionStorage.setItem('pl', '1'); } catch (e) {}   // once per browser session
     requestAnimationFrame(() => pl.classList.add('ready'));   // fade the logo in
-    const MIN = matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 1000;
+    const MIN = matchMedia('(prefers-reduced-motion: reduce)').matches ? 150 : 550;
     const t0 = performance.now();
     let done = false;
     const open = () => {
@@ -19,11 +21,12 @@
       setTimeout(() => {
         pl.classList.add('done');
         document.body.classList.remove('preloading');
-        setTimeout(() => pl.classList.add('gone'), 1500);   // .5s logo fade + .9s split
+        setTimeout(() => pl.classList.add('gone'), 1000);   // .35s logo fade + .65s split
       }, Math.max(0, MIN - (performance.now() - t0)));
     };
-    document.readyState === 'complete' ? open() : addEventListener('load', open);
-    setTimeout(open, 5000);                       // never trap the visitor behind a slow asset
+    // The DOM is parsed by the time this runs; don't wait for the hero video or every image.
+    open();
+    setTimeout(open, 3000);
   })();
 
   /* ---- Nav: solid on scroll, mobile menu ---- */

@@ -185,6 +185,8 @@ def page(file, title, desc, body, with_form=False):
     home = file == "index.html"          # only the home page gets the preloader
     body_class = ' class="preloading"' if home else ''
     preload = '<div id="preload" aria-hidden="true"><span class="pl-half t"></span><span class="pl-half b"></span><img src="assets/logo-light.png" alt=""></div>' if home else ''
+    # Runs before the body paints: skip the preloader if it has already played this browser session.
+    skip = '<script>try{if(sessionStorage.getItem("pl"))document.documentElement.classList.add("pl-skip")}catch(e){}</script>' if home else ''
     html = f'''<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -194,7 +196,7 @@ def page(file, title, desc, body, with_form=False):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v={BUILD}">
-</head><body{body_class}>
+{skip}</head><body{body_class}>
 {preload}
 {nav(file)}
 <main>{body}{enquiry() if with_form else ""}</main>
