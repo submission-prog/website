@@ -716,11 +716,11 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 @media(max-width:620px){.display,.hero-seq .seq-intro .display{font-size:clamp(28px,8.4vw,40px)}.page-hero .h1{font-size:clamp(26px,7.4vw,36px)}}
 
 /* Home hero headline only: heavier, with the logo's orange stepping through three shades */
-.hero-seq .seq-end .display{font-weight:300;letter-spacing:-.03em}
-.hero-seq .seq-end .display .hl{font-style:normal}
-.hero-seq .seq-end .display .ln:nth-child(1) .hl{color:#f2d08a}
-.hero-seq .seq-end .display .ln:nth-child(2) .hl{color:#e4b45c}
-.hero-seq .seq-end .display .ln:nth-child(3) .hl{color:#cf9a3c}
+.hero-video .display{font-weight:300;letter-spacing:-.03em}
+.hero-video .display .hl{font-style:normal}
+.hero-video .display .ln:nth-child(1) .hl{color:#f2d08a}
+.hero-video .display .ln:nth-child(2) .hl{color:#e4b45c}
+.hero-video .display .ln:nth-child(3) .hl{color:#cf9a3c}
 
 /* leadership portraits */
 .quote footer img{width:68px;height:68px;object-position:50% 22%}
@@ -844,3 +844,11 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .card.photo p{color:rgba(255,255,255,.84)}
 .card.photo .ic{background:var(--lime);color:var(--teal-950)}
 .card.dark.photo::before{background:rgba(6,26,21,.78)}
+
+/* home hero: looping background video, copy visible immediately */
+.hero-video{min-height:100svh;background:#050f0c}
+.hero-video .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero-video .veil{background:rgba(5,26,21,.58)}
+.hero-video .container{padding:150px 0 90px}
+.hero-video .lead,.hero-video .btn-row{animation:fadeUp 1s .55s var(--ease) both}
+.hero-video .btn-row{animation-delay:.75s}

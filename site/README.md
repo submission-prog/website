@@ -52,12 +52,11 @@ seconds if an asset is slow. Reduced-motion visitors get a quick fade.
 Timing is `MIN` in the preloader block of `js/main.js`; the markup is in `page()` in
 `site-src/common.py`.
 
-## Home hero sequence
+## Home hero video
 
-The home page opens on a termite-tunnel scene with its own headline. The page is held there; the first scroll, swipe, arrow key or tap on the cue plays a 121-frame sequence once (termites tunnelling up to a stainless-steel mesh pipe collar) over 3 seconds, then reveals the main hero copy and buttons and releases the page. It never replays on scrolling back up. Visitors arriving with a `#link`, or with reduced motion enabled, go straight to the end scene.
-
-- Frames live in `assets/heroseq/`: `f_001…121.jpg` (1440px, desktop) and `m_001…121.jpg` (860px, phones), extracted with ffmpeg from `hf_20260930_104908_…578.mp4` (30 Sep 2026). The end scene sits under a flat 60% tint so the headline stays readable.
-- Intro wording is in the `seq-intro` block of `home()` in `site-src/pages.py`. Speed is `DURATION` in the hero sequence block of `js/main.js`.
+The home hero is a muted, looping background video (`assets/video/hero.mp4`, 1920px, with
+`hero-m.mp4` for phones and `assets/img/hero-poster.jpg` as the first frame). The headline and
+buttons show immediately over a flat 58% tint. Source clip: `Brand/hero-loop-source.mp4`.
 
 ## Client logos (home page)
 

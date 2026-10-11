@@ -117,13 +117,13 @@ def gallery(items, group):
 # ---------------------------------------------------------------- HOME
 
 def home():
-    PANEL_FOCUS = {'hero-termite-svc': '52%', 'hero-mosquito': '47%', 'hero-bedbug': '58%', 'hero-cockroach': '54%', 'hero-rodent': '50%'}   # technician's horizontal position per photo
+    PANEL_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # technician's horizontal position per photo
     pests_cards = [
-        ("termites.html", "hero-termite-svc", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
-        ("mosquitoes.html", "hero-mosquito", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
-        ("bedbugs.html", "hero-bedbug", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
-        ("cockroaches.html", "hero-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
-        ("rodents.html", "hero-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
+        ("termites.html", "tech-termite", "Termite", "Termite protection solutions, including chemical treatment and physical barrier solutions where appropriate.", ""),
+        ("mosquitoes.html", "tech-mosquito", "Mosquito", "Targeted mosquito-control solutions designed to address both adult mosquitoes and potential breeding sources.", ""),
+        ("bedbugs.html", "tech-bedbug", "Bedbug", "Targeted bedbug treatment designed to address active infestations and help prevent recurrence.", ""),
+        ("cockroaches.html", "tech-cockroach", "Cockroach", "Effective cockroach treatment for homes and businesses, with solutions tailored to the level and location of infestation.", ""),
+        ("rodents.html", "tech-rodent", "Rodent", "Rodent management solutions focused on controlling activity and identifying potential entry and harbourage points.", ""),
         ("disinfection.html", "bedok-1", "Disinfection", "Professional disinfection services designed to help reduce harmful microorganisms on surfaces and high-contact areas.", ""),
         ("bee-treatment.html", "pest-bee", "Bee Treatment", "Safe treatment and removal of bee and hornet nests by trained technicians.", ""),
         ("bird-spike.html", "pest-birdspike", "Bird Spike", "Humane physical deterrents that stop birds landing, roosting and nesting on exposed surfaces.", ""),
@@ -142,15 +142,14 @@ def home():
     row1 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW1)
     row2 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW2)
     body = f'''
-<section class="hero hero-seq" data-heroseq data-frames="121">
-<canvas class="seq-canvas" aria-hidden="true"></canvas>
-<div class="bg" style="background-image:url('assets/img/hero-home.jpg')"></div><div class="veil"></div>
-<div class="seq-intro"><div class="container">
- <h1 class="display">What you can't see can cost you the most.</h1>
- <p class="lead">Termites work silently inside walls, floors and foundations, long before the damage shows.</p>
-</div></div>
-<div class="container seq-end"><div class="hero-grid">
- <div><h2 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h2>
+<section class="hero hero-video">
+<video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.jpg">
+ <source src="assets/video/hero-m.mp4" type="video/mp4" media="(max-width: 760px)">
+ <source src="assets/video/hero.mp4" type="video/mp4">
+</video>
+<div class="veil"></div>
+<div class="container"><div class="hero-grid">
+ <div><h1 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h1>
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
 </div></div></section>

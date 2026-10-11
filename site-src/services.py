@@ -17,10 +17,10 @@ CARD_PHOTOS = {
   "Targeted Insecticide Treatment": "pest-termite"
  },
  "bedbugs.html": {
-  "Heat Treatment": "hero-bedbug"
+  "Heat Treatment": "tech-bedbug"
  },
  "rodents.html": {
-  "Rodent Baiting": "hero-rodent",
+  "Rodent Baiting": "tech-rodent",
   "Rodent Trapping": "cc-rat-trap",
   "Monitoring &amp; Follow-Up": "pest-rodent"
  },
@@ -60,11 +60,11 @@ PAGE_CREDITS = {
  "bird-spike.html": "Pigeon photograph by PattayaPatrol (CC BY-SA 4.0), via Wikimedia Commons."
 }
 
-HERO_FOCUS = {'hero-termite-svc': '52%', 'hero-mosquito': '47%', 'hero-bedbug': '58%', 'hero-cockroach': '54%', 'hero-rodent': '50%'}   # keeps the technician in frame on the service heroes
+HERO_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # keeps the technician in frame on the service heroes
 
 PAGES = {
  "mosquitoes.html": dict(
-  title="Mosquitoes & Dengue Prevention", hero="hero-mosquito", card="pest-mosquito",
+  title="Mosquitoes & Dengue Prevention", hero="tech-mosquito", card="pest-mosquito",
   lead=["Mosquito activity can be more than a nuisance. Certain mosquito species can transmit diseases such as dengue, making effective mosquito management important for homes, businesses and outdoor spaces."],
   blocks=[
    ("list", "Signs of Mosquito Activity", "Common signs include:",
@@ -83,7 +83,7 @@ PAGES = {
   ]),
 
  "cockroaches.html": dict(
-  title="Cockroach Control", hero="hero-cockroach", card="pest-cockroach",
+  title="Cockroach Control", hero="tech-cockroach", card="pest-cockroach",
   lead=["Cockroaches can contaminate food and surfaces and are particularly difficult to control because they can hide in small, inaccessible areas. Without effective treatment, infestations can spread quickly."],
   blocks=[
    ("list", "Signs of Cockroach Activity", "Common signs include:",
@@ -100,7 +100,7 @@ PAGES = {
   ]),
 
  "bedbugs.html": dict(
-  title="Bed Bug Control", hero="hero-bedbug", card="pest-bedbug",
+  title="Bed Bug Control", hero="tech-bedbug", card="pest-bedbug",
   lead=["Bed bugs are persistent pests that can hide in mattresses, bed frames, furniture and other concealed areas. Pestimesh provides targeted bed bug control solutions designed to identify infestations and treat affected areas effectively."],
   blocks=[
    ("list", "Signs of Bed Bug Activity", "Common signs of bed bug activity include:",
@@ -114,7 +114,7 @@ PAGES = {
   ]),
 
  "rodents.html": dict(
-  title="Rodent Management", hero="hero-rodent", card="pest-rodent",
+  title="Rodent Management", hero="tech-rodent", card="pest-rodent",
   lead=["Rats and mice can contaminate food, damage property and create hygiene concerns when they gain access to a building. Pestimesh provides targeted rodent management solutions designed to identify activity, control infestations and reduce the risk of recurring problems."],
   blocks=[
    ("list", "Signs of Rodent Activity", "Common signs of rodent activity include:",
@@ -130,7 +130,7 @@ PAGES = {
   ]),
 
  "termites.html": dict(
-  title="Termite Control", hero="hero-termite-svc", card="pest-termite",
+  title="Termite Control", hero="tech-termite", card="pest-termite",
   lead=["Termites can remain hidden for long periods while feeding on wood and other cellulose-based materials. Without early detection and appropriate treatment, termite activity can cause significant damage to a property."],
   blocks=[
    ("list", "Signs of Termite Activity", "Common signs include:",
