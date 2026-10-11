@@ -21,7 +21,6 @@ CARD_PHOTOS = {
  },
  "rodents.html": {
   "Rodent Baiting": "tech-rodent",
-  "Rodent Trapping": "cc-rat-trap",
   "Monitoring &amp; Follow-Up": "pest-rodent"
  },
  "termites.html": {
@@ -44,21 +43,14 @@ CARD_PHOTOS = {
   "Commercial &amp; Facility Disinfection": "bedok-1"
  },
  "bee-treatment.html": {
-  "Nest Assessment": "cc-hornet-nest",
   "Nest Treatment &amp; Removal": "pest-bee"
  },
  "bird-spike.html": {
-  "Site Assessment": "cc-pigeon-ledge",
   "Spike Installation": "pest-birdspike"
  }
 }
 
 # Attribution the Creative Commons licences require; shown small at the foot of the page.
-PAGE_CREDITS = {
- "rodents.html": "Trap photograph by NY State IPM Program, Cornell University (CC BY 2.0), via Wikimedia Commons.",
- "bee-treatment.html": "Hornet nest photograph by Thresiamma Varghese (CC BY-SA 4.0), via Wikimedia Commons.",
- "bird-spike.html": "Pigeon photograph by PattayaPatrol (CC BY-SA 4.0), via Wikimedia Commons."
-}
 
 HERO_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # keeps the technician in frame on the service heroes
 
@@ -339,8 +331,6 @@ def build_service(file, d):
             body += _block(b, "dark", CARD_PHOTOS.get(file))
         else:
             body += _block(b, shades[k % 2], CARD_PHOTOS.get(file)); k += 1
-    if file in PAGE_CREDITS:
-        body += f'<section class="section tight"><div class="container"><p class="small muted center">{PAGE_CREDITS[file]}</p></div></section>'
     desc = re.sub(r"<[^>]+>", "", d["lead"][0])[:155]
     return file, page(file, d["title"], desc, body)
 

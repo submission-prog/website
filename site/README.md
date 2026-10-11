@@ -97,8 +97,8 @@ Any service whose `hero` starts with `hero-` gets the brighter "photo" hero styl
 
 Cards on the service pages can carry a photo behind a heavy flat tint. The mapping is `CARD_PHOTOS`
 in `site-src/services.py` (page → card title → image). Cards with no accurate photo are left plain
-on purpose. Five images come from Wikimedia Commons and are credited at the foot of their page
-(`PAGE_CREDITS`); details in `site-src/cc_credits.json`.
+on purpose. Only client-supplied photos are used; no stock or Creative Commons images, so no
+credit lines appear anywhere on the site.
 
 ## Assets
 
