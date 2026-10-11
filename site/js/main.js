@@ -145,6 +145,28 @@
     if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1);
   });
 
+  /* ---- Review slider: one card at a time, auto-advancing, loops ---- */
+  $$('[data-revslider]').forEach(sl => {
+    const track = $('.rev-track', sl), dots = $('.rev-dots', sl);
+    const n = track.children.length; if (n < 2) return;
+    track.appendChild(track.firstElementChild.cloneNode(true));
+    let i = 0, timer;
+    const ds = Array.from({ length: n }, (_, k) => { const d = document.createElement('span'); d.addEventListener('click', () => { go(k); restart(); }); dots.appendChild(d); return d; });
+    const paint = () => ds.forEach((d, k) => d.classList.toggle('on', k === i % n));
+    const go = k => { i = k; track.classList.remove('nojump'); track.style.transform = `translateX(-${i * 100}%)`; paint(); };
+    track.addEventListener('transitionend', () => {
+      if (i === n) { track.classList.add('nojump'); i = 0; track.style.transform = 'translateX(0)'; void track.offsetWidth; track.classList.remove('nojump'); }
+    });
+    const next = () => { if (i >= n) { track.classList.add('nojump'); i = 0; track.style.transform = 'translateX(0)'; void track.offsetWidth; } go(i + 1); };
+    const prev = () => { if (i === 0) { track.classList.add('nojump'); i = n; track.style.transform = `translateX(-${n * 100}%)`; void track.offsetWidth; } go(i - 1); };
+    const restart = () => { clearInterval(timer); timer = setInterval(next, 5000); };
+    $('[data-dir="next"]', sl).addEventListener('click', () => { next(); restart(); });
+    $('[data-dir="prev"]', sl).addEventListener('click', () => { prev(); restart(); });
+    sl.addEventListener('mouseenter', () => clearInterval(timer));
+    sl.addEventListener('mouseleave', restart);
+    paint(); restart();
+  });
+
   /* ---- Horizontal scroller buttons ---- */
   $$('[data-hscroll]').forEach(wrap => {
     const track = $('.hscroll', wrap);

@@ -72,7 +72,7 @@ home page; they live on the Certifications page.
 
 The home page shows the company's five-star Google reviews that have written text, copied from the
 Google listing on 11 Oct 2026 into `REVIEWS` in `site-src/pages.py`, with the overall rating and
-count in `GOOGLE_RATING` / `GOOGLE_REVIEW_COUNT`. "Write a review" opens Google's review form for the
+rating in `GOOGLE_RATING`. The cards sit in a one-at-a-time slider that auto-advances every 5 seconds and loops (`[data-revslider]` in `js/main.js`). "Write a review" opens Google's review form for the
 listing and "Read all reviews" opens the listing. Google has no free public API for reviews, so
 refresh the list by hand when new five-star reviews arrive.
 

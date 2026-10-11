@@ -103,13 +103,15 @@ def reviews_section():
         f'<div class="review"><div class="stars">{stars}</div><p>{escape(text)}</p>'
         f'<div class="who"><span class="avatar">{escape(name[0].upper())}</span><div><b>{escape(name)}</b><span>{escape(date)} · Google</span></div></div></div>'
         for name, date, text in REVIEWS)
-    return (f'<section class="section" id="reviews"><div class="container">'
-            f'<div class="section-head" style="align-items:center"><div class="reveal"><h2 class="h2">Google Reviews</h2>'
-            f'<div class="rating"><b>{GOOGLE_RATING}</b><span class="stars">{stars}</span><span class="muted">{GOOGLE_REVIEW_COUNT} reviews on Google</span></div></div>'
-            f'<div class="btn-row reveal" style="justify-content:flex-end">'
+    return (f'<section class="section" id="reviews"><div class="container reviews-split">'
+            f'<div class="reveal"><h2 class="h2">Google Reviews</h2>'
+            f'<div class="rating"><b>{GOOGLE_RATING}</b><span class="stars">{stars}</span><span class="muted">Reviews on Google</span></div>'
+            f'<div class="btn-row mt-4">'
             f'<a class="btn btn-lime" href="{GOOGLE_WRITE_REVIEW}" target="_blank" rel="noopener">Write a review {I["star"]}</a>'
             f'<a class="btn btn-outline" href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read all reviews {I["arrow"]}</a></div></div>'
-            f'<div class="reviews reveal-stagger">{cards}</div></div></section>')
+            f'<div class="rev-slider reveal" data-revslider><div class="rev-track">{cards}</div>'
+            f'<div class="rev-nav"><button type="button" data-dir="prev" aria-label="Previous review">{I["arrow"]}</button><div class="rev-dots"></div><button type="button" data-dir="next" aria-label="Next review">{I["arrow"]}</button></div></div>'
+            f'</div></section>')
 
 
 def slant_wall():
