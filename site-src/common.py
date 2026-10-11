@@ -11,7 +11,10 @@ WA = "https://wa.me/6586681988"
 EMAIL = "enquiry@pestimesh.com.sg"
 ADDRESS = ["80 Playfair Road, #04-05", "Kapo Factory Building", "Singapore 367998"]
 LINKEDIN = "https://www.linkedin.com/company/pestimesh-pte-ltd"
-INSTAGRAM = "#"  # TODO: add Instagram profile URL
+INSTAGRAM = "https://www.instagram.com/pestimesh/"
+FACEBOOK = "https://www.facebook.com/pestimeshSG/"
+GOOGLE_REVIEWS = "https://www.google.com/search?q=pestimesh#lrd=0x31da179238afffff:0x462848d18dceb2e,1"
+GOOGLE_WRITE_REVIEW = "https://www.google.com/search?q=pestimesh#lrd=0x31da179238afffff:0x462848d18dceb2e,3"
 
 I = {
     "arrow": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
@@ -48,6 +51,8 @@ I = {
     "target": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>',
     "alert": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"/><path d="M12 9v5M12 17h.01"/></svg>',
     "menu": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+    "fb": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8z"/></svg>',
+    "star": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.5 2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>',
     "ig": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
     "in": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 2H3.6A1.6 1.6 0 0 0 2 3.6v16.8A1.6 1.6 0 0 0 3.6 22h16.8a1.6 1.6 0 0 0 1.6-1.6V3.6A1.6 1.6 0 0 0 20.4 2zM8 19H5V9h3zM6.5 7.7A1.8 1.8 0 1 1 8.3 6a1.8 1.8 0 0 1-1.8 1.7zM19 19h-3v-4.9c0-1.2 0-2.7-1.6-2.7s-1.9 1.3-1.9 2.6V19h-3V9h2.9v1.4a3.2 3.2 0 0 1 2.9-1.6c3.1 0 3.7 2 3.7 4.7z"/></svg>',
     "quote": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h4v4c0 3-2 5-4 5v-2c1 0 2-1 2-3H7zm8 0h4v4c0 3-2 5-4 5v-2c1 0 2-1 2-3h-2z"/></svg>',
@@ -123,7 +128,7 @@ def nav(active):
   <ul class="nav-links">{"".join(lis)}</ul>
   <div class="nav-cta"><button class="burger" aria-label="Menu">{I["menu"]}</button></div>
 </div></header>
-<nav class="mobile-menu">{mobile}<div class="btn-row mt-3">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></nav>'''
+<nav class="mobile-menu">{mobile}<div class="btn-row mt-3">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call now", "tel:"+PHONE_TEL, "ghost", "phone")}</div><div class="social mt-3"><a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook">{I["fb"]}</a><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{I["ig"]}</a><a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">{I["in"]}</a></div></nav>'''
 
 
 def enquiry(title="Request a quote. Start with a site assessment.", sub="For project quotations and service enquiries, contact Pestimesh directly. Tell us a little about your property and the issue you are experiencing, and we will recommend the appropriate next step."):
@@ -168,7 +173,7 @@ def footer():
     return f'''<footer class="footer"><div class="container">
   <div class="cols">
     <div class="brandcol"><img src="assets/logo-light.png" alt="Pestimesh">
-      <div class="social"><a href="{INSTAGRAM}" aria-label="Instagram">{I["ig"]}</a><a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">{I["in"]}</a></div></div>
+      <div class="social"><a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook">{I["fb"]}</a><a href="{INSTAGRAM}" target="_blank" rel="noopener" aria-label="Instagram">{I["ig"]}</a><a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">{I["in"]}</a></div></div>
     {svc_cols}{company}
   </div>
   <div class="bottom"><span>© <span data-year></span> {SITE}. All rights reserved.</span><span>Protecting People. Protecting Properties. Protecting Communities.</span></div>

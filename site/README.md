@@ -38,7 +38,6 @@ If you prefer, you can also edit the generated `.html` files directly.
 
 ## Things to fill in
 
-- Instagram profile URL: `INSTAGRAM` in `site-src/common.py` (currently `#`).
 - Project write-ups in `pages.py` → `PROJECTS` are short placeholders based on the ESG report; replace with real scope descriptions and photos when available.
 - Blog / insights articles ("to be updated in the future" in the sitemap) — the News page has placeholder cards.
 - Form submission: the form currently opens the visitor's email client (pre-filled) or WhatsApp (pre-filled message). To store submissions, connect the `<form>` to a service such as Formspree, Netlify Forms or Web3Forms.
@@ -58,16 +57,29 @@ The home hero is a muted, looping background video (`assets/video/hero.mp4`, 192
 `hero-m.mp4` for phones and `assets/img/hero-poster.jpg` as the first frame). The headline and
 buttons show immediately over a flat 58% tint. Source clip: `Brand/hero-loop-source.mp4`.
 
-## Client logos (home page)
+## Client logos (home and About pages)
 
 Under the heading "Projects We Have Done", two marquees scroll in opposite directions carrying
-the 22 client logos in `assets/logos/clients/`. They are shown unboxed on the page background,
+the 22 client logos in `assets/logos/clients/` (`logo_rows()` in `site-src/pages.py`, used on the home page and the About page). They are shown unboxed on the page background,
 always in full colour, lifting slightly on hover. White backgrounds were keyed out of the supplied files by flood-filling
 from the border, so white *inside* a mark is preserved.
 
 Rows are `CLIENT_LOGOS_ROW1` (landmark facilities) and `CLIENT_LOGOS_ROW2` (construction
 partners) in `site-src/pages.py`. Accreditation and membership logos are **not** shown on the
 home page; they live on the Certifications page.
+
+## Google reviews (home page)
+
+The home page shows the company's five-star Google reviews that have written text, copied from the
+Google listing on 11 Oct 2026 into `REVIEWS` in `site-src/pages.py`, with the overall rating and
+count in `GOOGLE_RATING` / `GOOGLE_REVIEW_COUNT`. "Write a review" opens Google's review form for the
+listing and "Read all reviews" opens the listing. Google has no free public API for reviews, so
+refresh the list by hand when new five-star reviews arrive.
+
+## Social links
+
+`FACEBOOK`, `INSTAGRAM` and `LINKEDIN` in `site-src/common.py` feed the footer, the mobile menu and
+the News page follow buttons.
 
 ## Cache busting
 

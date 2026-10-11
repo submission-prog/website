@@ -75,6 +75,43 @@ CLIENT_LOGOS_ROW2 = [
 
 # ---------------------------------------------------------------- helpers
 
+def logo_rows():
+    """'Projects We Have Done': two client-logo marquees running in opposite directions."""
+    item = lambda f, n: f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></span>'
+    row1 = "".join(item(f, n) for f, n in CLIENT_LOGOS_ROW1)
+    row2 = "".join(item(f, n) for f, n in CLIENT_LOGOS_ROW2)
+    return (f'<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>'
+            f'<div class="marquee logos"><div class="track">{row1}</div></div>'
+            f'<div class="marquee logos rev"><div class="track">{row2}</div></div></section>')
+
+
+# Google reviews, copied from the company's Google listing on 11 Oct 2026. Five-star reviews with text only.
+GOOGLE_RATING = "4.5"
+GOOGLE_REVIEW_COUNT = 8
+REVIEWS = [
+    ("레아", "10 months ago", "Had a case of bed bugs and contacted this company to help with pest control. Service was good and everything got settled quickly, thank you 👍🏻"),
+    ("Dato Siva", "10 months ago", "We had a Rodent problem in our garden and immediately decided to call Pestimesh as it has been highly recommended by my friends.They came down and within a week solved my rat infestation problem.Highly recommended"),
+    ("Ming hao", "10 months ago", "Highly recommended for people who is in need of quick pest control services as they can get the job done quickly"),
+    ("Leonard", "10 months ago", "Very good service. Recommend of you need any pest control services."),
+    ("Andrea Lim", "10 months ago", "Very efficient, fuss free and workers know their stuff well"),
+]
+
+
+def reviews_section():
+    stars = I["star"] * 5
+    cards = "".join(
+        f'<div class="review"><div class="stars">{stars}</div><p>{escape(text)}</p>'
+        f'<div class="who"><span class="avatar">{escape(name[0].upper())}</span><div><b>{escape(name)}</b><span>{escape(date)} · Google</span></div></div></div>'
+        for name, date, text in REVIEWS)
+    return (f'<section class="section" id="reviews"><div class="container">'
+            f'<div class="section-head" style="align-items:center"><div class="reveal"><h2 class="h2">Google Reviews</h2>'
+            f'<div class="rating"><b>{GOOGLE_RATING}</b><span class="stars">{stars}</span><span class="muted">{GOOGLE_REVIEW_COUNT} reviews on Google</span></div></div>'
+            f'<div class="btn-row reveal" style="justify-content:flex-end">'
+            f'<a class="btn btn-lime" href="{GOOGLE_WRITE_REVIEW}" target="_blank" rel="noopener">Write a review {I["star"]}</a>'
+            f'<a class="btn btn-outline" href="{GOOGLE_REVIEWS}" target="_blank" rel="noopener">Read all reviews {I["arrow"]}</a></div></div>'
+            f'<div class="reviews reveal-stagger">{cards}</div></div></section>')
+
+
 def slant_wall():
     """Columns of certificates for the slanted wall (home section and certifications hero)."""
     bykey = {c[0]: c for v in CERTS.values() for c in v}
@@ -138,9 +175,6 @@ def home():
     # columns sit in the clear part of the image, so the strongest credentials go there.
     # Columns 0-1 fall behind the headline veil, so they carry the supporting documents.
     slant_cols = slant_wall()
-    logo_item = lambda f, n: f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></span>'
-    row1 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW1)
-    row2 = "".join(logo_item(f, n) for f, n in CLIENT_LOGOS_ROW2)
     body = f'''
 <section class="hero hero-video">
 <video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.jpg">
@@ -160,9 +194,7 @@ def home():
  <p class="muted mt-3 center">Once the plan is confirmed, our team will implement the recommended pest management measures, target the source of the infestation, treat affected areas, and arrange follow-up monitoring to help provide lasting protection.</p>
 </div></section>
 
-<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>
-<div class="marquee logos"><div class="track">{row1}</div></div>
-<div class="marquee logos rev"><div class="track">{row2}</div></div></section>
+{logo_rows()}
 
 <section class="section dark slant-section"><div class="slant-stage" data-slant><div class="slant-wall">{slant_cols}</div><div class="slant-veil"></div></div>
  <div class="container slant-copy"><div class="reveal left"><div class="eyebrow">Certifications &amp; compliance</div><h2 class="h2">Professional standards. Responsible practice.</h2><p class="lead mt-2">Our certifications, licences and compliance credentials are presented here for transparency. ISO 9001, 14001 and 45001 certified, bizSAFE Star and NEA-registered. Click any certificate to view it.</p><div class="btn-row mt-3">{btn("View all certifications", "certifications.html", "lime")}</div></div></div>
@@ -185,6 +217,7 @@ def home():
 
 
 
+{reviews_section()}
 <section class="section white"><div class="container">
  <div class="section-head"><div class="reveal"><div class="eyebrow">News &amp; community</div><h2 class="h2">What we're doing and contributing</h2></div>{link_arrow("All news & community", "news.html")}</div>
  <div class="grid grid-3 reveal-stagger">{"".join(news_card(n) for n in NEWS[:3])}</div>
@@ -219,7 +252,8 @@ def about():
  <h3 class="h3 mt-3">Our Commitment</h3><p class="muted mt-1">At Pestimesh, we are committed to providing dependable pest control services that our customers can trust. Whether you are managing a home, office, hotel, industrial facility or large commercial property, our team is ready to help keep your environment pest-free.</p></div>
 </div></section>
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Our people</div><h2 class="h2">A team that grows together</h2></div><p class="lead reveal">33 employees across six nationalities. Birthday celebrations, gatherings and hands-on training are part of how we build a safe, inclusive workplace.</p></div>
-{gallery([("staff-1","Staff gathering"),("birthday-1","Birthday celebration"),("training-group-1","Site training"),("gathering-1","Team dinner"),("birthday-2","Celebrating milestones"),("staff-2","Team outing")], "team")}</div></section>'''
+{gallery([("staff-1","Staff gathering"),("birthday-1","Birthday celebration"),("training-group-1","Site training"),("gathering-1","Team dinner"),("birthday-2","Celebrating milestones"),("staff-2","Team outing")], "team")}</div></section>
+{logo_rows()}'''
     return "about.html", page("about.html", "About Us", "Established in 2011, Pestimesh Pte Ltd is an NEA-registered pest management and termite protection specialist in Singapore.", body)
 
 # ---------------------------------------------------------------- SERVICES OVERVIEW
@@ -346,7 +380,7 @@ def news():
 {gallery([("dengue-1","Dengue awareness talk"),("dengue-2","Site team briefing"),("bendemeer-1","Bendemeer Secondary School visit"),("bendemeer-2","Career sharing"),("bendemeer-3","Office tour"),("temple","Community event")], "outreach")}</div></section>
 <section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Pest management insights</div><h2 class="h2">Practical guides, coming soon</h2></div><p class="lead reveal">Prevention tips, pest identification, seasonal pest issues and property protection guidance. In the meantime, each service page has detailed prevention advice.</p></div>
 <div class="grid grid-4 reveal-stagger"><div class="card glow"><div class="ic">{I["shield"]}</div><h4>Pest prevention tips</h4><p>Simple property and hygiene measures that reduce pest risks.</p></div><div class="card glow"><div class="ic">{I["search"]}</div><h4>Pest identification</h4><p>Common signs of activity and when to call for an inspection.</p></div><div class="card glow"><div class="ic">{I["clock"]}</div><h4>Seasonal pest issues</h4><p>Pest risks that become more relevant at different times of year.</p></div><div class="card glow"><div class="ic">{I["building"]}</div><h4>Property protection</h4><p>Practical guidance for homes, businesses and facilities.</p></div></div>
-<div class="btn-row mt-4"><a class="btn btn-outline" href="{LINKEDIN}" target="_blank" rel="noopener">Follow on LinkedIn {I["in"]}</a><a class="btn btn-outline" href="{INSTAGRAM}">Follow on Instagram {I["ig"]}</a></div></div></section>'''
+<div class="btn-row mt-4"><a class="btn btn-outline" href="{FACEBOOK}" target="_blank" rel="noopener">Follow on Facebook {I["fb"]}</a><a class="btn btn-outline" href="{INSTAGRAM}" target="_blank" rel="noopener">Follow on Instagram {I["ig"]}</a><a class="btn btn-outline" href="{LINKEDIN}" target="_blank" rel="noopener">Follow on LinkedIn {I["in"]}</a></div></div></section>'''
     return "news.html", page("news.html", "News & Community", "Pestimesh company news, press coverage, community initiatives, tchoukball sponsorship and dengue awareness.", body)
 
 # ---------------------------------------------------------------- CONTACT
