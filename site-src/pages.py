@@ -6,16 +6,16 @@ import re
 # status: "Ongoing" or "Completed" once the client confirms it. None = no badge, and the
 # statistics bar on the Projects page only appears once every project has a status.
 PROJECTS = [
-    dict(name="Project Legend at Clarke Quay", sector="", img="tp-building", status=None),
-    dict(name="ICA Service Centre", sector="Government", img="proj-ica", status=None),
-    dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", status=None),
-    dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", status=None),
-    dict(name="Family Justice Courts", sector="Government", img="proj-fjc", status=None),
-    dict(name="Singapore Zoo", sector="Attractions", img="training-group-1", status=None),
-    dict(name="PSA", sector="Port & logistics", img="tp-misting", status=None),
-    dict(name="Indigo Hotel", sector="Hospitality", img="tech-bedbug", status=None),
-    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", status=None),
-    dict(name="Bedok Market 216", sector="Community", img="bedok-wide", status=None),
+    dict(name="Project Legend at Clarke Quay", sector="", img="tp-building", status="Completed"),
+    dict(name="ICA Service Centre", sector="Government", img="proj-ica", status="Completed"),
+    dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", status="Completed"),
+    dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", status="Completed"),
+    dict(name="Family Justice Courts", sector="Government", img="proj-fjc", status="Completed"),
+    dict(name="Singapore Zoo", sector="Attractions", img="training-group-1", status="Completed"),
+    dict(name="PSA", sector="Port & logistics", img="tp-misting", status="Completed"),
+    dict(name="Indigo Hotel", sector="Hospitality", img="tech-bedbug", status="Completed"),
+    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", status="Completed"),
+    dict(name="Bedok Market 216", sector="Community", img="bedok-wide", status="Completed"),
 ]
 
 CERTS_UPDATED = "September 2026"   # shown on the certifications page; refresh when credentials change
