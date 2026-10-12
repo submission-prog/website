@@ -52,6 +52,7 @@ CARD_PHOTOS = {
 
 # Attribution the Creative Commons licences require; shown small at the foot of the page.
 
+HERO_DIM = {'hero-mesh-collar'}   # heroes with a bright subject behind the headline
 HERO_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # keeps the technician in frame on the service heroes
 
 PAGES = {
@@ -162,7 +163,7 @@ PAGES = {
   ]),
 
  "mesh.html": dict(
-  title="Woven Stainless-Steel Termite Barrier", hero="mesh-roll", card="mesh-roll",
+  title="Woven Stainless-Steel Termite Barrier", hero="hero-mesh-collar", card="hero-mesh-collar",
   lead=["Pestimesh's woven stainless-steel mesh barrier provides durable physical termite protection, making it particularly suitable for pre-construction and construction-stage termite protection."],
   blocks=[
    ("cards", None, [], None,
@@ -322,7 +323,8 @@ def build_service(file, d):
     title = escape(d["title"])
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{title}', title, d["lead"], d["hero"])
     if d["hero"].startswith("hero-"):
-        body = body.replace('<section class="page-hero">', '<section class="page-hero photo">', 1)
+        cls = "page-hero photo dim" if d["hero"] in HERO_DIM else "page-hero photo"
+        body = body.replace('<section class="page-hero">', f'<section class="{cls}">', 1)
         body = body.replace("background-image:url('assets/img/" + d["hero"] + ".jpg')", "background-image:url('assets/img/" + d["hero"] + ".jpg');background-position:" + HERO_FOCUS.get(d["hero"], "50%") + " center", 1)
     shades = ["", "white"]
     k = 0
