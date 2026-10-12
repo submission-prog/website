@@ -3,17 +3,19 @@ from common import *
 import re
 
 # ---------------------------------------------------------------- data
+# status: "Ongoing" or "Completed" once the client confirms it. None = no badge, and the
+# statistics bar on the Projects page only appears once every project has a status.
 PROJECTS = [
-    dict(name="Changi Airport Terminal 2", sector="Aviation", img="tp-building", blurb="Pest management support for one of Singapore's busiest transport hubs, where continuity of operations and safety are paramount."),
-    dict(name="ICA Service Centre", sector="Government", img="proj-ica", blurb="Pest control and termite protection works for a high-traffic public service facility."),
-    dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", blurb="Prevention-led pest management for a nature-integrated resort, balancing guest experience with sensitivity to the surrounding ecosystem."),
-    dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", blurb="Pest management programme for critical national water infrastructure."),
-    dict(name="Family Justice Courts", sector="Government", img="proj-fjc", blurb="Pest control and termite-related works for an institutional facility where hygiene and discretion matter."),
-    dict(name="Singapore Zoo", sector="Attractions", img="fogging-close", blurb="Pest management in a wildlife environment, using approaches that limit harm to animals and the surrounding ecosystem."),
-    dict(name="PSA", sector="Port & logistics", img="tp-misting", blurb="Pest management support across large-scale port and logistics operations."),
-    dict(name="Indigo Hotel", sector="Hospitality", img="tp-fogging-2", blurb="Discreet, hospitality-grade pest management with minimal disruption to guests."),
-    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", blurb="Structured pest management programme for a training campus environment."),
-    dict(name="Bedok Market 216", sector="Community", img="bedok-wide", blurb="Large-scale disinfection and environmental hygiene works at a hawker centre and market, supporting a cleaner, safer public space."),
+    dict(name="Project Legend at Clarke Quay", sector="", img="tp-building", status=None),
+    dict(name="ICA Service Centre", sector="Government", img="proj-ica", status=None),
+    dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", status=None),
+    dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", status=None),
+    dict(name="Family Justice Courts", sector="Government", img="proj-fjc", status=None),
+    dict(name="Singapore Zoo", sector="Attractions", img="fogging-close", status=None),
+    dict(name="PSA", sector="Port & logistics", img="tp-misting", status=None),
+    dict(name="Indigo Hotel", sector="Hospitality", img="tp-fogging-2", status=None),
+    dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", status=None),
+    dict(name="Bedok Market 216", sector="Community", img="bedok-wide", status=None),
 ]
 
 CERTS_UPDATED = "September 2026"   # shown on the certifications page; refresh when credentials change
@@ -137,8 +139,19 @@ def slant_wall():
     return "".join(cols)
 
 def project_card(p, cls=""):
-    """Project tile: photo, name and blurb on hover. Not a link, no arrow."""
-    return f'''<div class="card-img still {cls}"><img src="assets/img/{p["img"]}.jpg" alt="{escape(p["name"])}" loading="lazy"><div class="cap"><div><b>{p["name"]}</b><small>{p["blurb"]}</small></div></div></div>'''
+    """Project tile: photo, name and (when known) an Ongoing / Completed badge. Not a link."""
+    badge = f'<span class="pstatus {p["status"].lower()}">{p["status"]}</span>' if p.get("status") else ""
+    return f'''<div class="card-img still {cls}"><img src="assets/img/{p["img"]}.jpg" alt="{escape(p["name"])}" loading="lazy">{badge}<div class="cap"><div><b>{p["name"]}</b></div></div></div>'''
+
+
+def project_stats():
+    """Ongoing / Completed counts. Hidden until every project has a confirmed status."""
+    if not all(p.get("status") for p in PROJECTS):
+        return ""
+    ongoing = sum(p["status"] == "Ongoing" for p in PROJECTS)
+    done = sum(p["status"] == "Completed" for p in PROJECTS)
+    return (f'<div class="pstats reveal"><div><b data-count="{ongoing}">{ongoing}</b><span>Ongoing projects</span></div>'
+            f'<div><b data-count="{done}">{done}</b><span>Completed projects</span></div></div>')
 
 
 def news_card(n):
@@ -172,7 +185,7 @@ def home():
 <span class="spine"><b>{t}</b></span>
 <span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Learn more {I["arrow"]}</span></span></a>'''
         for i, (h, im, t, sub, tag) in enumerate(pests_cards))
-    proj = "".join(card_img("projects.html", p["img"], p["name"], p["blurb"], p["sector"]) for p in PROJECTS)
+    proj = "".join(card_img("projects.html", p["img"], p["name"]) for p in PROJECTS)
     # Slanted certificate wall. Columns run left to right; the right-of-centre
     # columns sit in the clear part of the image, so the strongest credentials go there.
     # Columns 0-1 fall behind the headline veil, so they carry the supporting documents.
@@ -278,12 +291,12 @@ def projects():
     body = page_hero("Projects", "Trusted by Singapore's landmark facilities.", "Our portfolio includes pest control and termite-related projects for major facilities, and pest management programmes for developers and project teams throughout the construction phase of condominium and commercial developments.", "tp-building", "Projects")
     body += f'''
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Featured projects</div><h2 class="h2">Where we've worked</h2></div><p class="lead reveal">From airports and courts to hotels, plants and community markets, each programme is built around the site's risks, operations and safety requirements.</p></div>
-<div class="grid grid-3 reveal-stagger">{tiles}</div></div></section>
+{project_stats()}<div class="grid grid-3 reveal-stagger">{tiles}</div></div></section>
 
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">On site</div><h2 class="h2">Treatment in action</h2></div></div>
 {gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}</div></section>'''
-    return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Changi Airport T2, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
+    return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Project Legend at Clarke Quay, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
 
 # ---------------------------------------------------------------- CERTIFICATIONS
 
@@ -397,7 +410,7 @@ def contact():
  <div class="mapfoot"><div><b>Pestimesh Pte Ltd</b><span>{ADDRESS[0]}, {ADDRESS[1]}, {ADDRESS[2]}</span><span>Company registration no. 201114018K · NEA Vector Control Operator NEA201114018K</span></div>
  <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&query=80+Playfair+Road+Singapore+367998" target="_blank" rel="noopener">Open in Google Maps {I["pin"]}</a></div>
 </div></section>'''
-    return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp.", body, with_form=False)
+    return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp +65 8913 9966.", body, with_form=False)
 
 
 ALL = [home, about, services, projects, certifications, sustainability, technology, news, contact]

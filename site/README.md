@@ -38,7 +38,8 @@ If you prefer, you can also edit the generated `.html` files directly.
 
 ## Things to fill in
 
-- Project write-ups in `pages.py` → `PROJECTS` are short placeholders based on the ESG report; replace with real scope descriptions and photos when available.
+- Project statuses: set `status="Ongoing"` or `status="Completed"` on each entry in `PROJECTS` (`site-src/pages.py`). Each card then shows a badge, and once every project has a status the Ongoing / Completed statistics bar appears above the grid automatically.
+- Hotel Indigo building photo: no accurate photo exists that can be used without a credit line; the card keeps a Pestimesh site photo until the client supplies one.
 - Blog / insights articles ("to be updated in the future" in the sitemap) — the News page has placeholder cards.
 - Form submission: the form currently opens the visitor's email client (pre-filled) or WhatsApp (pre-filled message). To store submissions, connect the `<form>` to a service such as Formspree, Netlify Forms or Web3Forms.
 
@@ -77,6 +78,10 @@ Google listing on 11 Oct 2026 into `REVIEWS` in `site-src/pages.py`, with the ov
 rating in `GOOGLE_RATING`. The cards sit in a one-at-a-time slider that auto-advances every 5 seconds and loops (`[data-revslider]` in `js/main.js`). "Write a review" opens Google's review form for the
 listing and "Read all reviews" opens the listing. Google has no free public API for reviews, so
 refresh the list by hand when new five-star reviews arrive.
+
+## Phone numbers
+
+WhatsApp buttons and the enquiry form's WhatsApp option go to Winnie (`WA` in `site-src/common.py`, and `WA` in `js/main.js`). The Contact page also lists Vincent's number and the office line.
 
 ## Social links
 

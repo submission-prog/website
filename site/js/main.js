@@ -189,7 +189,7 @@
   }
 
   /* ---- Enquiry form → WhatsApp / email ---- */
-  const WA = '6586681988', MAIL = 'enquiry@pestimesh.com.sg';
+  const WA = '6589139966', MAIL = 'enquiry@pestimesh.com.sg';
   $$('form.form').forEach(f => {
     const msg = () => {
       const d = Object.fromEntries(new FormData(f).entries());

@@ -7,7 +7,9 @@ BUILD = str(int(time.time()))   # cache-buster appended to css/js so browsers ne
 SITE = "Pestimesh Pte Ltd"
 PHONE = "+65 8668 1988"
 PHONE_TEL = "+6586681988"
-WA = "https://wa.me/6586681988"
+WA_NAME, WA_PHONE = "Winnie", "+65 8913 9966"
+WA = "https://wa.me/6589139966"          # WhatsApp buttons go to Winnie
+VINCENT_PHONE, VINCENT_TEL = "+65 8236 3723", "+6582363723"
 EMAIL = "enquiry@pestimesh.com.sg"
 ADDRESS = ["80 Playfair Road, #04-05", "Kapo Factory Building", "Singapore 367998"]
 LINKEDIN = "https://www.linkedin.com/company/pestimesh-pte-ltd"
@@ -140,7 +142,8 @@ def enquiry(title="Request a quote. Start with a site assessment.", sub="For pro
     <h2 class="h2">{escape(title)}</h2>
     <p class="lead light mt-2">{escape(sub)}</p>
     <div class="contact-list">
-      <a href="{WA}" target="_blank" rel="noopener"><span class="ic">{I["wa"]}</span><span><b>WhatsApp Pestimesh</b><span>Fastest response for quick enquiries</span></span></a>
+      <a href="{WA}" target="_blank" rel="noopener"><span class="ic">{I["wa"]}</span><span><b>{WA_PHONE}</b><span>WhatsApp {WA_NAME}</span></span></a>
+      <a href="tel:{VINCENT_TEL}"><span class="ic">{I["phone"]}</span><span><b>{VINCENT_PHONE}</b><span>Call Vincent</span></span></a>
       <a href="tel:{PHONE_TEL}"><span class="ic">{I["phone"]}</span><span><b>{PHONE}</b><span>Call us now</span></span></a>
       <a href="mailto:{EMAIL}"><span class="ic">{I["mail"]}</span><span><b>{EMAIL}</b><span>Email for project quotations</span></span></a>
       <div><span class="ic">{I["pin"]}</span><span><b>{ADDRESS[0]}</b><span>{ADDRESS[1]}, {ADDRESS[2]}</span></span></div>

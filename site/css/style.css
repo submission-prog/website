@@ -884,3 +884,13 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 /* Bright subject behind the text (white pipe on the mesh page): a heavier flat tint */
 .page-hero.photo.dim .veil{background:rgba(5,26,21,.66)}
 @media(max-width:760px){.page-hero.photo.dim .veil{background:rgba(5,26,21,.72)}}
+
+/* Projects: status badge and statistics bar */
+.card-img .pstatus{position:absolute;top:14px;left:14px;z-index:2;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:var(--radius);background:var(--teal-900);color:var(--lime)}
+.card-img .pstatus.completed{background:var(--lime);color:var(--teal-900)}
+.pstats{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);border-radius:var(--radius);background:var(--white);margin-bottom:28px}
+.pstats>div{padding:26px 30px;display:flex;align-items:baseline;gap:14px}
+.pstats>div+div{border-left:1px solid var(--line)}
+.pstats b{font-size:44px;font-weight:400;letter-spacing:-.03em;color:var(--teal-900);line-height:1}
+.pstats span{font-size:14px;color:var(--muted)}
+@media(max-width:600px){.pstats>div{padding:20px;flex-direction:column;gap:6px}.pstats b{font-size:34px}}
