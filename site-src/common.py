@@ -73,7 +73,6 @@ SERVICE_GROUPS = [
     ]),
     ("Treatment & Protection", [
         ("ipm.html", "Integrated Pest Management", "layers"),
-        ("mesh.html", "Woven Stainless-Steel Termite Barrier", "mesh"),
         ("mosquito-mesh.html", "Mosquito Mesh Barrier", "mesh"),
         ("termite-protection.html", "Termites Protection", "shield"),
         ("disinfection.html", "Disinfection & Hygiene", "spray"),

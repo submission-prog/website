@@ -2,7 +2,7 @@
 
 Static site: plain HTML, CSS and JavaScript. No build tools or hosting requirements beyond a static web server (Netlify, Vercel, GitHub Pages, cPanel, S3, etc.). Upload the contents of this `site/` folder as-is.
 
-## Pages (21)
+## Pages (20)
 
 | File | Page |
 |---|---|
@@ -10,7 +10,7 @@ Static site: plain HTML, CSS and JavaScript. No build tools or hosting requireme
 | `about.html` | About Us |
 | `services.html` | Services overview (both groups) |
 | `mosquitoes.html`, `cockroaches.html`, `bedbugs.html`, `rodents.html`, `termites.html`, `bee-treatment.html`, `bird-spike.html` | Pest Control services |
-| `ipm.html`, `mesh.html`, `mosquito-mesh.html`, `termite-protection.html`, `disinfection.html` | Treatment & Protection services |
+| `ipm.html`, `mosquito-mesh.html`, `termite-protection.html`, `disinfection.html` | Treatment & Protection services (the woven stainless-steel barrier now lives on `termite-protection.html`; `/mesh.html` redirects there via `vercel.json`) |
 | `projects.html` | Projects |
 | `certifications.html` | Certifications & Compliance |
 | `sustainability.html` | Sustainability & ESG |
@@ -119,3 +119,8 @@ python3 -m http.server 8791 --directory site
 ```
 
 Then open http://localhost:8791
+
+## Fogging photos
+
+Fogging and misting photos appear only on the Mosquito page, where thermal fogging is offered.
+Elsewhere the site uses inspection, mesh and team photos instead.

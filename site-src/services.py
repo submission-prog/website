@@ -26,24 +26,23 @@ CARD_PHOTOS = {
  "termites.html": {
   "Woven Stainless-Steel Barrier": "mesh-collar"
  },
- "mesh.html": {
-  "Marine-Grade 317L Stainless Steel": "mesh-roll",
-  "Long-Term Physical Protection": "mesh-collar",
-  "Ideal for Construction Projects": "tp-training-2"
- },
  "mosquito-mesh.html": {
   "Long-Term Physical Insect Protection": "mesh-detail",
   "Ideal for Homes &amp; Commercial Buildings": "mesh-window"
  },
  "termite-protection.html": {
-  "Woven Stainless-Steel Termite Barrier": "mesh-rebar"
+  "Woven Stainless-Steel Termite Barrier": "mesh-rebar",
+  "Marine-Grade 317L Stainless Steel": "mesh-roll",
+  "Long-Term Physical Protection": "mesh-collar",
+  "Ideal for Construction Projects": "mesh-install"
  },
  "disinfection.html": {
   "Surface Disinfection": "bedok-wide",
   "Commercial &amp; Facility Disinfection": "bedok-1"
  },
  "bee-treatment.html": {
-  "Nest Treatment &amp; Removal": "pest-bee"
+  "Nest Assessment": "pest-bee",
+  "Nest Treatment &amp; Removal": "bee-removal"
  },
  "bird-spike.html": {
   "Spike Installation": "pest-birdspike"
@@ -52,8 +51,8 @@ CARD_PHOTOS = {
 
 # Attribution the Creative Commons licences require; shown small at the foot of the page.
 
-HERO_DIM = {'hero-mesh-collar'}   # heroes with a bright subject behind the headline
-HERO_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # keeps the technician in frame on the service heroes
+HERO_DIM = {'hero-mesh-collar', 'hero-bee-hive'}   # heroes with a bright subject behind the headline
+HERO_FOCUS = {'hero-bee-hive': '50%', 'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # keeps the technician in frame on the service heroes
 
 PAGES = {
  "mosquitoes.html": dict(
@@ -162,19 +161,6 @@ PAGES = {
     "mesh-rebar"),
   ]),
 
- "mesh.html": dict(
-  title="Woven Stainless-Steel Termite Barrier", hero="hero-mesh-collar", card="hero-mesh-collar",
-  lead=["Pestimesh's woven stainless-steel mesh barrier provides durable physical termite protection, making it particularly suitable for pre-construction and construction-stage termite protection."],
-  blocks=[
-   ("cards", None, [], None,
-    [("Marine-Grade 317L Stainless Steel", ["Pestimesh's mesh is manufactured using <b>marine-grade 317L stainless steel</b>, selected for its high corrosion resistance and durability in demanding environments. This helps provide long-term physical protection against termite entry."]),
-     ("Long-Term Physical Protection", ["The mesh is incorporated into key areas of a building during construction to help prevent termites from gaining access through joints, penetrations and other potential entry points.",
-                                        "Unlike chemical-only treatments, the barrier provides long-term physical protection without relying solely on chemical treatments."]),
-     ("Ideal for Construction Projects", ["The stainless-steel mesh can be incorporated into new developments, building construction and selected renovation projects, depending on the design and site requirements.",
-                                          "By installing the barrier during construction, vulnerable entry points can be protected as part of the building's overall termite protection strategy."])]),
-   ("photos", ["mesh-collar", "mesh-rebar", "tp-training-2"]),
-  ]),
-
  "mosquito-mesh.html": dict(
   title="Mosquito Mesh Protection", hero="mesh-detail", card="mesh-window",
   lead=["Pestimesh's mosquito mesh protection provides a durable physical barrier designed to help prevent mosquitoes and other flying insects from entering indoor spaces."],
@@ -191,7 +177,7 @@ PAGES = {
   ]),
 
  "termite-protection.html": dict(
-  title="Termite Protection", hero="tp-training-2", card="tp-training-2",
+  title="Termite Protection", hero="hero-mesh-collar", card="hero-mesh-collar",
   lead=["Pestimesh provides termite protection solutions designed to help reduce the risk of termite entry and protect buildings from future termite activity.",
         "Our solutions can be tailored to the property's construction, condition and protection requirements."],
   blocks=[
@@ -202,9 +188,16 @@ PAGES = {
                          "It can be incorporated into new construction, renovation or termite protection works, depending on site requirements."]),
      ("Termite Baiting System", ["Termite baiting can form part of an ongoing protection strategy by monitoring termite activity and targeting termite colonies when activity is detected.",
                                  "Monitoring and treatment requirements vary depending on the property, termite activity and site conditions."])]),
+   ("cards", "Woven Stainless-Steel Termite Barrier", ["Pestimesh's woven stainless-steel mesh barrier provides durable physical termite protection, making it particularly suitable for pre-construction and construction-stage termite protection."], None,
+    [("Marine-Grade 317L Stainless Steel", ["Pestimesh's mesh is manufactured using <b>marine-grade 317L stainless steel</b>, selected for its high corrosion resistance and durability in demanding environments. This helps provide long-term physical protection against termite entry."]),
+     ("Long-Term Physical Protection", ["The mesh is incorporated into key areas of a building during construction to help prevent termites from gaining access through joints, penetrations and other potential entry points.",
+                                        "Unlike chemical-only treatments, the barrier provides long-term physical protection without relying solely on chemical treatments."]),
+     ("Ideal for Construction Projects", ["The stainless-steel mesh can be incorporated into new developments, building construction and selected renovation projects, depending on the design and site requirements.",
+                                          "By installing the barrier during construction, vulnerable entry points can be protected as part of the building's overall termite protection strategy."])]),
    ("text", "Long-Term Termite Protection",
     ["A combination of physical barriers, soil treatment, corrective measures and termite monitoring can provide a more comprehensive approach to protecting a property from termite activity."],
     "mesh-collar"),
+   ("photos", ["mesh-install", "mesh-rebar", "tp-training-2"]),
   ]),
 
  "disinfection.html": dict(
@@ -224,7 +217,7 @@ PAGES = {
   ]),
  # DRAFT wording (not from the client's write-up): replace once the client supplies copy.
  "bee-treatment.html": dict(
-  title="Bee Treatment", hero="pest-bee", card="pest-bee",
+  title="Bee Treatment", hero="hero-bee-hive", card="hero-bee-hive",
   lead=["Bee and hornet nests near homes, workplaces and public areas can pose a safety risk, particularly to people who are allergic to stings. Pestimesh provides bee treatment carried out by trained technicians with the appropriate protective equipment."],
   blocks=[
    ("list", "Signs of Bee Activity", "Common signs include:",

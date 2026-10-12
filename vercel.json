@@ -1,4 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "site"
+  "outputDirectory": "site",
+  "redirects": [
+    { "source": "/mesh.html", "destination": "/termite-protection.html", "permanent": true },
+    { "source": "/mesh", "destination": "/termite-protection.html", "permanent": true }
+  ]
 }

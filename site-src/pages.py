@@ -11,9 +11,9 @@ PROJECTS = [
     dict(name="Banyan Tree Mandai Rainforest Resort", sector="Hospitality", img="proj-banyan", status=None),
     dict(name="PUB Tuas Water Reclamation Plant", sector="Public infrastructure", img="proj-pub", status=None),
     dict(name="Family Justice Courts", sector="Government", img="proj-fjc", status=None),
-    dict(name="Singapore Zoo", sector="Attractions", img="fogging-close", status=None),
+    dict(name="Singapore Zoo", sector="Attractions", img="training-group-1", status=None),
     dict(name="PSA", sector="Port & logistics", img="tp-misting", status=None),
-    dict(name="Indigo Hotel", sector="Hospitality", img="tp-fogging-2", status=None),
+    dict(name="Indigo Hotel", sector="Hospitality", img="tech-bedbug", status=None),
     dict(name="Singapore Aviation Academy", sector="Education & aviation", img="team-site", status=None),
     dict(name="Bedok Market 216", sector="Community", img="bedok-wide", status=None),
 ]
@@ -282,7 +282,7 @@ def services():
     for g, items in SERVICE_GROUPS:
         cards = "".join(card_img(h, PAGES[h]["card"], escape(n), first_sentence(PAGES[h]["lead"][0])) for h, n, _ in items)
         groups += f'<div class="mt-5"><h2 class="h2 mb-3">{escape(g)}</h2><div class="grid grid-3 reveal-stagger">{cards}</div></div>'
-    body = page_hero("Services", "Pest control and protection, tailored to your property.", "From homes and commercial properties to construction sites and national facilities, every programme starts with an inspection and a plan built around prevention.", "fogging-wide")
+    body = page_hero("Services", "Pest control and protection, tailored to your property.", "From homes and commercial properties to construction sites and national facilities, every programme starts with an inspection and a plan built around prevention.", "training-group-2")
     body += f'''<section class="section" style="padding-top:20px"><div class="container">{groups}</div></section>'''
     return "services.html", page("services.html", "Services", "Pest control, termite control and protection, mosquito control, disinfection and stainless-steel mesh services in Singapore.", body)
 
@@ -290,12 +290,12 @@ def projects():
     tiles = "".join(project_card(p, "even") for p in PROJECTS)
     body = page_hero("Projects", "Trusted by Singapore's landmark facilities.", "Our portfolio includes pest control and termite-related projects for major facilities, and pest management programmes for developers and project teams throughout the construction phase of condominium and commercial developments.", "tp-building", "Projects")
     body += f'''
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Featured projects</div><h2 class="h2">Where we've worked</h2></div><p class="lead reveal">From airports and courts to hotels, plants and community markets, each programme is built around the site's risks, operations and safety requirements.</p></div>
+<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Featured projects</div><h2 class="h2">Where we've worked</h2></div></div>
 {project_stats()}<div class="grid grid-3 reveal-stagger">{tiles}</div></div></section>
 
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">On site</div><h2 class="h2">Treatment in action</h2></div></div>
-{gallery([("tp-fogging","Thermal fogging on site"),("tp-misting","Water-based misting"),("tp-larviciding","Larviciding treatment"),("tp-fogging-2","Fogging a basement level"),("tp-training-2","Stainless-steel mesh installation"),("fogging-wide","Site-wide mosquito control")], "site")}</div></section>'''
+{gallery([("mesh-install","Stainless-steel mesh installation"),("tp-training-2","Mesh barrier works on site"),("tp-larviciding","Larviciding treatment"),("tp-misting","Water-based misting"),("tp-training","Site works"),("training-group-2","Pestimesh site team")], "site")}</div></section>'''
     return "projects.html", page("projects.html", "Projects", "Pestimesh projects: Project Legend at Clarke Quay, ICA, Singapore Zoo, Banyan Tree, Family Justice Courts, PUB Tuas, PSA, Indigo Hotel, Singapore Aviation Academy, Bedok Market 216.", body)
 
 # ---------------------------------------------------------------- CERTIFICATIONS
@@ -328,7 +328,7 @@ def certifications():
 def sustainability():
     sdg = "".join(f'<img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}" title="{t}">' for n, t in [("3","Good health and well-being"),("6","Clean water and sanitation"),("8","Decent work and economic growth"),("9","Industry, innovation and infrastructure"),("11","Sustainable cities and communities"),("12","Responsible consumption and production"),("15","Life on land")])
     prio = [("Prevention", "Strengthen prevention-led pest management."), ("Physical protection", "Promote suitable exclusion and physical barrier solutions."), ("Responsible treatment", "Use appropriate and targeted intervention."), ("People & safety", "Maintain a strong focus on employee, customer and community safety."), ("Innovation", "Use technology and better methods to improve precision and effectiveness."), ("Continuous improvement", "Track progress and identify opportunities to improve environmental and social practices.")]
-    body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", "Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "fogging-wide", "Sustainability & ESG")
+    body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", "Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "mesh-install", "Sustainability & ESG")
     body += f'''
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Our ESG approach</div><h2 class="h2">Three areas. One commitment.</h2></div><p class="lead reveal">Our first sustainability report (FY2025) was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol. It sets the baseline against which we will measure future performance.</p></div>
 <div class="pillars reveal-stagger">
@@ -349,7 +349,7 @@ def sustainability():
 
 <section class="section white"><div class="container split"><div class="reveal left"><div class="eyebrow">Environmental responsibility</div><h2 class="h2">Prevention before treatment</h2><p class="lead mt-2">A prevention-led approach reduces recurring pest activity and the need for repeated intervention. By identifying entry points, harbourage, food and water sources and other conducive conditions, we address the causes of pest activity.</p>
 <h3 class="h3 mt-4">Physical pest protection</h3><p class="mt-1 muted">Stainless-steel mesh is our leading example of physical prevention. Installed as a barrier where buildings meet construction soil, it reduces reliance on chemical treatment and, in turn, lowers water and chemical consumption.</p>
-<h3 class="h3 mt-4">Responsible treatment</h3><p class="mt-1 muted">Rather than a fixed volume per job, we calculate chemical and water quantities from the specific site area, minimising leftover chemicals and water waste. When treatment is required, IPM combines prevention, monitoring and targeted intervention.</p><div class="mt-3">{link_arrow("Explore stainless-steel mesh", "mesh.html")}</div></div>
+<h3 class="h3 mt-4">Responsible treatment</h3><p class="mt-1 muted">Rather than a fixed volume per job, we calculate chemical and water quantities from the specific site area, minimising leftover chemicals and water waste. When treatment is required, IPM combines prevention, monitoring and targeted intervention.</p><div class="mt-3">{link_arrow("Explore stainless-steel mesh", "termite-protection.html")}</div></div>
 <div class="frame parallax reveal right"><img src="assets/img/mesh-collar.jpg" alt="Stainless-steel mesh collar"><div class="badge"><b>Less</b><span>chemical, water<br>&amp; emissions</span></div></div></div></section>
 
 <section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Social</div><h2 class="h2">Safety first. People at the centre.</h2></div><p class="lead reveal">Our approach considers the safety of customers, employees, building occupants, site personnel, visitors and the wider community. Teams are supported through training, PPE, risk assessments, toolbox meetings and established safety procedures aligned with ISO 45001.</p></div>
