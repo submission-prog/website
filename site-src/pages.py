@@ -380,6 +380,43 @@ ESG_INTRO = [
 ]
 
 
+# Awards & certifications (report pp.13-15) and memberships (p.16), in the report's order.
+ESG_AWARDS = [
+    ("iso14001", "ISO 14001:2015", "Environmental Management System"),
+    ("iso45001", "ISO 45001:2018", "Occupational Health and Safety Management System"),
+    ("iso9001", "ISO 9001:2015", "Quality Management System"),
+    ("nea", "NEA", "Vector Control Operator"),
+    ("bizsafe-star", "bizSAFE Star", ""),
+    ("sbea-appreciation", "SBEA Certificate of Appreciation", ""),
+    ("fma", "The Federation of Merchants' Associations", ""),
+    ("es-award-2024", "Environmental Services Achievement Award", ""),
+    ("wsq-hazardous", "Hazardous Substances Management", "Course Certification"),
+    ("tbas-letter", "Tchoukball Association", "Letter of Appreciation"),
+    ("ectc-letter", "East Coast Town Council", "Letter of Appreciation"),
+    ("gcte-fund", "Goh Chok Tong Enable Fund", "Letter of Appreciation"),
+]
+ESG_MEMBERSHIPS = [
+    ("sbf-membership", "The Singapore Business Federation", "The apex business chamber representing the interests of Singapore's business community across trade, investment and industrial relations, bringing together more than 32,000 companies and key local and foreign business chambers."),
+    ("smm-membership", "The Society of Modern Management", "Established in 1984, the Society promotes the adoption of modern management practices among local enterprises, serving as a bridge between businesses and government agencies to help members strengthen competitiveness and drive innovation."),
+    ("amk-cma", "Ang Mo Kio Constituency Merchant Association", "Brings together local merchants and businesses within the Ang Mo Kio community, fostering networking, mutual support and closer ties between members and the residents they serve."),
+    ("spma-membership", "Singapore Pest Management Association", "Represents pest control companies operating in Singapore, promoting professional standards, industry knowledge sharing and best practices to raise the overall standard of pest management services in the country."),
+]
+
+
+def esg_cert(key, name, desc, group):
+    """Certificate tile for the ESG sliders. The NEA licence lives in assets/img with no PDF original."""
+    img = "assets/img/nea-cert.jpg" if key == "nea" else f"assets/certs/{key}.jpg"
+    pdf = "" if key == "nea" else f' data-pdf="assets/certs/pdf/{key}.pdf"'
+    land = " land" if key in ("smm-membership", "amk-cma", "nea") else ""
+    return (f'<div class="cert" data-lightbox="{group}" data-full="{img}" data-title="{escape(name)}"{pdf}><div class="thumb{land}"><img src="{img}" alt="{escape(name)}" loading="lazy"></div>'
+            f'<span class="zoom">{I["zoom"]}</span><div class="meta"><b>{escape(name)}</b><span>{escape(desc)}</span></div></div>')
+
+
+def esg_slider(items, group):
+    cards = "".join(esg_cert(k, n, d, group) for k, n, d in items)
+    return f'<div class="auto-slider cert-slider" data-autoscroll><div class="track">{cards}</div></div>'
+
+
 def sustainability():
     sdg_cards = "".join(f'<div class="sdg-card" tabindex="0"><img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}: {escape(t)}"><b>Goal {n}</b><span>{escape(t)}</span><p>{escape(d)}</p></div>' for n, t, d in SDGS)
     prio = [("Prevention", "Strengthen prevention-led pest management."), ("Physical protection", "Promote suitable exclusion and physical barrier solutions."), ("Responsible treatment", "Use appropriate and targeted intervention."), ("People & safety", "Maintain a strong focus on employee, customer and community safety."), ("Innovation", "Use technology and better methods to improve precision and effectiveness."), ("Continuous improvement", "Track progress and identify opportunities to improve environmental and social practices.")]
@@ -424,6 +461,12 @@ def sustainability():
 
 <section class="section white" id="sdg"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Commitment to the UN Sustainable Development Goals</h2></div><p class="lead reveal">From the treatment methods we choose to the materials used in our termite mesh installations, our work supports broader progress towards the United Nations Sustainable Development Goals.</p></div>
 <div class="sdg-grid reveal-stagger">{sdg_cards}</div></div></section>
+
+<section class="section tight" id="awards"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Awards and certifications</h2></div></div></div>
+{esg_slider(ESG_AWARDS, "esg-awards")}</section>
+
+<section class="section tight white" id="memberships"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Memberships</h2></div><p class="lead reveal">Pestimesh is an active member of these associations.</p></div></div>
+{esg_slider(ESG_MEMBERSHIPS, "esg-memberships")}</section>
 
 <section class="section" id="community"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Community health and well-being</h2></div></div>
 <div class="grid grid-3 reveal-stagger">

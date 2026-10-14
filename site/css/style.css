@@ -1058,3 +1058,9 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .intro-card:hover p,.intro-card:focus-visible p,.intro-card.open p{max-height:420px;opacity:1;margin-top:14px;color:rgba(244,243,236,.85)}
 .intro-card:hover .more,.intro-card:focus-visible .more,.intro-card.open .more{opacity:0;margin-top:0;height:0}
 @media(prefers-reduced-motion:reduce){.intro-card,.intro-card p{transition:none}}
+
+/* ESG award / membership sliders */
+#awards .cert-slider .cert,#memberships .cert-slider .cert{flex:0 0 280px}
+#memberships .cert-slider .cert{flex-basis:340px}
+#memberships .cert .meta span{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.section.tight .section-head{margin-bottom:10px}
