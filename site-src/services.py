@@ -122,7 +122,7 @@ PAGES = {
   ]),
 
  "termites.html": dict(
-  title="Termite Control", hero="tech-termite", card="pest-termite",
+  title="Termite Control", hero="tech-termite", video="hero", card="pest-termite",
   lead=["Termites can remain hidden for long periods while feeding on wood and other cellulose-based materials. Without early detection and appropriate treatment, termite activity can cause significant damage to a property."],
   blocks=[
    ("list", "Signs of Termite Activity", "Common signs include:",
@@ -308,7 +308,12 @@ def _block(b, shade, photos=None):
 def build_service(file, d):
     title = escape(d["title"])
     body = page_hero(f'<a href="services.html">Services</a><span>/</span>{title}', title, d["lead"], d["hero"])
-    if d["hero"].startswith("hero-"):
+    if d.get("video"):
+        v = d["video"]
+        body = body.replace('<section class="page-hero">', '<section class="page-hero photo video">', 1)
+        body = re.sub(r'<div class="bg" style="[^"]*"></div>',
+                      f'<video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.jpg"><source src="assets/video/{v}-m.mp4" type="video/mp4" media="(max-width: 760px)"><source src="assets/video/{v}.mp4" type="video/mp4"></video>', body, count=1)
+    elif d["hero"].startswith("hero-"):
         cls = "page-hero photo dim" if d["hero"] in HERO_DIM else "page-hero photo"
         body = body.replace('<section class="page-hero">', f'<section class="{cls}">', 1)
         body = body.replace("background-image:url('assets/img/" + d["hero"] + ".jpg')", "background-image:url('assets/img/" + d["hero"] + ".jpg');background-position:" + HERO_FOCUS.get(d["hero"], "50%") + " center", 1)

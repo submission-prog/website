@@ -54,7 +54,7 @@ NEWS = [
     dict(kind="Community", title="Dengue awareness talk for site workers", img="dengue-1", text="Pestimesh conducted a dengue awareness talk sharing practical knowledge on identifying breeding habitats, preventive measures and proactive mosquito control."),
     dict(kind="Community", title="Supporting the Tchoukball Association of Singapore", img="tchoukball-6", text="As a founding benefactor and sponsor of TBAS, Pestimesh supports youth participation and the growth of community sport in Singapore."),
     dict(kind="Community", title="Career sharing with Bendemeer Secondary School", img="bendemeer-1", text="Students visited our office to learn about careers in pest management, safety practices and the technology behind modern pest control."),
-    dict(kind="Team", title="Celebrating our people", img="birthday-1", text="Birthday celebrations, staff gatherings and team dinners help us recognise milestones and build a positive workplace culture."),
+    dict(kind="Team", title="Employee gatherings and birthday celebrations", img="birthday-1", text="From time to time, the company organises employee gatherings and birthday celebrations, providing opportunities for colleagues to interact, recognise personal milestones and build stronger relationships within the team."),
 ]
 
 
@@ -192,10 +192,7 @@ def home():
     slant_cols = slant_wall()
     body = f'''
 <section class="hero hero-video">
-<video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-poster.jpg">
- <source src="assets/video/hero-m.mp4" type="video/mp4" media="(max-width: 760px)">
- <source src="assets/video/hero.mp4" type="video/mp4">
-</video>
+<img class="hero-vid" src="assets/img/hero-home.jpg" alt="" fetchpriority="high">
 <div class="veil"></div>
 <div class="container"><div class="hero-grid">
  <div><h1 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h1>
