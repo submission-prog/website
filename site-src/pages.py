@@ -418,11 +418,11 @@ def esg_slider(items, group):
 
 
 def sustainability():
-    sdg_cards = "".join(f'<div class="sdg-card" tabindex="0"><img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}: {escape(t)}"><b>Goal {n}</b><span>{escape(t)}</span><p>{escape(d)}</p></div>' for n, t, d in SDGS)
+    sdg_cards = "".join(f'<div class="sdg-card" tabindex="0"><img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}: {escape(t)}"><b>Goal {n}</b><span>{escape(t)}</span><div class="ov"><b>Goal {n}</b><p>{escape(d)}</p></div></div>' for n, t, d in SDGS)
     prio = [("Prevention", "Strengthen prevention-led pest management."), ("Physical protection", "Promote suitable exclusion and physical barrier solutions."), ("Responsible treatment", "Use appropriate and targeted intervention."), ("People & safety", "Maintain a strong focus on employee, customer and community safety."), ("Innovation", "Use technology and better methods to improve precision and effectiveness."), ("Continuous improvement", "Track progress and identify opportunities to improve environmental and social practices.")]
     zero = lambda label: f'<div class="tile"><b><span data-count="0">0</span></b><span>{label}</span></div>'
     body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", ["Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "Our first sustainability report covers 1 January to 31 December 2025 and was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol."], "mesh-install", "Sustainability & ESG")
-    intro_cards = "".join(f'<div class="intro-card" tabindex="0"><div class="ic">{I[ic]}</div><h4>{escape(h)}</h4><p>{escape(d)}</p><span class="more">Read more</span></div>' for ic, h, d in ESG_INTRO)
+    intro_cards = "".join(f'<div class="intro-card" tabindex="0"><div class="ic">{I[ic]}</div><h4>{escape(h)}</h4><span class="more">Read more</span><div class="ov"><h4>{escape(h)}</h4><p>{escape(d)}</p></div></div>' for ic, h, d in ESG_INTRO)
     body += f'''
 <section class="section" id="introduction"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">ESG company introduction</h2></div><p class="lead reveal">Protecting People. Protecting Properties. Protecting Communities.</p></div>
 <div class="intro-grid reveal-stagger">{intro_cards}</div></div></section>
