@@ -132,3 +132,12 @@ the end of `css/style.css`. The old token names (`--teal-*`, `--lime*`) are kept
 the sage accent. Buttons are forest-green pills on light sections and cream pills on dark or photo
 sections. On hover the colour eases over, the label rolls up and is replaced by a copy sliding in
 from below, and the arrow nudges right. `js/main.js` wraps each button label in `.roll` for this.
+
+## Sustainability & ESG page
+
+Every figure comes from "Pestimesh ESG Report 2025 v5.pdf" (FY2025). The data lives in
+`sustainability()` in `site-src/pages.py`; charts are generated as inline SVG rings and CSS bars by
+the `donut()` and `bars()` helpers there, and animate when scrolled into view (`[data-chart]` in
+`js/main.js`). The seven UN SDG cards (`SDGS` list) open on hover, keyboard focus or tap. No directors'
+messages, GRI index or report download are shown. When the FY2026 report arrives, update the numbers
+in `sustainability()` and the charts redraw on the next build.

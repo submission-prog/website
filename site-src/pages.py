@@ -325,52 +325,102 @@ def certifications():
 
 # ---------------------------------------------------------------- SUSTAINABILITY
 
+# ---------------------------------------------------------------- ESG charts
+# Every figure below is taken from "Pestimesh ESG Report 2025 v5.pdf" (FY2025, 1 Jan - 31 Dec 2025).
+# Charts are drawn as inline SVG / CSS bars and animate when scrolled into view (see [data-chart] in main.js).
+CHART_COLOURS = ["var(--teal-900)", "var(--teal-500)", "var(--lime)", "var(--lime-600)", "var(--bg-2)", "var(--teal-700)"]
+
+def donut(title, items, unit="", total_label=None):
+    """items: [(label, value)]. Ring segments via stroke-dasharray on a 2*pi*r = 100 circle."""
+    total = sum(v for _, v in items)
+    r = 15.9155; segs = []; offset = 0
+    for i, (label, v) in enumerate(items):
+        pct = v / total * 100
+        segs.append(f'<circle r="{r}" cx="21" cy="21" fill="none" stroke="{CHART_COLOURS[i]}" stroke-width="6" stroke-dasharray="{pct:.2f} {100-pct:.2f}" stroke-dashoffset="{-offset:.2f}" data-seg="{i}"><title>{escape(label)}: {v:g}{unit} ({pct:.0f}%)</title></circle>')
+        offset += pct
+    centre = total_label or (f"{total:g}" + (f"<tspan>{unit}</tspan>" if unit else ""))
+    legend = "".join(f'<li data-seg="{i}"><i style="background:{CHART_COLOURS[i]}"></i><span>{escape(l)}</span><b>{v:g}{unit}</b><em>{v/total*100:.0f}%</em></li>' for i, (l, v) in enumerate(items))
+    return (f'<figure class="chart donut" data-chart><figcaption>{escape(title)}</figcaption>'
+            f'<div class="ring"><svg viewBox="0 0 42 42" aria-label="{escape(title)}"><circle r="{r}" cx="21" cy="21" fill="none" stroke="var(--line)" stroke-width="6"/>{"".join(segs)}</svg>'
+            f'<div class="centre">{centre}</div></div><ul class="legend">{legend}</ul></figure>')
+
+
+def bars(title, items, unit="", note=None, horizontal=False):
+    mx = max(v for _, v in items) or 1
+    def row(i, l, v):
+        col = CHART_COLOURS[0] if i % 2 == 0 else CHART_COLOURS[1]
+        if horizontal:
+            return f'<li style="--v:{v/mx*100:.1f}%"><span class="lbl">{escape(l)}</span><span class="bar"><i style="background:{col}"></i></span><b>{v:g}{unit}</b></li>'
+        return f'<li style="--v:{v/mx*100:.1f}%"><span class="bar"><b>{v:g}{unit}</b><i style="background:{col}"></i></span><span class="lbl">{escape(l)}</span></li>'
+    rows = "".join(row(i, l, v) for i, (l, v) in enumerate(items))
+    return (f'<figure class="chart bars{" h" if horizontal else ""}" data-chart><figcaption>{escape(title)}</figcaption><ul>{rows}</ul>'
+            f'{f"<p class=note>{note}</p>" if note else ""}</figure>')
+
+
+SDGS = [
+    ("3", "Good health and well-being", "Protecting homes and businesses from pest related health risks through safe and effective treatment methods."),
+    ("6", "Clean water and sanitation", "Careful management of water based treatments to prevent contamination of surrounding water sources."),
+    ("8", "Decent work and economic growth", "Providing stable employment and hands on technical training for our workforce of technicians and support staff."),
+    ("9", "Industry, innovation and infrastructure", "Applying Australian sourced mesh technology and innovative treatment techniques to improve service durability and effectiveness."),
+    ("11", "Sustainable cities and communities", "Supporting safe and liveable homes and workplaces through preventive pest management for the community."),
+    ("12", "Responsible consumption and production", "Selecting treatment products and methods that reduce unnecessary chemical use and environmental exposure."),
+    ("15", "Life on land", "Choosing pest control approaches that limit harm to wildlife and the surrounding ecosystem."),
+]
+
+
 def sustainability():
-    sdg = "".join(f'<img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}" title="{t}">' for n, t in [("3","Good health and well-being"),("6","Clean water and sanitation"),("8","Decent work and economic growth"),("9","Industry, innovation and infrastructure"),("11","Sustainable cities and communities"),("12","Responsible consumption and production"),("15","Life on land")])
+    sdg_cards = "".join(f'<div class="sdg-card" tabindex="0"><img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}: {escape(t)}"><b>Goal {n}</b><span>{escape(t)}</span><p>{escape(d)}</p></div>' for n, t, d in SDGS)
     prio = [("Prevention", "Strengthen prevention-led pest management."), ("Physical protection", "Promote suitable exclusion and physical barrier solutions."), ("Responsible treatment", "Use appropriate and targeted intervention."), ("People & safety", "Maintain a strong focus on employee, customer and community safety."), ("Innovation", "Use technology and better methods to improve precision and effectiveness."), ("Continuous improvement", "Track progress and identify opportunities to improve environmental and social practices.")]
-    body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", "Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "mesh-install", "Sustainability & ESG")
+    zero = lambda label: f'<div class="tile"><b><span data-count="0">0</span></b><span>{label}</span></div>'
+    body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", ["Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "Our first sustainability report covers 1 January to 31 December 2025 and was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol."], "mesh-install", "Sustainability & ESG")
     body += f'''
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Our ESG approach</div><h2 class="h2">Three areas. One commitment.</h2></div><p class="lead reveal">Our first sustainability report (FY2025) was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol. It sets the baseline against which we will measure future performance.</p></div>
-<div class="pillars reveal-stagger">
-<div class="pillar"><span class="big">E</span><h3 class="h3">Environment</h3><p>Reducing unnecessary intervention, encouraging prevention and using physical protection where appropriate.</p></div>
-<div class="pillar"><span class="big">S</span><h3 class="h3">Social</h3><p>Protecting the health, safety and wellbeing of our employees, customers, occupants and communities.</p></div>
-<div class="pillar"><span class="big">G</span><h3 class="h3">Governance</h3><p>Operating responsibly through professional standards, compliance, accountability and continuous improvement.</p></div></div></div></section>
+<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">FY2025 at a glance</h2></div><p class="lead reveal">Our first year of tracking energy, water and emissions, and the baseline against which future performance will be measured.</p></div>
+<div class="metric-tiles five reveal-stagger">
+<div class="tile"><b><span data-count="54.93">0</span><small>tCO₂e</small></b><span>Total GHG emissions, Scope 1, 2 and 3</span></div>
+<div class="tile"><b><span data-count="758.83">0</span><small>GJ</small></b><span>Total energy consumption</span></div>
+<div class="tile"><b><span data-count="262.5">0</span><small>m³</small></b><span>Total water consumption</span></div>
+{zero("Recordable work-related injuries")}
+{zero("Incidents relating to corruption or bribery")}</div></div></section>
 
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">FY2025 baseline</div><h2 class="h2">Current progress</h2></div><p class="lead reveal">1 January – 31 December 2025. Our first year of tracking energy, water and emissions, and the reference point for future reduction targets.</p></div>
-<div class="metric-tiles reveal-stagger">
-<div class="tile"><b><span data-count="758.83">0</span><small>GJ</small></b><span>Total energy consumption (45% diesel, 45% petrol, 10% electricity)</span></div>
-<div class="tile"><b><span data-count="54.93">0</span><small>tCO₂e</small></b><span>Total GHG emissions, Scope 1, 2 and 3 (46.45 / 8.32 / 0.15)</span></div>
-<div class="tile"><b><span data-count="262.5">0</span><small>m³</small></b><span>Total water consumption, reduced through optimised anti-termite treatment</span></div>
-<div class="tile"><b><span data-count="0">0</span></b><span>Recordable work-related injuries, fatalities and ill-health cases</span></div>
-<div class="tile"><b><span data-count="33">0</span></b><span>Employees across six nationalities, 18% female</span></div>
-<div class="tile"><b>24/7</b><span>Access to a whistleblowing channel for every employee</span></div>
-<div class="tile"><b><span data-count="0">0</span></b><span>Incidents relating to corruption or bribery</span></div>
-<div class="tile"><b>2<small>of 2</small></b><span>Board directors are women; one independent director</span></div></div></div></section>
+<section class="section" id="environment"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Environment</h2></div><p class="lead reveal">Pestimesh recorded energy use from petrol, diesel and electricity across its operations in FY2025. Petrol and diesel came from the fleet of vehicles that transport technicians and materials to sites, while electricity was drawn from the company's office operations.</p></div>
+<div class="charts three reveal-stagger">
+{donut("Energy consumption by source", [("Diesel", 341.28), ("Petrol", 343.02), ("Electricity", 74.53)], " GJ", "758.83<tspan>GJ</tspan>")}
+{bars("GHG emissions by scope", [("Scope 1 · vehicle fuel", 46.45), ("Scope 2 · office electricity", 8.32), ("Scope 3 · other indirect", 0.15)], " tCO₂e", "Total 54.93 tCO₂e. FY2025 is the first year of emissions reporting and sets the baseline for future reduction targets.", horizontal=True)}
+{bars("Water consumption", [("FY2025 baseline", 262.5)], " m³", "First year of tracking water. Chemical and water quantities are calculated from each site's area rather than a fixed volume per job, and stainless-steel mesh replaces chemical treatment where buildings meet construction soil.", horizontal=True)}
+</div></div></section>
 
-<section class="section white"><div class="container split"><div class="reveal left"><div class="eyebrow">Environmental responsibility</div><h2 class="h2">Prevention before treatment</h2><p class="lead mt-2">A prevention-led approach reduces recurring pest activity and the need for repeated intervention. By identifying entry points, harbourage, food and water sources and other conducive conditions, we address the causes of pest activity.</p>
-<h3 class="h3 mt-4">Physical pest protection</h3><p class="mt-1 muted">Stainless-steel mesh is our leading example of physical prevention. Installed as a barrier where buildings meet construction soil, it reduces reliance on chemical treatment and, in turn, lowers water and chemical consumption.</p>
-<h3 class="h3 mt-4">Responsible treatment</h3><p class="mt-1 muted">Rather than a fixed volume per job, we calculate chemical and water quantities from the specific site area, minimising leftover chemicals and water waste. When treatment is required, IPM combines prevention, monitoring and targeted intervention.</p><div class="mt-3">{link_arrow("Explore stainless-steel mesh", "termite-protection.html")}</div></div>
-<div class="frame parallax reveal right"><img src="assets/img/mesh-collar.jpg" alt="Stainless-steel mesh collar"><div class="badge"><b>Less</b><span>chemical, water<br>&amp; emissions</span></div></div></div></section>
+<section class="section white" id="people"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Our people</h2></div><p class="lead reveal">33 employees as at 31 December 2025, across six nationalities.</p></div>
+<div class="charts three reveal-stagger">
+{donut("Employees by gender", [("Male", 27), ("Female", 6)], "", "33<tspan>people</tspan>")}
+{donut("Employees by age group", [("30 to 50 years", 19), ("Over 50 years", 9), ("Under 30 years", 5)], "", "33<tspan>people</tspan>")}
+{bars("Employees by nationality", [("Malaysia", 11), ("Singapore", 8), ("Vietnam", 8), ("India", 3), ("Bangladesh", 2), ("China", 1)])}
+</div>
+<div class="charts two mt-4 reveal-stagger">
+{bars("New hires in 2025 by nationality", [("Vietnam", 8), ("Singapore", 6), ("Malaysia", 5), ("India", 2), ("Bangladesh", 1)], "", "22 new employees joined in 2025: 19 men and 3 women.")}
+<figure class="chart facts" data-chart><figcaption>Retention</figcaption><div class="facts-grid"><div><b><span data-count="2">0</span></b><span>employees left in 2025, one under 30 and one aged 30 to 50</span></div><div><b><span data-count="22">0</span></b><span>new hires across five nationalities</span></div></div><p class="note">Fair remuneration, medical benefits, insurance, PPE, paid leave, training and open communication, with gatherings and birthday celebrations that bring the team together.</p></figure>
+</div></div></section>
 
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Social</div><h2 class="h2">Safety first. People at the centre.</h2></div><p class="lead reveal">Our approach considers the safety of customers, employees, building occupants, site personnel, visitors and the wider community. Teams are supported through training, PPE, risk assessments, toolbox meetings and established safety procedures aligned with ISO 45001.</p></div>
-<div class="grid grid-3 reveal-stagger">
-<div class="card glow"><div class="ic">{I["shield"]}</div><h4>Occupational health &amp; safety</h4><p>Zero recordable injuries, fatalities and ill-health cases in FY2025. Incidents and near misses are investigated to strengthen procedures.</p></div>
-<div class="card glow"><div class="ic">{I["users"]}</div><h4>Building skills &amp; knowledge</h4><p>Certification and licensing courses, hands-on training from Australian techniques, heat-stress and safety awareness, and mentorship.</p></div>
-<div class="card glow"><div class="ic">{I["heart"]}</div><h4>Employee well-being</h4><p>Fair remuneration, medical benefits, insurance, PPE, paid leave, open communication, and gatherings that celebrate our people.</p></div></div></div></section>
+<section class="section" id="safety"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Safety and training</h2></div><p class="lead reveal">Teams are supported through training, PPE, risk assessments, toolbox meetings and established safety procedures aligned with ISO 45001. Incidents, near misses and unsafe conditions are reported and investigated to strengthen procedures.</p></div>
+<div class="charts two reveal-stagger">
+<figure class="chart facts zeros" data-chart><figcaption>Occupational health and safety, FY2025</figcaption><div class="facts-grid four"><div><b><span data-count="0">0</span></b><span>recordable work-related injuries</span></div><div><b><span data-count="0">0</span></b><span>high-consequence injuries</span></div><div><b><span data-count="0">0</span></b><span>fatalities</span></div><div><b><span data-count="0">0</span></b><span>work-related ill-health cases</span></div></div></figure>
+{bars("Average training hours per employee", [("Male", 0.9), ("Female", 0.7)], " h", "Certification and licensing courses for pest control operators, hands-on training drawing on techniques developed in Australia, heat-stress and safety awareness activities, regular toolbox meetings and mentorship from experienced technicians.", horizontal=True)}
+</div></div></section>
 
-<section class="section white"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Community</div><h2 class="h2">Protecting communities</h2></div><p class="lead reveal">Pest management contributes to healthier environments across homes, businesses, workplaces and public facilities. Beyond our services, we contribute through hygiene works, education and sport.</p></div>
+<section class="section white" id="sdg"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Commitment to the UN Sustainable Development Goals</h2></div><p class="lead reveal">From the treatment methods we choose to the materials used in our termite mesh installations, our work supports broader progress towards the United Nations Sustainable Development Goals. Hover over a goal to see how we contribute.</p></div>
+<div class="sdg-grid reveal-stagger">{sdg_cards}</div></div></section>
+
+<section class="section" id="community"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Community health and well-being</h2></div><p class="lead reveal">Contributing to the well-being of the wider community is an important part of responsible business. Through its community initiatives, Pestimesh seeks to support healthier, safer and more inclusive environments.</p></div>
 <div class="grid grid-3 reveal-stagger">
 {card_img("news.html", "bedok-wide", "Supporting public hygiene", "Disinfection and environmental hygiene at Bedok Market 216 for operators, workers and the public.", "Bedok Market 216")}
-{card_img("news.html", "dengue-1", "Promoting dengue awareness", "Practical talks on identifying breeding habitats and adopting preventive measures.", "Education")}
-{card_img("news.html", "tchoukball-2", "Supporting active communities", "Sponsor and founding benefactor of the Tchoukball Association of Singapore.", "Sport")}</div></div></section>
+{card_img("news.html", "dengue-1", "Promoting dengue awareness", "A dengue awareness talk on identifying breeding habitats and adopting preventive measures.", "Education")}
+{card_img("news.html", "tchoukball-2", "Supporting active communities", "Sponsor of the Tchoukball Association of Singapore, supporting community sport.", "Sport")}</div></div></section>
 
-<section class="section dark"><div class="container split"><div class="reveal left"><div class="eyebrow">Governance</div><h2 class="h2">Responsible business</h2><p class="lead mt-2">Responsible growth requires more than delivering effective services. We maintain professional standards through:</p>{checks(["Regulatory compliance with Singapore and NEA requirements", "Appropriate training and safe work practices", "Responsible treatment practices and proper documentation", "Customer communication and continuous improvement", "Zero tolerance for bribery: no gifts, travel or entertainment to secure business", "24/7 whistleblowing access for every employee"])}</div>
-<div class="reveal right"><div class="eyebrow">Commitment to UN SDGs</div><h3 class="h3">Our sustainable development goals</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">From the treatment methods we choose to the materials in our termite mesh installations, our work supports progress towards the UN Sustainable Development Goals.</p><div class="sdgs mt-3">{sdg}</div></div></div></section>
+<section class="section dark" id="governance"><div class="container split"><div class="reveal left"><h2 class="h2">Governance</h2><p class="lead mt-2">Pestimesh pursues business opportunities on fair and ethical terms. We do not offer, approve or accept anything of value to gain an unlawful advantage, and we do not extend gifts, travel or entertainment as a means of securing business.</p>{checks(["Regulatory compliance with Singapore and NEA requirements", "Employees are expected to raise any conduct that appears suspicious", "Business partners are expected to uphold the same principles", "No engagement of third parties known for corrupt practices"])}</div>
+<div class="reveal right"><div class="metric-tiles two"><div class="tile"><b>2<small>of 2</small></b><span>Board directors are women</span></div><div class="tile"><b>1</b><span>Independent board director</span></div><div class="tile"><b>24/7</b><span>Access to a whistleblowing channel for every employee</span></div><div class="tile"><b><span data-count="0">0</span></b><span>Reported incidents of corruption</span></div></div></div></div></section>
 
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><div class="eyebrow">Looking ahead</div><h2 class="h2">Our sustainability priorities</h2></div></div>
-<div class="grid grid-3 reveal-stagger">{"".join(f'<div class="card glow"><div class="num">0{i+1}</div><h4>{t}</h4><p>{d}</p></div>' for i, (t, d) in enumerate(prio))}</div>
-<div class="quote mt-5 reveal"><p>“At Pestimesh, we believe that sustainability and business success go hand in hand. By working responsibly today, we can help build healthier, safer and more sustainable environments for future generations.”</p><footer><img src="assets/img/winnie.jpg" alt="Winnie Seng"><div><b>Winnie Seng</b><span>Managing Director</span></div></footer></div></div></section>'''
-    return "sustainability.html", page("sustainability.html", "Sustainability & ESG", "Pestimesh's ESG approach: prevention-led pest management, stainless-steel mesh, safety-first culture, community initiatives and FY2025 GRI-referenced baseline.", body)
+<section class="section"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Our sustainability priorities</h2></div></div>
+<div class="grid grid-3 reveal-stagger">{"".join(f'<div class="card glow"><div class="num">0{i+1}</div><h4>{t}</h4><p>{d}</p></div>' for i, (t, d) in enumerate(prio))}</div></div></section>'''
+    return "sustainability.html", page("sustainability.html", "Sustainability & ESG", "Pestimesh's FY2025 ESG performance: energy, emissions and water baseline, workforce diversity, zero workplace injuries, UN SDG contributions and governance, from our first GRI-referenced sustainability report.", body)
 
 # ---------------------------------------------------------------- TECHNOLOGY
 

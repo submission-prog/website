@@ -40,6 +40,13 @@
     roll.append(a, c); b.replaceChild(roll, node);
   });
 
+  /* ---- ESG charts: draw when scrolled into view; SDG cards open on tap ---- */
+  $$('.donut circle[data-seg]').forEach(c => c.style.setProperty('--d', c.getAttribute('stroke-dasharray')));
+  $$('.bars:not(.h) ul').forEach(u => u.style.setProperty('--n', u.children.length));
+  const chio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('go'); chio.unobserve(e.target); } }), { threshold: .3 });
+  $$('[data-chart]').forEach(c => chio.observe(c));
+  $$('.sdg-card').forEach(c => c.addEventListener('click', () => { const was = c.classList.contains('open'); $$('.sdg-card.open').forEach(o => o.classList.remove('open')); if (!was) c.classList.add('open'); }));
+
   /* ---- Nav: solid on scroll, mobile menu ---- */
   const nav = $('.nav');
   const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 40);
