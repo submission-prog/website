@@ -155,10 +155,6 @@ PAGES = {
      ("Monitor", "Ongoing monitoring helps us track pest activity and determine when and where intervention is needed."),
      ("Targeted Treatment", "When treatment is required, we select the appropriate method based on the pest, site conditions and level of activity. This may include exclusion, physical control, baiting or targeted chemical treatment."),
      ("Evaluate &amp; Improve", "We review results and adjust the management strategy where necessary, helping provide long-term prevention and control.")]),
-   ("text", "Physical Protection",
-    ["Pestimesh's woven stainless-steel mesh protection provides a durable physical barrier that helps prevent pest entry without relying solely on chemical treatments.",
-     "By incorporating exclusion into an integrated pest management strategy, physical protection can help reduce pest access and recurring activity."],
-    "mesh-rebar"),
   ]),
 
  "mosquito-mesh.html": dict(
@@ -194,9 +190,6 @@ PAGES = {
                                         "Unlike chemical-only treatments, the barrier provides long-term physical protection without relying solely on chemical treatments."]),
      ("Ideal for Construction Projects", ["The stainless-steel mesh can be incorporated into new developments, building construction and selected renovation projects, depending on the design and site requirements.",
                                           "By installing the barrier during construction, vulnerable entry points can be protected as part of the building's overall termite protection strategy."])]),
-   ("text", "Long-Term Termite Protection",
-    ["A combination of physical barriers, soil treatment, corrective measures and termite monitoring can provide a more comprehensive approach to protecting a property from termite activity."],
-    "mesh-collar"),
    ("photos", ["mesh-install", "mesh-rebar", "tp-training-2"]),
   ]),
 
