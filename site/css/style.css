@@ -1071,3 +1071,8 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 /* Home hero as a still photo for now */
 .hero-video img.hero-vid{object-position:70% center}
 .hero-video .veil{background:rgba(5,26,21,.5)}
+/* Footer: brand on the left, the three link columns grouped flush right */
+.footer .cols{grid-template-columns:1fr auto auto auto;justify-content:space-between;column-gap:clamp(40px,6vw,96px)}
+.footer .cols .col{white-space:nowrap}
+@media(max-width:900px){.footer .cols{grid-template-columns:1fr 1fr;column-gap:36px}.footer .cols .col{white-space:normal}}
+@media(max-width:560px){.footer .cols{grid-template-columns:1fr}}
