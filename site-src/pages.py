@@ -368,12 +368,28 @@ SDGS = [
 ]
 
 
+# ESG company introduction, from pages 10-11 of the FY2025 report. The report's "Social Responsibility &
+# Community" block repeats the termite text by mistake, so that card uses the community page (p.29).
+ESG_INTRO = [
+    ("building", "Our Heritage & Expertise", "Established in 2011, Pestimesh has developed strong experience in Singapore's pest management and termite protection industry. Our portfolio includes pest control and termite-related projects for major facilities such as ICA, Singapore Zoo, Banyan Tree Hotel, Family Justice Courts, PUB Tuas Water Reclamation Plant, Project Legend at Clarke Quay, Indigo Hotel and Singapore Aviation Academy. We support developers and project management teams with pest management programmes throughout the construction phase of condominium and commercial property developments."),
+    ("mesh", "Specialised Termite Protection", "Pestimesh has developed specialised expertise in physical anti-termite protection using stainless-steel termite mesh systems. Our Project Director, Vincent Tan, strengthened his technical knowledge through specialised experience and learning from Australia, bringing practical expertise and international knowledge into termite protection projects in Singapore. We focus on prevention and long-term building protection rather than relying only on reactive treatment."),
+    ("leaf", "Environment & Sustainable Pest Management", "Sustainability is increasingly embedded in our operations. Through Integrated Pest Management, we emphasise prevention, monitoring, targeted treatment and responsible use of pest management methods. Where practical, we seek solutions that reduce unnecessary chemical use, minimise environmental impact and provide effective, long-term protection for buildings and communities."),
+    ("heart", "Social Responsibility & Community", "Contributing to the well-being of the wider community is an important part of responsible business. Through our community initiatives, we seek to support healthier, safer and more inclusive environments while using our expertise and resources to create positive social impact."),
+    ("users", "People, Upskilling & Digital Innovation", "Our people are central to our ESG journey. We continue to invest in training and upskilling so that our team can strengthen technical knowledge, safety awareness and professional capabilities. At the same time, Pestimesh is embracing AI and digital applications to streamline reporting and reduce repetitive administrative work. By working smarter, our employees can spend more time on site quality, safety, customer service and effective pest management."),
+    ("globe", "Our ESG Commitment", "Pestimesh is committed to building a responsible and resilient pest management business through sustainable practices, community engagement, people development and technology adoption. We will continue to improve our environmental performance, strengthen governance and safety practices, invest in our people, and use innovation."),
+]
+
+
 def sustainability():
     sdg_cards = "".join(f'<div class="sdg-card" tabindex="0"><img src="assets/sdg/sdg-{n}.jpg" alt="SDG {n}: {escape(t)}"><b>Goal {n}</b><span>{escape(t)}</span><p>{escape(d)}</p></div>' for n, t, d in SDGS)
     prio = [("Prevention", "Strengthen prevention-led pest management."), ("Physical protection", "Promote suitable exclusion and physical barrier solutions."), ("Responsible treatment", "Use appropriate and targeted intervention."), ("People & safety", "Maintain a strong focus on employee, customer and community safety."), ("Innovation", "Use technology and better methods to improve precision and effectiveness."), ("Continuous improvement", "Track progress and identify opportunities to improve environmental and social practices.")]
     zero = lambda label: f'<div class="tile"><b><span data-count="0">0</span></b><span>{label}</span></div>'
     body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", ["Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "Our first sustainability report covers 1 January to 31 December 2025 and was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol."], "mesh-install", "Sustainability & ESG")
+    intro_cards = "".join(f'<div class="intro-card" tabindex="0"><div class="ic">{I[ic]}</div><h4>{escape(h)}</h4><p>{escape(d)}</p><span class="more">Read more</span></div>' for ic, h, d in ESG_INTRO)
     body += f'''
+<section class="section" id="introduction"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">ESG company introduction</h2></div><p class="lead reveal">Protecting People. Protecting Properties. Protecting Communities.</p></div>
+<div class="intro-grid reveal-stagger">{intro_cards}</div></div></section>
+
 <section class="section white"><div class="container"><div class="section-head center-head"><div class="reveal"><h2 class="h2">FY2025 at a glance</h2><p class="lead mt-2">Our first sustainability report. The figures gathered in FY2025 serve as the baseline against which future performance is measured.</p></div></div>
 <div class="counters reveal-stagger">
 <div><b><span data-count="54.93">0</span></b><small>tCO₂e</small><span>Total GHG emissions<br>Scope 1, 2 and 3</span></div>
@@ -409,7 +425,7 @@ def sustainability():
 <section class="section white" id="sdg"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Commitment to the UN Sustainable Development Goals</h2></div><p class="lead reveal">From the treatment methods we choose to the materials used in our termite mesh installations, our work supports broader progress towards the United Nations Sustainable Development Goals.</p></div>
 <div class="sdg-grid reveal-stagger">{sdg_cards}</div></div></section>
 
-<section class="section" id="community"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Community health and well-being</h2></div><p class="lead reveal">Contributing to the well-being of the wider community is an important part of responsible business. Through its community initiatives, Pestimesh seeks to support healthier, safer and more inclusive environments.</p></div>
+<section class="section" id="community"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Community health and well-being</h2></div></div>
 <div class="grid grid-3 reveal-stagger">
 {card_img("news.html", "bedok-wide", "Supporting public hygiene", "Disinfection and environmental hygiene at Bedok Market 216 for operators, workers and the public.", "Bedok Market 216")}
 {card_img("news.html", "dengue-1", "Promoting dengue awareness", "A dengue awareness talk on identifying breeding habitats and adopting preventive measures.", "Education")}
