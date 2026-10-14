@@ -1024,3 +1024,12 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .sdg-card:hover p,.sdg-card:focus-visible p,.sdg-card.open p{max-height:160px;opacity:1;margin-top:12px;color:rgba(244,243,236,.85)}
 .sdg-card:hover img,.sdg-card:focus-visible img,.sdg-card.open img{transform:scale(1.04)}
 @media(prefers-reduced-motion:reduce){.donut circle[data-seg],.bars .bar i,.sdg-card,.sdg-card p{transition:none}}
+/* Reviews: square card (14 Oct 2026) */
+.reviews-split{grid-template-columns:1fr minmax(0,520px);justify-content:space-between}
+.rev-slider{width:100%;max-width:520px;margin-left:auto}
+.review{aspect-ratio:1/1;min-height:0;padding:34px 34px 28px}
+.review p{display:flex;align-items:center;font-size:18px;line-height:1.55}
+@media(max-width:900px){.reviews-split{grid-template-columns:1fr}.rev-slider{margin-left:0;max-width:none}}
+@media(max-width:600px){.review{padding:26px 24px 22px}.review p{font-size:16px}}
+.rev-nav button{border-radius:var(--radius)}
+.rev-dots span{width:9px;height:9px;border-radius:2px}
