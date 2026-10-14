@@ -1033,3 +1033,11 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 @media(max-width:600px){.review{padding:26px 24px 22px}.review p{font-size:16px}}
 .rev-nav button{border-radius:var(--radius)}
 .rev-dots span{width:9px;height:9px;border-radius:2px}
+
+/* Plain counters (ESG at-a-glance): no boxes */
+.counters{display:grid;grid-template-columns:repeat(5,1fr);gap:28px 20px;text-align:center}
+.counters b{display:block;font-size:clamp(40px,4.2vw,58px);font-weight:400;letter-spacing:-.04em;line-height:1;color:var(--teal-700)}
+.counters small{display:block;font-size:13px;letter-spacing:.06em;color:var(--muted);margin-top:8px;min-height:1.2em}
+.counters>div>span{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px;line-height:1.5}
+@media(max-width:900px){.counters{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.counters{grid-template-columns:1fr 1fr}}

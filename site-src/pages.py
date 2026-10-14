@@ -374,13 +374,13 @@ def sustainability():
     zero = lambda label: f'<div class="tile"><b><span data-count="0">0</span></b><span>{label}</span></div>'
     body = page_hero("Sustainability &amp; ESG", "Responsible pest management for a more sustainable future.", ["Responsible pest management is about more than controlling pests. It is about finding effective solutions that consider people, properties and the environment: prevention, precision and responsible intervention.", "Our first sustainability report covers 1 January to 31 December 2025 and was prepared with reference to the GRI Standards, with carbon accounting aligned to the GHG Protocol."], "mesh-install", "Sustainability & ESG")
     body += f'''
-<section class="section dark"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">FY2025 at a glance</h2></div><p class="lead reveal">Our first year of tracking energy, water and emissions, and the baseline against which future performance will be measured.</p></div>
-<div class="metric-tiles five reveal-stagger">
-<div class="tile"><b><span data-count="54.93">0</span><small>tCO₂e</small></b><span>Total GHG emissions, Scope 1, 2 and 3</span></div>
-<div class="tile"><b><span data-count="758.83">0</span><small>GJ</small></b><span>Total energy consumption</span></div>
-<div class="tile"><b><span data-count="262.5">0</span><small>m³</small></b><span>Total water consumption</span></div>
-{zero("Recordable work-related injuries")}
-{zero("Incidents relating to corruption or bribery")}</div></div></section>
+<section class="section white"><div class="container"><div class="section-head center-head"><div class="reveal"><h2 class="h2">FY2025 at a glance</h2><p class="lead mt-2">Our first year of tracking energy, water and emissions, and the baseline against which future performance will be measured.</p></div></div>
+<div class="counters reveal-stagger">
+<div><b><span data-count="54.93">0</span></b><small>tCO₂e</small><span>Total GHG emissions<br>Scope 1, 2 and 3</span></div>
+<div><b><span data-count="758.83">0</span></b><small>GJ</small><span>Total energy<br>consumption</span></div>
+<div><b><span data-count="262.5">0</span></b><small>m³</small><span>Total water<br>consumption</span></div>
+<div><b><span data-count="0">0</span></b><small>&nbsp;</small><span>Recordable<br>work-related injuries</span></div>
+<div><b><span data-count="0">0</span></b><small>&nbsp;</small><span>Incidents of<br>corruption or bribery</span></div></div></div></section>
 
 <section class="section" id="environment"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Environment</h2></div><p class="lead reveal">Pestimesh recorded energy use from petrol, diesel and electricity across its operations in FY2025. Petrol and diesel came from the fleet of vehicles that transport technicians and materials to sites, while electricity was drawn from the company's office operations.</p></div>
 <div class="charts three reveal-stagger">
