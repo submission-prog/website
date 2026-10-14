@@ -124,3 +124,11 @@ Then open http://localhost:8791
 
 Fogging and misting photos appear only on the Mosquito page, where thermal fogging is offered.
 Elsewhere the site uses inspection, mesh and team photos instead.
+
+## Colours and buttons
+
+Palette v3 (Oct 2026): forest green, sage and soft ivory, set as tokens in the "Palette v3" block at
+the end of `css/style.css`. The old token names (`--teal-*`, `--lime*`) are kept, so `--lime` is now
+the sage accent. Buttons are forest-green pills on light sections and cream pills on dark or photo
+sections. On hover the colour eases over, the label rolls up and is replaced by a copy sliding in
+from below, and the arrow nudges right. `js/main.js` wraps each button label in `.roll` for this.

@@ -29,6 +29,17 @@
     setTimeout(open, 3000);
   })();
 
+  /* ---- Buttons: wrap each label so it can roll on hover (see .roll in style.css) ---- */
+  $$('.btn, .elastic .go').forEach(b => {
+    const node = [...b.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+    if (!node || b.querySelector('.roll')) return;
+    const label = node.textContent.trim();
+    const roll = document.createElement('span'); roll.className = 'roll';
+    const a = document.createElement('span'); a.textContent = label;
+    const c = document.createElement('span'); c.textContent = label; c.setAttribute('aria-hidden', 'true');
+    roll.append(a, c); b.replaceChild(roll, node);
+  });
+
   /* ---- Nav: solid on scroll, mobile menu ---- */
   const nav = $('.nav');
   const onScroll = () => nav && nav.classList.toggle('scrolled', window.scrollY > 40);
