@@ -472,13 +472,7 @@ def sustainability():
 <div class="grid grid-3 reveal-stagger">
 {card_img("news.html", "bedok-wide", "Supporting public hygiene", "Disinfection and environmental hygiene at Bedok Market 216 for operators, workers and the public.", "Bedok Market 216")}
 {card_img("news.html", "dengue-1", "Promoting dengue awareness", "A dengue awareness talk on identifying breeding habitats and adopting preventive measures.", "Education")}
-{card_img("news.html", "tchoukball-2", "Supporting active communities", "Sponsor of the Tchoukball Association of Singapore, supporting community sport.", "Sport")}</div></div></section>
-
-<section class="section dark" id="governance"><div class="container split"><div class="reveal left"><h2 class="h2">Governance</h2><p class="lead mt-2">Pestimesh pursues business opportunities on fair and ethical terms. We do not offer, approve or accept anything of value to gain an unlawful advantage, and we do not extend gifts, travel or entertainment as a means of securing business.</p>{checks(["Cash or cash-equivalent gifts are never acceptable under any circumstance", "Employees are expected to raise any conduct that appears suspicious", "Business partners are expected to uphold the same principles", "No engagement of third parties known for corrupt practices"])}</div>
-<div class="reveal right"><div class="metric-tiles two"><div class="tile"><b>2<small>of 2</small></b><span>Board directors are women</span></div><div class="tile"><b>1</b><span>Independent board director</span></div><div class="tile"><b>24/7</b><span>Access to a whistleblowing channel for every employee</span></div><div class="tile"><b><span data-count="0">0</span></b><span>Reported incidents of corruption</span></div></div></div></div></section>
-
-<section class="section"><div class="container"><div class="section-head"><div class="reveal"><h2 class="h2">Our sustainability priorities</h2></div></div>
-<div class="grid grid-3 reveal-stagger">{"".join(f'<div class="card glow"><div class="num">0{i+1}</div><h4>{t}</h4><p>{d}</p></div>' for i, (t, d) in enumerate(prio))}</div></div></section>'''
+{card_img("news.html", "tchoukball-2", "Supporting active communities", "Sponsor of the Tchoukball Association of Singapore, supporting community sport.", "Sport")}</div></div></section>'''
     return "sustainability.html", page("sustainability.html", "Sustainability & ESG", "Pestimesh's FY2025 ESG performance: energy, emissions and water baseline, workforce diversity, zero workplace injuries, UN SDG contributions and governance, from our first GRI-referenced sustainability report.", body)
 
 # ---------------------------------------------------------------- TECHNOLOGY
