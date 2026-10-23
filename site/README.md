@@ -39,7 +39,7 @@ If you prefer, you can also edit the generated `.html` files directly.
 ## Things to fill in
 
 - Project statuses: every project is `status="Completed"` in `PROJECTS` (`site-src/pages.py`). Set a new project to `"Ongoing"` and the badge and the Ongoing / Completed statistics bar update on the next build.
-- Hotel Indigo building photo: no accurate photo exists that can be used without a credit line; the card keeps a Pestimesh site photo until the client supplies one.
+- Hotel Indigo building photo: no accurate photo exists that can be used without a credit line; the card keeps a Pestimesh site photo until the client supplies one. The Singapore Zoo and Singapore Aviation Academy tiles use Wikimedia Commons photos released as "Copyrighted free use", which need no credit.
 - Blog / insights articles ("to be updated in the future" in the sitemap) — the News page has placeholder cards.
 - Form submission: the form currently opens the visitor's email client (pre-filled) or WhatsApp (pre-filled message). To store submissions, connect the `<form>` to a service such as Formspree, Netlify Forms or Web3Forms.
 
