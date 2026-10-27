@@ -1,0 +1,8 @@
+{
+  "name": "pestimesh-site",
+  "private": true,
+  "description": "Static site in site/ plus one Vercel function (api/checkout.js) that creates Stripe Checkout sessions.",
+  "dependencies": {
+    "stripe": "^17.7.0"
+  }
+}

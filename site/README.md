@@ -141,3 +141,17 @@ the `donut()` and `bars()` helpers there, and animate when scrolled into view (`
 `js/main.js`). The seven UN SDG cards (`SDGS` list) open on hover, keyboard focus or tap. No directors'
 messages, GRI index or report download are shown. When the FY2026 report arrives, update the numbers
 in `sustainability()` and the charts redraw on the next build.
+
+## Shop (online payment)
+
+`shop.html` is a standalone page: it is not linked from the header or footer and carries a
+`noindex` tag. Share it by its address. Items and prices live in `catalogue.json` at the project
+root; edit that file and rebuild. The cart (`js/shop.js`) posts to `/api/checkout`, a Vercel
+function (`api/checkout.js`) that creates a Stripe Checkout session using the prices from the
+same catalogue, so prices cannot be altered in the browser. Stripe collects the card, name,
+email, phone and billing address and asks for the service address; customers land on
+`thank-you.html` afterwards.
+
+To switch payment on, add the environment variable `STRIPE_SECRET_KEY` to the Vercel project
+(use the `sk_test_` key first, then the `sk_live_` key) and redeploy. Until then the Checkout
+button shows "Online payment is not available right now".

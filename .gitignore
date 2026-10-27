@@ -16,3 +16,9 @@ __pycache__/
 # local tooling
 .vercel/
 node_modules/
+
+# local-only demo reports, never published
+reports/
+
+node_modules/
+.vercel/

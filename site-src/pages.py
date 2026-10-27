@@ -1,5 +1,6 @@
 # All non-pest pages for the Pestimesh site.
 from common import *
+import os
 import re
 
 # ---------------------------------------------------------------- data
@@ -506,4 +507,47 @@ def contact():
     return "contact.html", page("contact.html", "Contact Us", "Contact Pestimesh Pte Ltd — 80 Playfair Road #04-05 Kapo Factory Building Singapore 367998. Call +65 8668 1988 or WhatsApp +65 8913 9966.", body, with_form=False)
 
 
-ALL = [home, about, services, projects, certifications, sustainability, technology, news, contact]
+# ---------------------------------------------------------------- SHOP (Stripe Checkout)
+# Items and prices come from catalogue.json at the project root; api/checkout.js reads the same file.
+import json as _json
+CATALOGUE = _json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "catalogue.json")))
+
+def money(cents): return f"S${cents/100:,.2f}"
+
+def shop():
+    cards = "".join(f'''<div class="item" data-id="{i["id"]}" data-name="{escape(i["name"])}" data-price="{i["price"]}"><div class="pic"><img src="assets/img/{i["img"]}.jpg" alt="{escape(i["name"])}" loading="lazy"></div>
+<div class="body"><h3>{escape(i["name"])}</h3><p>{escape(i["desc"].replace(" Sample item.", ""))}</p>
+<div class="price"><b>{money(i["price"])}</b><span>{escape(i["unit"])}</span></div>
+<div class="buy"><div class="qty"><button type="button" data-q="-1" aria-label="Less">−</button><input type="number" min="1" max="50" value="1" aria-label="Quantity"><button type="button" data-q="1" aria-label="More">+</button></div><button type="button" class="btn btn-lime add">Add to cart</button></div></div></div>''' for i in CATALOGUE["items"])
+    body = page_hero("Shop", "Book and pay online.", "Choose a service, add it to your cart and pay securely by card. We will contact you to confirm the appointment.", "team-site", "Shop")
+    body += f'''
+<section class="section" id="shop"><div class="container">
+<div class="shop-note reveal">Sample items and prices shown for setup. Final services and prices are confirmed by Pestimesh before online payment is switched on.</div>
+<div class="items reveal-stagger">{cards}</div>
+</div></section>
+<div class="cart-fab" id="cartfab" hidden><button type="button" class="btn btn-dark" data-open-cart>Cart <span class="count">0</span></button></div>
+<aside class="cart" id="cart" aria-label="Your cart" hidden>
+ <div class="cart-head"><h3>Your cart</h3><button type="button" class="close" data-close-cart aria-label="Close">×</button></div>
+ <div class="cart-lines"></div>
+ <div class="cart-foot"><div class="total"><span>Total</span><b class="sum">S$0.00</b></div>
+  <p class="small muted">Prices in Singapore dollars. You will enter your details and card on Stripe's secure payment page.</p>
+  <button type="button" class="btn btn-lime checkout" data-checkout>Checkout {I["arrow"]}</button>
+  <a class="btn btn-outline" href="{WA}" target="_blank" rel="noopener">Ask on WhatsApp {I["wa"]}</a>
+  <p class="cart-msg small" hidden></p></div>
+</aside>
+<div class="cart-veil" data-close-cart hidden></div>
+<script src="js/shop.js?v={BUILD}" defer></script>'''
+    html_out = page("shop.html", "Shop", "Book and pay for Pestimesh pest control services online.", body)
+    html_out = html_out.replace("<title>", '<meta name="robots" content="noindex,nofollow">\n<title>', 1)   # hidden from search until the real list is in
+    return "shop.html", html_out
+
+
+def thankyou():
+    body = page_hero("Thank you", "Payment received.", "Thank you for your booking. Our team will contact you within one working day to confirm the appointment date and time.", "team-bedok", "Thank you")
+    body += f'''<section class="section"><div class="container center"><div class="btn-row" style="justify-content:center">{btn("Back to home", "index.html", "dark")}{btn("WhatsApp us", WA, "wa", "wa")}</div></div></section>
+<script>try{{localStorage.removeItem("pm_cart")}}catch(e){{}}</script>'''
+    html_out = page("thank-you.html", "Thank you", "Pestimesh booking confirmation.", body)
+    return "thank-you.html", html_out.replace("<title>", '<meta name="robots" content="noindex,nofollow">\n<title>', 1)
+
+
+ALL = [home, about, services, projects, certifications, sustainability, technology, news, contact, shop, thankyou]
