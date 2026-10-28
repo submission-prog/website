@@ -1,14 +1,14 @@
 {
   "currency": "sgd",
-  "note": "SAMPLE items and prices. Replace with Pestimesh's confirmed list before linking the live Stripe key.",
+  "note": "Items and prices for the Shop page. Prices are in cents (12000 = SGD 120.00).",
   "items": [
-    {"id": "general-hdb",      "name": "General Pest Control — HDB flat",        "desc": "One-time treatment for cockroaches and ants in a 3- to 5-room flat. Sample item.", "price": 12000, "unit": "per visit",   "img": "tech-cockroach"},
-    {"id": "general-landed",   "name": "General Pest Control — Landed home",     "desc": "One-time treatment for cockroaches and ants, up to 3 storeys. Sample item.",     "price": 22000, "unit": "per visit",   "img": "pest-cockroach"},
-    {"id": "bedbug-room",      "name": "Bed Bug Heat Treatment",                 "desc": "Heat treatment of one bedroom, with follow-up inspection. Sample item.",          "price": 28000, "unit": "per room",    "img": "tech-bedbug"},
-    {"id": "termite-inspect",  "name": "Termite Inspection",                     "desc": "Thermal scan and inspection of the property with written findings. Sample item.","price": 8000,  "unit": "per visit",   "img": "tech-termite"},
-    {"id": "mosquito-misting", "name": "Mosquito Misting",                       "desc": "Water-based misting of the garden and surrounds. Sample item.",                   "price": 15000, "unit": "per visit",   "img": "tp-misting"},
-    {"id": "rodent-baiting",   "name": "Rodent Baiting Programme",               "desc": "Bait station set-up and one follow-up visit. Sample item.",                       "price": 18000, "unit": "per set-up",  "img": "tech-rodent"},
-    {"id": "disinfection-100", "name": "Disinfection Service",                   "desc": "Surface disinfection of up to 100 m². Sample item.",                              "price": 20000, "unit": "per 100 m²",  "img": "bedok-wide"},
-    {"id": "bird-spike-m",     "name": "Bird Spike Installation",                "desc": "Stainless-steel spikes on ledges and beams. Sample item.",                        "price": 4500,  "unit": "per metre",   "img": "pest-birdspike"}
+    {"id": "general-hdb",      "name": "General Pest Control — HDB flat",        "desc": "One-time treatment for cockroaches and ants in a 3- to 5-room flat.", "price": 12000, "unit": "per visit",   "img": "tech-cockroach"},
+    {"id": "general-landed",   "name": "General Pest Control — Landed home",     "desc": "One-time treatment for cockroaches and ants, up to 3 storeys.",     "price": 22000, "unit": "per visit",   "img": "pest-cockroach"},
+    {"id": "bedbug-room",      "name": "Bed Bug Heat Treatment",                 "desc": "Heat treatment of one bedroom, with follow-up inspection.",          "price": 28000, "unit": "per room",    "img": "tech-bedbug"},
+    {"id": "termite-inspect",  "name": "Termite Inspection",                     "desc": "Thermal scan and inspection of the property with written findings.","price": 8000,  "unit": "per visit",   "img": "tech-termite"},
+    {"id": "mosquito-misting", "name": "Mosquito Misting",                       "desc": "Water-based misting of the garden and surrounds.",                   "price": 15000, "unit": "per visit",   "img": "tp-misting"},
+    {"id": "rodent-baiting",   "name": "Rodent Baiting Programme",               "desc": "Bait station set-up and one follow-up visit.",                       "price": 18000, "unit": "per set-up",  "img": "tech-rodent"},
+    {"id": "disinfection-100", "name": "Disinfection Service",                   "desc": "Surface disinfection of up to 100 m².",                              "price": 20000, "unit": "per 100 m²",  "img": "bedok-wide"},
+    {"id": "bird-spike-m",     "name": "Bird Spike Installation",                "desc": "Stainless-steel spikes on ledges and beams.",                        "price": 4500,  "unit": "per metre",   "img": "pest-birdspike"}
   ]
 }

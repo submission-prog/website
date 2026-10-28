@@ -22,7 +22,7 @@
     $('[data-checkout]').disabled = n === 0;
     save(cart);
   }
-  const open = () => { cartEl.hidden = false; veil.hidden = false; requestAnimationFrame(() => cartEl.classList.add('open')); };
+  const open = () => { cartEl.hidden = false; veil.hidden = false; void cartEl.offsetWidth; cartEl.classList.add('open'); };   // reflow so the slide-in still animates after display:none
   const close = () => { cartEl.classList.remove('open'); setTimeout(() => { cartEl.hidden = true; veil.hidden = true; }, 350); };
 
   $$('.item').forEach(el => {

@@ -1117,6 +1117,7 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .cart-veil{position:fixed;inset:0;background:rgba(6,26,21,.45);z-index:70}
 .cart{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--white);z-index:71;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s var(--ease);box-shadow:-10px 0 40px rgba(0,0,0,.12)}
 .cart.open{transform:none}
+.cart[hidden]{display:none}   /* closed cart must not sit just off-screen: its shadow showed as a dark strip on the right edge */
 .cart-head{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--line)}
 .cart-head h3{margin:0;font-size:18px}
 .cart .close{border:0;background:none;font-size:26px;line-height:1;cursor:pointer;color:var(--muted)}

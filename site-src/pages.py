@@ -522,7 +522,6 @@ def shop():
     body = page_hero("Shop", "Book and pay online.", "Choose a service, add it to your cart and pay securely by card. We will contact you to confirm the appointment.", "team-site", "Shop")
     body += f'''
 <section class="section" id="shop"><div class="container">
-<div class="shop-note reveal">Sample items and prices shown for setup. Final services and prices are confirmed by Pestimesh before online payment is switched on.</div>
 <div class="items reveal-stagger">{cards}</div>
 </div></section>
 <div class="cart-fab" id="cartfab" hidden><button type="button" class="btn btn-dark" data-open-cart>Cart <span class="count">0</span></button></div>
