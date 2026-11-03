@@ -215,18 +215,15 @@ def home():
 </div></div></section>
 </div></div>
 <section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
- <canvas class="holo-back" aria-hidden="true"></canvas><div class="holo-floor"></div><canvas class="holo-front" aria-hidden="true"></canvas><div class="holo-scan"></div>
+ <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
  <div class="holo-top"><h2 class="h2">Pests We Treat</h2><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p></div>
  <button class="holo-arrow holo-prev" type="button" aria-label="Previous pest">{I["arrow"].replace('<svg','<svg style="transform:scaleX(-1)"')}</button>
  <button class="holo-arrow holo-next" type="button" aria-label="Next pest">{I["arrow"]}</button>
  <div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div>
- <div class="holo-nav"><div class="holo-dots" role="tablist"></div><div class="holo-hint">DRAG TO SPIN · CLICK A DOT TO EXPLORE</div></div>
  <ul class="holo-list">{holo_items}</ul>
 </section>
 <script src="js/holo.js?v={BUILD}" defer></script>
-<section class="section tight"><div class="container">
- <p class="muted center">Once the plan is confirmed, our team will implement the recommended pest management measures, target the source of the infestation, treat affected areas, and arrange follow-up monitoring to help provide lasting protection.</p>
-</div></section>
+
 
 {logo_rows()}
 
