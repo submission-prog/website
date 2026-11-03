@@ -195,6 +195,10 @@ def home():
 <span class="spine"><b>{t}</b></span>
 <span class="open"><small>Pest control</small><b>{t}</b><span class="desc">{sub}</span><span class="go">Learn more {I["arrow"]}</span></span></a>'''
         for i, (h, im, t, sub, tag) in enumerate(pests_cards))
+    HOLO = [('termite', 1.0), ('mosquito', 1.0), ('bedbug', .9), ('cockroach', 1.0), ('rat', 1.05), ('bee', .95)]
+    by_img = {im: (h, t, sub) for h, im, t, sub, tag in pests_cards}
+    holo_src = [by_img['tech-termite'], by_img['tech-mosquito'], by_img['tech-bedbug'], by_img['tech-cockroach'], by_img['tech-rodent'], by_img['pest-bee']]
+    holo_items = "".join(f'<li data-pest="assets/3d/{f}.glb" data-name="{t if t != "Bee Treatment" else "Bee"}" data-href="{h}" data-blurb="{escape(sub, quote=True)}" data-scale="{sc}"><a href="{h}">{t}</a></li>' for (f, sc), (h, t, sub) in zip(HOLO, holo_src))
     proj = "".join(card_img("projects.html", p["img"], p["name"]) for p in PROJECTS)
     # Slanted certificate wall. Columns run left to right; the right-of-centre
     # columns sit in the clear part of the image, so the strongest credentials go there.
@@ -210,10 +214,18 @@ def home():
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
 </div></div></section>
 </div></div>
-<section class="section"><div class="container">
- <div class="section-head center-head"><div class="reveal"><div class="eyebrow">Pests we treat</div><h2 class="h2 line-reveal">Pests We Treat</h2></div></div>
- <div class="elastic reveal" data-elastic>{cards}</div>
- <p class="muted mt-3 center">Once the plan is confirmed, our team will implement the recommended pest management measures, target the source of the infestation, treat affected areas, and arrange follow-up monitoring to help provide lasting protection.</p>
+<section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
+ <canvas class="holo-back" aria-hidden="true"></canvas><div class="holo-floor"></div><canvas class="holo-front" aria-hidden="true"></canvas><div class="holo-scan"></div>
+ <div class="holo-top"><h2 class="h2">Pests We Treat</h2><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p></div>
+ <button class="holo-arrow holo-prev" type="button" aria-label="Previous pest">{I["arrow"].replace('<svg','<svg style="transform:scaleX(-1)"')}</button>
+ <button class="holo-arrow holo-next" type="button" aria-label="Next pest">{I["arrow"]}</button>
+ <div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div>
+ <div class="holo-nav"><div class="holo-dots" role="tablist"></div><div class="holo-hint">DRAG TO SPIN · CLICK A DOT TO EXPLORE</div></div>
+ <ul class="holo-list">{holo_items}</ul>
+</section>
+<script src="js/holo.js?v={BUILD}" defer></script>
+<section class="section tight"><div class="container">
+ <p class="muted center">Once the plan is confirmed, our team will implement the recommended pest management measures, target the source of the infestation, treat affected areas, and arrange follow-up monitoring to help provide lasting protection.</p>
 </div></section>
 
 {logo_rows()}

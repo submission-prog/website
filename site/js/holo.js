@@ -1,0 +1,87 @@
+/* "Pests We Treat" hologram band (3 Nov 2026). All pests stand in one row on a floor line; the centre one is
+   large, sharp and spinning, the neighbours are small, dim and blurred (two canvases, the back one CSS-blurred).
+   three.js is fetched only when the band is about to scroll into view, so other pages pay nothing. */
+(() => {
+  const sec = document.querySelector('[data-holo]');
+  if (!sec || !window.WebGLRenderingContext) return;
+  const V = '0.128.0', CDN = `https://cdn.jsdelivr.net/npm/three@${V}/`;
+  const load = src => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
+  const start = async () => {
+    try {
+      await load(CDN + 'build/three.min.js');
+      await Promise.all([load(CDN + 'examples/js/loaders/GLTFLoader.js'), load(CDN + 'examples/js/loaders/DRACOLoader.js'), load(CDN + 'examples/js/controls/OrbitControls.js')]);
+      init();
+    } catch (e) { sec.classList.add('no3d'); }
+  };
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
+  io.observe(sec);
+
+  function init() {
+    const PESTS = [...sec.querySelectorAll('[data-pest]')].map(el => ({ el, name: el.dataset.name, file: el.dataset.pest, href: el.dataset.href, blurb: el.dataset.blurb, scale: +el.dataset.scale || 1 }));
+    const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const mk = id => { const r = new THREE.WebGLRenderer({ canvas: sec.querySelector(id), antialias: true, alpha: true }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.setClearColor(0, 0); return r; };
+    const rBack = mk('.holo-back'), rFront = mk('.holo-front');
+    const sBack = new THREE.Scene(), sFront = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, .01, 100);
+    const controls = new THREE.OrbitControls(camera, sec.querySelector('.holo-front'));
+    Object.assign(controls, { enableDamping: true, enableZoom: false, enablePan: false, minPolarAngle: 1.0, maxPolarAngle: 1.45, minAzimuthAngle: -.6, maxAzimuthAngle: .6 });
+    controls.target.set(0, -.1, 0);
+    const fres = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { c: { value: new THREE.Color(0x6fc3ff) }, t: { value: 0 } },
+      vertexShader: 'varying vec3 vN,vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
+      fragmentShader: 'uniform vec3 c;uniform float t;varying vec3 vN,vV;void main(){float f=pow(1.-max(dot(vN,vV),0.),2.2);float s=.85+.15*sin(gl_FragCoord.y*.25+t*6.);gl_FragColor=vec4(c*(.25+f*1.2)*s,(.15+f*.85));}' });
+    const wire = new THREE.MeshBasicMaterial({ color: 0x4fb4ff, wireframe: true, transparent: true, opacity: .32 });
+    const fill = new THREE.MeshBasicMaterial({ color: 0x0b2a66, transparent: true, opacity: .55 });
+    const dl = new THREE.DRACOLoader(); dl.setDecoderPath(CDN + 'examples/js/libs/draco/'); const loader = new THREE.GLTFLoader(); loader.setDRACOLoader(dl);
+    const models = new Array(PESTS.length).fill(null);
+    const prep = (g, p) => {
+      const root = g.scene; const box = new THREE.Box3().setFromObject(root); const size = box.getSize(new THREE.Vector3());
+      const s = 2.2 * p.scale / Math.max(size.x, size.y, size.z); root.scale.setScalar(s);
+      const b2 = new THREE.Box3().setFromObject(root); const ctr = b2.getCenter(new THREE.Vector3()); const off = ctr.clone().multiplyScalar(-1); off.y += -.5 - (b2.min.y - ctr.y);
+      const ms = []; root.traverse(o => { if (o.isMesh) ms.push(o); });
+      ms.forEach(o => { o.material = fill; o.add(new THREE.Mesh(o.geometry, wire)); o.add(new THREE.Mesh(o.geometry, fres)); });
+      const g2 = new THREE.Group(); root.position.copy(off); g2.add(root); return g2;
+    };
+    // the centre pest first, then its neighbours, so the band comes alive as soon as one file lands
+    const order = [0, 1, PESTS.length - 1, ...PESTS.slice(2, -1).map((_, k) => k + 2)];
+    (async () => { for (const i of order) await new Promise(res => loader.load(PESTS[i].file, g => { models[i] = prep(g, PESTS[i]); sBack.add(models[i]); place(); res(); }, undefined, () => res())); })();
+
+    let cur = 0, pos = 0, target = 0, gap = 1.8;
+    function place() {
+      models.forEach((m, i) => {
+        if (!m) return; const x = (i - pos) * gap; const sc = Math.max(.4, 1 - .6 * Math.min(1, Math.abs(x) / gap));
+        m.position.set(x, -.5 + .5 * sc, 0); m.scale.setScalar(sc);
+        const wantFront = Math.abs(x) < gap * .42, inFront = m.parent === sFront;
+        if (wantFront && !inFront) { sBack.remove(m); sFront.add(m); } if (!wantFront && inFront) { sFront.remove(m); sBack.add(m); }
+        m.visible = Math.abs(x) < gap * 2.6;
+      });
+    }
+    const nameEl = sec.querySelector('.holo-name'), blurb = sec.querySelector('.holo-blurb'), link = sec.querySelector('.holo-link'), dots = sec.querySelector('.holo-dots');
+    PESTS.forEach((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', p.name); b.innerHTML = `<i></i><b>${p.name.toUpperCase()}</b>`; b.onclick = () => go(i); dots.appendChild(b); });
+    const setText = i => { [...dots.children].forEach((d, j) => d.classList.toggle('on', j === i)); nameEl.querySelector('span').textContent = PESTS[i].name; blurb.textContent = PESTS[i].blurb; link.href = PESTS[i].href; };
+    const go = i => { if (i === cur) return; cur = i; target = i; nameEl.classList.add('out'); setTimeout(() => { setText(i); nameEl.classList.remove('out'); }, 300); };
+    const n = PESTS.length, next = () => go((cur + 1) % n), prev = () => go((cur - 1 + n) % n);
+    sec.querySelector('.holo-next').onclick = next; sec.querySelector('.holo-prev').onclick = prev;
+    sec.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
+    let sx = 0; sec.addEventListener('pointerdown', e => sx = e.clientX); sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) (d < 0 ? next : prev)(); });
+    let timer = reduce ? null : setInterval(() => { if (!document.hidden) next(); }, 7000);
+    ['pointerdown', 'keydown'].forEach(ev => sec.addEventListener(ev, () => { if (timer) clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!document.hidden) next(); }, 9000); }));
+    const floor = () => { camera.updateMatrixWorld(); const v = new THREE.Vector3(0, -.5, 0).project(camera); sec.style.setProperty('--floor', ((1 - v.y) / 2 * 100).toFixed(1) + '%'); };
+    function resize() {
+      const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
+      camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
+      const d = Math.max(5.6, 1.25 / (.68 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update();
+      gap = camera.aspect < 1 ? 1.6 : 1.8; floor();
+    }
+    addEventListener('resize', resize); resize();
+    const t0 = performance.now(); let last = t0, frames = 0;
+    (function loop() {
+      requestAnimationFrame(loop); const now = performance.now(), dt = Math.min(.05, (now - last) / 1000); last = now;
+      if (document.hidden) return;
+      fres.uniforms.t.value = (now - t0) / 1000;
+      pos += (target - pos) * Math.min(1, dt * 5.5); if (Math.abs(target - pos) < .0005) pos = target;
+      models.forEach((m, i) => { if (m && !reduce) m.rotation.y += dt * (i === cur ? .5 : .18); });
+      place(); controls.update(); if (++frames % 30 === 0) floor(); rBack.render(sBack, camera); rFront.render(sFront, camera);
+    })();
+    setText(0); sec.classList.add('ready');
+  }
+})();
