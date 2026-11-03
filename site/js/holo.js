@@ -43,21 +43,30 @@
     };
     // the centre pest first, then its neighbours, so the band comes alive as soon as one file lands
     const order = [0, 1, PESTS.length - 1, ...PESTS.slice(2, -1).map((_, k) => k + 2)];
-    (async () => { for (const i of order) await new Promise(res => loader.load(PESTS[i].file, g => { models[i] = prep(g, PESTS[i]); sBack.add(models[i]); clones[i] = models[i].clone(); clones[i].visible = false; sBack.add(clones[i]); place(); res(); }, undefined, () => res())); })();
+    (async () => { for (const i of order) await new Promise(res => loader.load(PESTS[i].file, g => { models[i] = prep(g, PESTS[i]); sBack.add(models[i]); clones[i] = models[i].clone(); clones[i].visible = false; sBack.add(clones[i]); born(i); place(); res(); }, undefined, () => res())); })();
 
-    let cur = 0, pos = 0, target = 0, gap = 1.25;
+    let onScreen = false, pendingBirth = [], lastBirth = 0;
+    const birthIO = new IntersectionObserver(es => { onScreen = es.some(e => e.isIntersecting); if (onScreen) { const q = pendingBirth; pendingBirth = []; q.forEach(born); } }, { threshold: .25 });
+    birthIO.observe(sec);
+    function born(i) { if (!onScreen || reduce) { if (!reduce) pendingBirth.push(i); return; } const t = Math.max(performance.now(), lastBirth + 160); lastBirth = t; models[i].userData.born = t; sec.classList.add('emerging'); clearTimeout(born.t); born.t = setTimeout(() => sec.classList.remove('emerging'), t - performance.now() + 1200); }
+    let cur = 0, pos = 0, target = 0, gap = 1.25, shift = 0;
+    const team = sec.querySelector('.holo-team'), finger = new THREE.Vector3(0, -1.6, 0); let fingerOn = false;
     const n = PESTS.length, half = n / 2;
     const wrap = o => ((o + half) % n + n) % n - half;            // offset folded into (-n/2, n/2]
     const sizeAt = x => Math.max(.38, 1 - .68 * Math.min(1, Math.abs(x) / gap));
-    const put = (m, x) => { const sc = sizeAt(x); m.position.set(x, -.5 + .5 * sc, 0); m.scale.setScalar(sc); m.visible = Math.abs(x) < gap * 3.3; };
+    const ease = k => 1 - Math.pow(1 - k, 3);
+    const put = (m, x, born) => { const sc0 = sizeAt(x); let px = x + shift, py = -.5 + .5 * sc0, sc = sc0;
+      if (born) { const k = Math.min(1, (performance.now() - born) / 1100); const e = ease(k);               // fly out of the fingertip into the slot
+        px = finger.x + (px - finger.x) * e; py = finger.y + (py - finger.y) * e; sc = sc0 * (.04 + .96 * e); if (k >= 1) m.userData.born = 0; }
+      m.position.set(px, py, 0); m.scale.setScalar(sc); m.visible = Math.abs(x) < gap * (shift ? 2.5 : 3.3); };
     function place() {
       models.forEach((m, i) => {
-        if (!m) return; const o = wrap(i - pos), x = o * gap; put(m, x);
-        const wantFront = Math.abs(x) < gap * .42, inFront = m.parent === sFront;
+        if (!m) return; const o = wrap(i - pos), x = o * gap; put(m, x, m.userData.born);
+        const wantFront = Math.abs(x) < gap * .42 && !m.userData.born, inFront = m.parent === sFront;
         if (wantFront && !inFront) { sBack.remove(m); sFront.add(m); } if (!wantFront && inFront) { sFront.remove(m); sBack.add(m); }
         // the far pest shows at both ends while it crosses the seam
         const c = clones[i]; if (!c) return;
-        if (o > half - 1) put(c, (o - n) * gap); else if (o < 1 - half) put(c, (o + n) * gap); else c.visible = false;
+        if (o > half - 1) put(c, (o - n) * gap, m.userData.born); else if (o < 1 - half) put(c, (o + n) * gap, m.userData.born); else c.visible = false;
         c.rotation.y = m.rotation.y;
       });
     }
@@ -68,7 +77,7 @@
     const setText = i => { lbl.forEach((d, j) => d.classList.toggle('on', j === i)); nameEl.querySelector('span').textContent = PESTS[i].name; blurb.textContent = PESTS[i].blurb; link.href = PESTS[i].href; };
     const go = i => { if (i === cur) return; target = pos + wrap(i - pos); cur = i; nameEl.classList.add('out'); setTimeout(() => { setText(i); nameEl.classList.remove('out'); }, 300); };
     const next = () => go((cur + 1) % n), prev = () => go((cur - 1 + n) % n);
-    sec.querySelector('.holo-next').onclick = next; sec.querySelector('.holo-prev').onclick = prev;
+    const nb = sec.querySelector('.holo-next'), pb = sec.querySelector('.holo-prev'); if (nb) nb.onclick = next; if (pb) pb.onclick = prev;
     sec.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
     let sx = 0; sec.addEventListener('pointerdown', e => sx = e.clientX); sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) (d < 0 ? next : prev)(); });
     let timer = reduce ? null : setInterval(() => { if (!document.hidden) next(); }, 7000);
@@ -88,9 +97,16 @@
     function resize() {
       const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
       camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
-      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .62 : .5, 0);
+      gap = camera.aspect < 1 ? 1.1 : 1.15; controls.target.set(0, w >= 1000 ? .62 : .5, 0);
+      shift = w >= 1000 ? gap * 1.35 : 0;
       const span = camera.aspect < 1 ? 1.25 : 3 * gap + .9;          // half-width that must fit: phones show the centre pest, wide screens the whole loop
       const d = Math.max(5.6, span / (.92 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update(); floor();
+      // where the pests come from: the pointing fingertip on wide screens, below the row on phones
+      fingerOn = w >= 1000 && team && getComputedStyle(team).display !== 'none';
+      if (fingerOn) { const r = team.getBoundingClientRect(), s0 = sec.getBoundingClientRect(); const [fx, fy] = (team.dataset.finger || '0,0').split(',').map(Number);
+        const px = r.left - s0.left + r.width * fx, py = r.top - s0.top + r.height * fy; sec.style.setProperty('--sx', px + 'px'); sec.style.setProperty('--sy', py + 'px');
+        const ndc = new THREE.Vector3(px / w * 2 - 1, 1 - py / h * 2, .5).unproject(camera); const dir = ndc.sub(camera.position).normalize(); const t = -camera.position.z / dir.z; finger.copy(camera.position).add(dir.multiplyScalar(t)); }
+      else finger.set(0, -1.8, 0);
     }
     addEventListener('resize', resize); resize();
     const t0 = performance.now(); let last = t0, frames = 0;

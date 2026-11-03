@@ -178,6 +178,15 @@ def gallery(items, group):
 
 # ---------------------------------------------------------------- HOME
 
+# Line icons for the hero hologram screens (4 Nov 2026)
+HH_ICONS = {
+    "chip": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 2v4M12 2v4M15 2v4M9 18v4M12 18v4M15 18v4M2 9h4M2 12h4M2 15h4M18 9h4M18 12h4M18 15h4"/></svg>',
+    "termite": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="14.5" cy="13" rx="6" ry="4.2"/><circle cx="6.5" cy="11.5" r="3"/><path d="M4.2 10 2 7.5M4.4 13l-2.2 2M9.5 17.5 8 20.5M14 17.3l-.5 3.2M18.5 16.5l2 2.5M10.5 8.8 9 6M15 8.9l1-3M19.5 10.3l2.5-1.8"/></svg>',
+    "mosquito": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="2.6" ry="5"/><path d="M12 7V2.5M9.5 9 3 5.5M14.5 9 21 5.5M9.4 13 3 15M14.6 13 21 15M10 16.5 6 21M14 16.5l4 4.5M9.6 11.2c-3-2.2-6-2-7.5-.5M14.4 11.2c3-2.2 6-2 7.5-.5"/></svg>',
+    "rat": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.5c0-4 3.5-6.5 8-6.5 3.2 0 5.3 1.1 6.4 2.8l3.1-.8c1 0 1.5.6 1.5 1.3 0 1-1.2 1.7-2.6 1.7-.3 2.4-2.3 4-5.9 4H8c-3.2 0-5-1.1-5-2.5z"/><path d="M17.5 11c0-1.6 1-2.8 2.4-2.8 1.3 0 2 .9 2 1.8"/><path d="M3 15.5c-1.5.3-2.5 1.5-2 3"/><circle cx="17.3" cy="12.9" r=".6" fill="currentColor"/></svg>',
+}
+
+
 def home():
     PANEL_FOCUS = {'tech-termite': '42%', 'tech-mosquito': '58%', 'tech-bedbug': '57%', 'tech-cockroach': '57%', 'tech-rodent': '42%'}   # technician's horizontal position per photo
     pests_cards = [
@@ -205,23 +214,30 @@ def home():
     # Columns 0-1 fall behind the headline veil, so they carry the supporting documents.
     slant_cols = slant_wall()
     body = f'''
-<section class="hero hero-video">
-<img class="hero-vid" src="assets/img/hero-home.jpg" alt="" fetchpriority="high">
-<div class="veil"></div>
+<section class="hero hero-holo" data-hero-holo>
+<img class="hh-team" src="assets/img/team-holo.webp" alt="The Pestimesh team" width="1400" height="933" fetchpriority="high" data-finger="0.02,0.23">
+<i class="hh-spark" aria-hidden="true"></i>
+<div class="hh-cards" aria-hidden="true">
+ <a class="hh-card" href="technology.html" data-pos="0.49,0.25" data-mpos="0.16,0.585"><span class="hh-bar"><i></i><b>Technology</b><em>LIVE</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["chip"]}</span><span class="hh-tag">Science · Technology · Prevention · Sustainability</span></span></a>
+ <a class="hh-card" href="termites.html" data-pos="0.64,0.18" data-mpos="0.50,0.575"><span class="hh-bar"><i></i><b>Termite</b><em>PROTECTION</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["termite"]}</span><ul><li>Inspection</li><li>Treatment</li><li>Monitoring</li></ul></span></a>
+ <a class="hh-card" href="mosquitoes.html" data-pos="0.80,0.23" data-mpos="0.84,0.585"><span class="hh-bar"><i></i><b>Mosquito</b><em>DENGUE</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["mosquito"]}</span><span class="hh-bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:60%"></i><i style="--h:95%"></i><i style="--h:70%"></i></span></span></a>
+ <a class="hh-card" href="rodents.html" data-pos="0.93,0.46" data-mpos="0.33,0.665"><span class="hh-bar"><i></i><b>Rodent</b><em>CONTROL</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["rat"]}</span><ul><li>Activity</li><li>Entry points</li><li>Harbourage</li></ul></span></a>
+ <a class="hh-card" href="sustainability.html" data-pos="0.50,0.58" data-mpos="0.67,0.665"><span class="hh-bar"><i></i><b>ESG</b><em>FY2025</em></span><span class="hh-body"><span class="hh-ring" style="--p:72%"></span><span class="hh-tag">Sustainability report, GRI-referenced</span></span></a>
+</div>
 <div class="container"><div class="hero-grid">
  <div><h1 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h1>
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
-</div></div></section>
+</div></div>
+</section>
 </div></div>
 <section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
  <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
  <div class="holo-top"><h2 class="h2">Pests We Treat</h2><div class="holo-side"><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p><div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div></div></div>
- <button class="holo-arrow holo-prev" type="button" aria-label="Previous pest">{I["arrow"].replace('<svg','<svg style="transform:scaleX(-1)"')}</button>
- <button class="holo-arrow holo-next" type="button" aria-label="Next pest">{I["arrow"]}</button>
  <ul class="holo-list">{holo_items}</ul>
 </section>
 <script src="js/holo.js?v={BUILD}" defer></script>
+<script src="js/hero-holo.js?v={BUILD}" defer></script>
 
 
 {logo_rows()}
