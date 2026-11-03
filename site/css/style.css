@@ -100,8 +100,8 @@ p+p{margin-top:1em}
 .btn-ghost:hover{background:rgba(255,255,255,.16)}
 .btn-outline{border-color:var(--teal-900);color:var(--teal-900);background:transparent}
 .btn-outline:hover{background:var(--teal-900);color:var(--white)}
-.btn-wa{background:#1f9d55;color:#fff}
-.btn-wa:hover{background:#26b062}
+.btn-wa{background:var(--teal-900);color:var(--cream)}
+.btn-wa:hover{background:var(--teal-700)}
 .btn-sm{padding:11px 18px;font-size:14px}
 .btn-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .link-arrow{display:inline-flex;align-items:center;gap:10px;font-weight:600;color:var(--teal-900)}
@@ -779,7 +779,7 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .btn-ghost{backdrop-filter:none;background:rgba(255,255,255,.10)}
 .wa-float{box-shadow:none}
 .wa-float::after{display:none}
-.wa-float:hover{transform:none;background:#26b062}
+.wa-float:hover{transform:none;background:var(--teal-700)}
 .link-arrow:hover .ic{transform:none}
 
 /* service pages: plain bullet list for "Signs of ..." and similar */
