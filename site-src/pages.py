@@ -81,19 +81,20 @@ CLIENT_LOGOS_ROW2 = [
 # ---------------------------------------------------------------- helpers
 
 def logo_rows():
-    """'Projects We Have Done': client logos in a square grid with hairline cells, corner crosses that flicker in
-    and logos that rise into place on scroll (after the terminal-industries.com logo wall). The grid is padded to
-    a multiple of every column count (8 / 6 / 4 / 3) with empty cells so each layout ends on a full row."""
+    """'Projects We Have Done': 12 square hairline cells (6x2 on desktop) with corner crosses that flicker in and
+    logos that rise into place, after the terminal-industries.com logo wall. All client logos are listed on the
+    grid as JSON; main.js swaps a random cell to a logo not currently shown every few seconds."""
+    import json
     logos = list(CLIENT_LOGOS_ROW1) + list(CLIENT_LOGOS_ROW2)
-    n = len(logos)
-    while any(n % c for c in (8, 6, 4, 3)): n += 1
+    data = escape(json.dumps([[f, n] for f, n in logos]), quote=True)
     cells = []
-    for i in range(n):
-        inner = f'<img src="assets/logos/clients/{logos[i][0]}.png" alt="{logos[i][1]}" title="{logos[i][1]}" loading="lazy">' if i < len(logos) else ''
+    for i in range(12):
+        f, n = logos[i]
         cells.append(f'<div class="lcell" style="--i:{i}"><i class="x tl"></i><i class="x tr"></i><i class="x bl"></i><i class="x br"></i>'
-                     f'<i class="ext l"></i><i class="ext r"></i><i class="ext lb"></i><i class="ext rb"></i><i class="ext d"></i><i class="ext dr"></i>{inner}</div>')
+                     f'<i class="ext l"></i><i class="ext r"></i><i class="ext lb"></i><i class="ext rb"></i><i class="ext d"></i><i class="ext dr"></i>'
+                     f'<img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></div>')
     return (f'<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2>'
-            f'<div class="lgrid" data-lgrid>{"".join(cells)}</div></div></section>')
+            f'<div class="lgrid" data-lgrid data-logos="{data}">{"".join(cells)}</div></div></section>')
 
 
 # Google reviews, copied from the company's Google listing on 11 Oct 2026. Five-star reviews with text only.

@@ -324,3 +324,36 @@
   /* ---- Footer year ---- */
   $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 })();
+
+/* Client logo wall: once revealed, swap one random cell every few seconds to a logo not currently shown.
+   The old logo lifts out, the new one rises in with the same motion as the initial reveal. */
+(() => {
+  document.querySelectorAll('[data-lgrid]').forEach(grid => {
+    let all; try { all = JSON.parse(grid.dataset.logos || '[]'); } catch { all = []; }
+    const cells = [...grid.querySelectorAll('.lcell')];
+    if (all.length <= cells.length || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const shown = () => new Set(cells.map(c => c.querySelector('img')?.getAttribute('src')));
+    const src = f => `assets/logos/clients/${f}.png`;
+    let last = -1, started = false;
+    const tick = () => {
+      const hidden = all.filter(([f]) => !shown().has(src(f)));
+      if (!hidden.length) return;
+      let i; do { i = Math.floor(Math.random() * cells.length); } while (i === last);
+      last = i;
+      const cell = cells[i], img = cell.querySelector('img');
+      const [f, n] = hidden[Math.floor(Math.random() * hidden.length)];
+      cell.style.setProperty('--i', 0);
+      cell.classList.add('out');
+      setTimeout(() => {
+        cell.classList.remove('out'); cell.classList.add('swap');
+        img.src = src(f); img.alt = n; img.title = n;
+        void img.offsetWidth;                       // commit the hidden start state before the rise-in transition
+        cell.classList.remove('swap');
+      }, 420);
+    };
+    const start = () => { if (started) return; started = true; setTimeout(() => setInterval(tick, 2600), 2200); };
+    const mo = new MutationObserver(() => { if (grid.classList.contains('in')) { start(); mo.disconnect(); } });
+    mo.observe(grid, { attributes: true, attributeFilter: ['class'] });
+    if (grid.classList.contains('in')) start();
+  });
+})();

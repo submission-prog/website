@@ -1193,27 +1193,25 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 @media(max-width:800px){#clients.section.tight{padding-bottom:80px}}
 
 /* ============================================================ Client logo wall (3 Nov 2026)
-   Square hairline cells, a small cross at every intersection that flickers in, logos that rise into
-   place, and the outer lines fading away beyond the grid, after the terminal-industries.com logo wall. */
-.lgrid{--cols:8;--gl:#dfe4ec;--gx:#8a97ab;display:grid;grid-template-columns:repeat(var(--cols),1fr);position:relative;margin:0 auto}
-.lcell{position:relative;aspect-ratio:1;display:grid;place-items:center;border-top:1px solid var(--gl);border-left:1px solid var(--gl);transition:background-color .5s var(--ease)}
-.lcell:nth-child(8n){border-right:1px solid var(--gl)}
-.lcell:nth-last-child(-n+8){border-bottom:1px solid var(--gl)}
+   12 square hairline cells, a small cross at every intersection that flickers in, logos that rise into
+   place and swap at random (js), and the outer lines fading away beyond the grid, after terminal-industries.com. */
+.lgrid{--cols:6;--gl:#dfe4ec;--gx:#8a97ab;display:grid;grid-template-columns:repeat(var(--cols),1fr);position:relative;margin:0 auto}
+.lcell{position:relative;aspect-ratio:1;display:grid;place-items:center;border-top:1px solid var(--gl);border-left:1px solid var(--gl);transition:background-color .5s var(--ease);overflow:visible}
 .lcell:hover{background:var(--lime-100)}
-.lcell img{max-width:86%;max-height:44%;width:auto;height:auto;object-fit:contain;opacity:0;transform:translateY(24px);
-  transition:opacity .9s var(--ease) calc(var(--i)*45ms),transform .9s var(--ease) calc(var(--i)*45ms)}
+.lcell img{max-width:78%;max-height:42%;width:auto;height:auto;object-fit:contain;opacity:0;transform:translateY(24px);
+  transition:opacity .9s var(--ease) calc(var(--i)*60ms),transform .9s var(--ease) calc(var(--i)*60ms)}
 .lgrid.in .lcell img{opacity:1;transform:none}
+/* swap: old logo lifts out, new one rises in (js sets --i to 0 on the cell before swapping) */
+.lgrid.in .lcell.out img{opacity:0;transform:translateY(-18px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.lgrid.in .lcell.swap img{opacity:0;transform:translateY(24px);transition:none}
 /* crosses: 11px plus sign centred on each corner point */
-.lcell .x{position:absolute;width:11px;height:11px;pointer-events:none;z-index:2;transform:scale(0);transition:transform .35s var(--ease) calc(var(--i)*45ms + .1s)}
+.lcell .x{position:absolute;width:11px;height:11px;pointer-events:none;z-index:2;transform:scale(0);transition:transform .35s var(--ease) calc(var(--i)*60ms + .1s)}
 .lcell .x::before,.lcell .x::after{content:"";position:absolute;background:var(--gx)}
 .lcell .x::before{left:5px;top:0;width:1px;height:11px}
 .lcell .x::after{top:5px;left:0;height:1px;width:11px}
 .lcell .x.tl{top:-6px;left:-6px}.lcell .x.tr{top:-6px;right:-6px}.lcell .x.bl{bottom:-6px;left:-6px}.lcell .x.br{bottom:-6px;right:-6px}
 .lcell .x.tr,.lcell .x.bl,.lcell .x.br{display:none}
-.lcell:nth-child(8n) .x.tr{display:block}
-.lcell:nth-last-child(-n+8) .x.bl{display:block}
-.lcell:nth-last-child(-n+8):nth-child(8n) .x.br{display:block}
-.lgrid.in .lcell .x{transform:none;animation:xflick .5s steps(2,end) calc(var(--i)*45ms + .1s) both}
+.lgrid.in .lcell .x{transform:none;animation:xflick .5s steps(2,end) calc(var(--i)*60ms + .1s) both}
 @keyframes xflick{0%{opacity:0}30%{opacity:1}50%{opacity:.2}70%{opacity:1}100%{opacity:1}}
 /* outer lines run on past the grid and fade out */
 .lcell .ext{position:absolute;pointer-events:none;display:none;background:var(--gl)}
@@ -1222,42 +1220,33 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .lcell .ext.l,.lcell .ext.r{top:-1px}.lcell .ext.lb,.lcell .ext.rb{bottom:-1px}
 .lcell .ext.d,.lcell .ext.dr{width:1px;height:60%;top:100%;background:linear-gradient(180deg,var(--gl),rgba(223,228,236,0))}
 .lcell .ext.d{left:-1px}.lcell .ext.dr{right:-1px}
-.lcell:nth-child(8n+1) .ext.l{display:block}
-.lcell:nth-child(8n) .ext.r{display:block}
-.lcell:nth-last-child(-n+8):nth-child(8n+1) .ext.lb{display:block}
-.lcell:nth-last-child(-n+8):nth-child(8n) .ext.rb{display:block}
-.lcell:nth-last-child(-n+8) .ext.d{display:block}
-.lcell:nth-last-child(-n+8):nth-child(8n) .ext.dr{display:block}
+.lcell:nth-child(6n){border-right:1px solid var(--gl)}
+.lcell:nth-last-child(-n+6){border-bottom:1px solid var(--gl)}
+.lcell:nth-child(6n) .x.tr,.lcell:nth-last-child(-n+6) .x.bl,.lcell:nth-last-child(-n+6):nth-child(6n) .x.br,
+.lcell:nth-child(6n+1) .ext.l,.lcell:nth-child(6n) .ext.r,.lcell:nth-last-child(-n+6):nth-child(6n+1) .ext.lb,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.rb,.lcell:nth-last-child(-n+6) .ext.d,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.dr{display:block}
 #clients.section.tight{padding-bottom:150px}
 .logos-head{margin-bottom:56px}
 @media(max-width:1100px){
-  .lgrid{--cols:6}
-  .lcell:nth-child(8n){border-right:0}.lcell:nth-last-child(-n+8){border-bottom:0}
-  .lcell:nth-child(8n) .x.tr,.lcell:nth-last-child(-n+8) .x.bl,.lcell:nth-last-child(-n+8):nth-child(8n) .x.br,
-  .lcell:nth-child(8n+1) .ext.l,.lcell:nth-child(8n) .ext.r,.lcell:nth-last-child(-n+8):nth-child(8n+1) .ext.lb,.lcell:nth-last-child(-n+8):nth-child(8n) .ext.rb,.lcell:nth-last-child(-n+8) .ext.d,.lcell:nth-last-child(-n+8):nth-child(8n) .ext.dr{display:none}
-  .lcell:nth-child(6n){border-right:1px solid var(--gl)}.lcell:nth-last-child(-n+6){border-bottom:1px solid var(--gl)}
-  .lcell:nth-child(6n) .x.tr,.lcell:nth-last-child(-n+6) .x.bl,.lcell:nth-last-child(-n+6):nth-child(6n) .x.br,
-  .lcell:nth-child(6n+1) .ext.l,.lcell:nth-child(6n) .ext.r,.lcell:nth-last-child(-n+6):nth-child(6n+1) .ext.lb,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.rb,.lcell:nth-last-child(-n+6) .ext.d,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.dr{display:block}
-}
-@media(max-width:760px){
   .lgrid{--cols:4}
-  .lcell:nth-child(6n){border-right:0}.lcell:nth-last-child(-n+6){border-bottom:0}
-  .lcell:nth-child(6n) .x.tr,.lcell:nth-last-child(-n+6) .x.bl,.lcell:nth-last-child(-n+6):nth-child(6n) .x.br,
-  .lcell:nth-child(6n+1) .ext.l,.lcell:nth-child(6n) .ext.r,.lcell:nth-last-child(-n+6):nth-child(6n+1) .ext.lb,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.rb,.lcell:nth-last-child(-n+6) .ext.d,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.dr{display:none}
-  .lcell:nth-child(4n){border-right:1px solid var(--gl)}.lcell:nth-last-child(-n+4){border-bottom:1px solid var(--gl)}
-  .lcell:nth-child(4n) .x.tr,.lcell:nth-last-child(-n+4) .x.bl,.lcell:nth-last-child(-n+4):nth-child(4n) .x.br,
-  .lcell:nth-child(4n+1) .ext.l,.lcell:nth-child(4n) .ext.r,.lcell:nth-last-child(-n+4):nth-child(4n+1) .ext.lb,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.rb,.lcell:nth-last-child(-n+4) .ext.d,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.dr{display:block}
-  .lcell img{max-width:76%;max-height:50%}
-  #clients.section.tight{padding-bottom:100px}
+.lcell:nth-child(6n){border-right:0}.lcell:nth-last-child(-n+6){border-bottom:0}
+.lcell:nth-child(6n) .x.tr,.lcell:nth-last-child(-n+6) .x.bl,.lcell:nth-last-child(-n+6):nth-child(6n) .x.br,
+.lcell:nth-child(6n+1) .ext.l,.lcell:nth-child(6n) .ext.r,.lcell:nth-last-child(-n+6):nth-child(6n+1) .ext.lb,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.rb,.lcell:nth-last-child(-n+6) .ext.d,.lcell:nth-last-child(-n+6):nth-child(6n) .ext.dr{display:none}
+.lcell:nth-child(4n){border-right:1px solid var(--gl)}
+.lcell:nth-last-child(-n+4){border-bottom:1px solid var(--gl)}
+.lcell:nth-child(4n) .x.tr,.lcell:nth-last-child(-n+4) .x.bl,.lcell:nth-last-child(-n+4):nth-child(4n) .x.br,
+.lcell:nth-child(4n+1) .ext.l,.lcell:nth-child(4n) .ext.r,.lcell:nth-last-child(-n+4):nth-child(4n+1) .ext.lb,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.rb,.lcell:nth-last-child(-n+4) .ext.d,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.dr{display:block}
 }
-@media(max-width:480px){
+@media(max-width:600px){
   .lgrid{--cols:3}
-  .lcell:nth-child(4n){border-right:0}.lcell:nth-last-child(-n+4){border-bottom:0}
-  .lcell:nth-child(4n) .x.tr,.lcell:nth-last-child(-n+4) .x.bl,.lcell:nth-last-child(-n+4):nth-child(4n) .x.br,
-  .lcell:nth-child(4n+1) .ext.l,.lcell:nth-child(4n) .ext.r,.lcell:nth-last-child(-n+4):nth-child(4n+1) .ext.lb,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.rb,.lcell:nth-last-child(-n+4) .ext.d,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.dr{display:none}
-  .lcell:nth-child(3n){border-right:1px solid var(--gl)}.lcell:nth-last-child(-n+3){border-bottom:1px solid var(--gl)}
-  .lcell:nth-child(3n) .x.tr,.lcell:nth-last-child(-n+3) .x.bl,.lcell:nth-last-child(-n+3):nth-child(3n) .x.br,
-  .lcell:nth-child(3n+1) .ext.l,.lcell:nth-child(3n) .ext.r,.lcell:nth-last-child(-n+3):nth-child(3n+1) .ext.lb,.lcell:nth-last-child(-n+3):nth-child(3n) .ext.rb,.lcell:nth-last-child(-n+3) .ext.d,.lcell:nth-last-child(-n+3):nth-child(3n) .ext.dr{display:block}
+.lcell:nth-child(4n){border-right:0}.lcell:nth-last-child(-n+4){border-bottom:0}
+.lcell:nth-child(4n) .x.tr,.lcell:nth-last-child(-n+4) .x.bl,.lcell:nth-last-child(-n+4):nth-child(4n) .x.br,
+.lcell:nth-child(4n+1) .ext.l,.lcell:nth-child(4n) .ext.r,.lcell:nth-last-child(-n+4):nth-child(4n+1) .ext.lb,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.rb,.lcell:nth-last-child(-n+4) .ext.d,.lcell:nth-last-child(-n+4):nth-child(4n) .ext.dr{display:none}
+.lcell:nth-child(3n){border-right:1px solid var(--gl)}
+.lcell:nth-last-child(-n+3){border-bottom:1px solid var(--gl)}
+.lcell:nth-child(3n) .x.tr,.lcell:nth-last-child(-n+3) .x.bl,.lcell:nth-last-child(-n+3):nth-child(3n) .x.br,
+.lcell:nth-child(3n+1) .ext.l,.lcell:nth-child(3n) .ext.r,.lcell:nth-last-child(-n+3):nth-child(3n+1) .ext.lb,.lcell:nth-last-child(-n+3):nth-child(3n) .ext.rb,.lcell:nth-last-child(-n+3) .ext.d,.lcell:nth-last-child(-n+3):nth-child(3n) .ext.dr{display:block}
+  .lcell img{max-width:80%;max-height:50%}
+  #clients.section.tight{padding-bottom:100px}
 }
 @media(prefers-reduced-motion:reduce){.lcell img,.lcell .x{opacity:1;transform:none;animation:none}}
 /* Trust strip icons are now generated glowing-ring images (3 Nov 2026) */
