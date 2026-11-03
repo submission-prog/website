@@ -2,21 +2,20 @@
    large, sharp and spinning, the neighbours are small, dim and blurred (two canvases, the back one CSS-blurred).
    three.js is fetched only when the band is about to scroll into view, so other pages pay nothing. */
 (() => {
-  const sec = document.querySelector('[data-holo]');
-  if (!sec || !window.WebGLRenderingContext) return;
+  const secs = [...document.querySelectorAll('[data-holo]')];
+  if (!secs.length || !window.WebGLRenderingContext) return;
   const V = '0.128.0', CDN = `https://cdn.jsdelivr.net/npm/three@${V}/`;
   const load = src => new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); });
-  const start = async () => {
-    try {
-      await load(CDN + 'build/three.min.js');
-      await Promise.all([load(CDN + 'examples/js/loaders/GLTFLoader.js'), load(CDN + 'examples/js/loaders/DRACOLoader.js'), load(CDN + 'examples/js/controls/OrbitControls.js')]);
-      init();
-    } catch (e) { sec.classList.add('no3d'); }
-  };
-  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '600px 0px' });
-  io.observe(sec);
+  let libs = null;
+  const ensureLibs = () => libs || (libs = (async () => { if (!window.THREE) await load(CDN + 'build/three.min.js');
+    await Promise.all([window.THREE.GLTFLoader ? 0 : load(CDN + 'examples/js/loaders/GLTFLoader.js'), window.THREE.DRACOLoader ? 0 : load(CDN + 'examples/js/loaders/DRACOLoader.js'), window.THREE.OrbitControls ? 0 : load(CDN + 'examples/js/controls/OrbitControls.js')]); })());
+  secs.forEach(sec => {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); ensureLibs().then(() => init(sec)).catch(() => sec.classList.add('no3d')); } }, { rootMargin: '600px 0px' });
+    io.observe(sec);
+  });
 
-  function init() {
+  function init(sec) {
+    const ROW = sec.dataset.mode === 'row';   // option B strip: every pest the same size, all turning, no centre focus
     const PESTS = [...sec.querySelectorAll('[data-pest]')].map(el => ({ el, name: el.dataset.name, file: el.dataset.pest, href: el.dataset.href, blurb: el.dataset.blurb, scale: +el.dataset.scale || 1 }));
     const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
     const mk = id => { const r = new THREE.WebGLRenderer({ canvas: sec.querySelector(id), antialias: true, alpha: true }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.setClearColor(0, 0); return r; };
@@ -54,19 +53,19 @@
     const team = sec.querySelector('.holo-team'), finger = new THREE.Vector3(0, -1.6, 0); let fingerOn = false;
     const n = PESTS.length, half = n / 2;
     const wrap = o => ((o + half) % n + n) % n - half;            // offset folded into (-n/2, n/2]
-    const sizeAt = x => Math.max(.38, 1 - .68 * Math.min(1, Math.abs(x) / gap));
+    const sizeAt = x => ROW ? .62 : Math.max(.38, 1 - .68 * Math.min(1, Math.abs(x) / gap));
     const ease = k => 1 - Math.pow(1 - k, 3);
     const put = (m, x, born) => { const sc0 = sizeAt(x); let px = x + shift, py = -.5 + .5 * sc0, sc = sc0;
       if (born) { const k = Math.min(1, (performance.now() - born) / 1100); const e = ease(k);               // fly out of the fingertip into the slot
         px = finger.x + (px - finger.x) * e; py = finger.y + (py - finger.y) * e; sc = sc0 * (.04 + .96 * e); if (k >= 1) m.userData.born = 0; }
-      m.position.set(px, py, 0); m.scale.setScalar(sc); m.visible = Math.abs(x) < gap * (shift ? 2.5 : 3.3); };
+      m.position.set(px, py, 0); m.scale.setScalar(sc); m.visible = ROW || Math.abs(x) < gap * (shift ? 2.5 : 3.3); };
     function place() {
       models.forEach((m, i) => {
-        if (!m) return; const o = wrap(i - pos), x = o * gap; put(m, x, m.userData.born);
-        const wantFront = Math.abs(x) < gap * .42 && !m.userData.born, inFront = m.parent === sFront;
+        if (!m) return; const o = ROW ? i - (n - 1) / 2 : wrap(i - pos), x = o * gap; put(m, x, m.userData.born);
+        const wantFront = (ROW || Math.abs(x) < gap * .42) && !m.userData.born, inFront = m.parent === sFront;
         if (wantFront && !inFront) { sBack.remove(m); sFront.add(m); } if (!wantFront && inFront) { sFront.remove(m); sBack.add(m); }
         // the far pest shows at both ends while it crosses the seam
-        const c = clones[i]; if (!c) return;
+        const c = clones[i]; if (!c || ROW) { if (c) c.visible = false; return; }
         if (o > half - 1) put(c, (o - n) * gap, m.userData.born); else if (o < 1 - half) put(c, (o + n) * gap, m.userData.born); else c.visible = false;
         c.rotation.y = m.rotation.y;
       });
@@ -75,8 +74,8 @@
     // a small name under each pest in the row; clicking one brings that pest to the centre
     const labels = document.createElement('div'); labels.className = 'holo-labels'; sec.appendChild(labels);
     const lbl = PESTS.map((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'holo-lbl'; b.textContent = p.name; b.onclick = () => go(i); labels.appendChild(b); return b; });
-    const setText = i => { lbl.forEach((d, j) => d.classList.toggle('on', j === i)); nameEl.querySelector('span').textContent = PESTS[i].name; blurb.textContent = PESTS[i].blurb; link.href = PESTS[i].href; };
-    const go = i => { if (i === cur) return; target = pos + wrap(i - pos); cur = i; nameEl.classList.add('out'); setTimeout(() => { setText(i); nameEl.classList.remove('out'); }, 300); };
+    const setText = i => { lbl.forEach((d, j) => d.classList.toggle('on', j === i)); if (nameEl) nameEl.querySelector('span').textContent = PESTS[i].name; if (blurb) blurb.textContent = PESTS[i].blurb; if (link) link.href = PESTS[i].href; };
+    const go = i => { if (ROW) { location.href = PESTS[i].href; return; } if (i === cur) return; target = pos + wrap(i - pos); cur = i; if (nameEl) nameEl.classList.add('out'); setTimeout(() => { setText(i); if (nameEl) nameEl.classList.remove('out'); }, 300); };
     const next = () => go((cur + 1) % n), prev = () => go((cur - 1 + n) % n);
     const nb = sec.querySelector('.holo-next'), pb = sec.querySelector('.holo-prev'); if (nb) nb.onclick = next; if (pb) pb.onclick = prev;
     sec.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
@@ -86,10 +85,10 @@
       const objs = []; models.forEach((m, i) => { if (m && m.visible) { m.userData.i = i; objs.push(m); } if (clones[i] && clones[i].visible) { clones[i].userData.i = i; objs.push(clones[i]); } });
       const hit = ray.intersectObjects(objs, true)[0]; if (!hit) return -1; let o = hit.object; while (o && o.userData.i === undefined) o = o.parent; return o ? o.userData.i : -1; };
     let sx = 0, sy = 0; sec.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
-    sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) return (d < 0 ? next : prev)(); if (Math.abs(d) < 8 && Math.abs(e.clientY - sy) < 8) { const i = pick(e.clientX, e.clientY); if (i >= 0) go(i); } });
+    sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) return ROW ? 0 : (d < 0 ? next : prev)(); if (Math.abs(d) < 8 && Math.abs(e.clientY - sy) < 8) { const i = pick(e.clientX, e.clientY); if (i >= 0) go(i); } });
     frontC.addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; frontC.style.cursor = pick(e.clientX, e.clientY) >= 0 ? 'pointer' : ''; });
-    let timer = reduce ? null : setInterval(() => { if (!document.hidden) next(); }, 7000);
-    ['pointerdown', 'keydown'].forEach(ev => sec.addEventListener(ev, () => { if (timer) clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!document.hidden) next(); }, 9000); }));
+    let timer = (reduce || ROW) ? null : setInterval(() => { if (!document.hidden) next(); }, 7000);
+    ['pointerdown', 'keydown'].forEach(ev => sec.addEventListener(ev, () => { if (timer) clearInterval(timer); if (!reduce && !ROW) timer = setInterval(() => { if (!document.hidden) next(); }, 9000); }));
     const W = () => sec.clientWidth, H = () => sec.clientHeight;
     function labelsPlace() {
       const w = W(), h = H();
@@ -105,9 +104,9 @@
     function resize() {
       const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
       camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
-      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .62 : (camera.aspect < 1 ? .95 : .7), 0);
+      gap = ROW ? (w >= 1000 ? 1.55 : 1.05) : (camera.aspect < 1 ? 1.1 : 1.25); controls.target.set(0, ROW ? .25 : (w >= 1000 ? .62 : (camera.aspect < 1 ? .95 : .7)), 0);
       shift = 0;
-      const span = camera.aspect < 1 ? 1.25 : 3 * gap + .9;          // half-width that must fit: phones show the centre pest, wide screens the whole loop
+      const span = ROW ? 2.5 * gap + .8 : (camera.aspect < 1 ? 1.25 : 3 * gap + .9);          // half-width that must fit: phones show the centre pest, wide screens the whole loop
       const d = Math.max(5.6, span / (.92 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update(); floor();
       // where the pests come from: the pointing fingertip on wide screens, below the row on phones
       fingerOn = w >= 1000 && team && getComputedStyle(team).display !== 'none';
@@ -123,9 +122,9 @@
       if (document.hidden) return;
       fres.uniforms.t.value = (now - t0) / 1000;
       pos += (target - pos) * Math.min(1, dt * 5.5); if (Math.abs(target - pos) < .0005) { pos = target = ((target % n) + n) % n; }
-      models.forEach((m, i) => { if (m && !reduce) m.rotation.y += dt * (i === cur ? .5 : .18); });
+      models.forEach((m, i) => { if (m && !reduce) m.rotation.y += dt * (ROW ? .35 : (i === cur ? .5 : .18)); });
       place(); controls.update(); if (++frames % 30 === 0) floor(); rBack.render(sBack, camera); rFront.render(sFront, camera); labelsPlace();
     })();
-    setText(0); sec.classList.add('ready');
+    if (!ROW) setText(0); sec.classList.add('ready');
   }
 })();
