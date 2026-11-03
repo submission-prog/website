@@ -216,10 +216,9 @@ def home():
 </div></div>
 <section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
  <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
- <div class="holo-top"><h2 class="h2">Pests We Treat</h2><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p></div>
+ <div class="holo-top"><h2 class="h2">Pests We Treat</h2><div class="holo-side"><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p><div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div></div></div>
  <button class="holo-arrow holo-prev" type="button" aria-label="Previous pest">{I["arrow"].replace('<svg','<svg style="transform:scaleX(-1)"')}</button>
  <button class="holo-arrow holo-next" type="button" aria-label="Next pest">{I["arrow"]}</button>
- <div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div>
  <ul class="holo-list">{holo_items}</ul>
 </section>
 <script src="js/holo.js?v={BUILD}" defer></script>
@@ -322,7 +321,6 @@ def certifications():
     total = sum(len(v) for v in CERTS.values())
     filters = f'<button class="on" data-filter="all">All certificates <span>{total}</span></button>' + "".join(f'<button data-filter="{k}">{k} <span>{len(v)}</span></button>' for k, v in CERTS.items())
     safety = ["People and occupants", "Site conditions", "Appropriate treatment methods", "Product and chemical handling", "Application requirements", "Follow-up and monitoring", "Minimising disruption to operations"]
-    docs = ["Service records", "Inspection findings", "Treatment details", "Monitoring information", "Recommendations", "Follow-up requirements"]
     body = f'''<section class="page-hero cert-hero"><div class="slant-stage" data-slant><div class="slant-wall">{slant_wall()}</div></div><div class="veil"></div>
 <div class="container"><h1 class="h1">Professional Standards. Responsible Practice.</h1><p class="lead">At Pestimesh, professional pest management means more than effective treatment. We believe responsible pest management requires appropriate training, regulatory compliance, safe working practices and proper handling of pest management products and equipment. Our commitment is to operate professionally and responsibly while protecting people, properties and the environments in which we work.</p></div></section>'''
     body += f'''
@@ -334,8 +332,6 @@ def certifications():
  <p class="center muted small" style="margin-top:6px">Credentials, licences and memberships last reviewed in {CERTS_UPDATED}.</p>
 </div></section>
 <section class="section dark" id="safety"><div class="container"><div class="grid" style="max-width:760px">
-<div class="reveal"><div class="eyebrow">Documentation &amp; Service Records</div><h3 class="h3">Professional programmes, properly documented</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Depending on the scope of the programme, this may include:</p>{checks(docs)}<p class="small" style="color:rgba(255,255,255,.6)">These records can help customers understand the pest management programme and track ongoing activity.</p></div></div>
-<div class="divider" style="background:rgba(255,255,255,.12)"></div>
 <div class="reveal"><h3 class="h3">Our Commitment</h3><p class="mt-2" style="color:rgba(255,255,255,.75)">Pestimesh is committed to maintaining professional standards across our services while continuing to improve our knowledge, processes and practices.</p></div></div></section>'''
     return "certifications.html", page("certifications.html", "Certifications & Compliance", "Pestimesh certifications: ISO 9001, ISO 14001, ISO 45001, bizSAFE Star, NEA registration, awards, memberships and letters of appreciation.", body)
 

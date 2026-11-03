@@ -25,7 +25,7 @@
     const camera = new THREE.PerspectiveCamera(30, 1, .01, 100);
     const controls = new THREE.OrbitControls(camera, sec.querySelector('.holo-front'));
     Object.assign(controls, { enableDamping: true, enableZoom: false, enablePan: false, minPolarAngle: 1.0, maxPolarAngle: 1.45, minAzimuthAngle: -.6, maxAzimuthAngle: .6 });
-    controls.target.set(0, .22, 0);
+    controls.target.set(0, .22, 0);   // phones: row sits low under the centred text; wide screens raise it (see resize)
     const fres = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { c: { value: new THREE.Color(0x6fc3ff) }, t: { value: 0 } },
       vertexShader: 'varying vec3 vN,vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
       fragmentShader: 'uniform vec3 c;uniform float t;varying vec3 vN,vV;void main(){float f=pow(1.-max(dot(vN,vV),0.),2.2);float s=.85+.15*sin(gl_FragCoord.y*.25+t*6.);gl_FragColor=vec4(c*(.25+f*1.2)*s,(.15+f*.85));}' });
@@ -88,7 +88,7 @@
     function resize() {
       const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
       camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
-      gap = camera.aspect < 1 ? 1.1 : 1.25;
+      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .5 : .5, 0);
       const span = camera.aspect < 1 ? 1.25 : 3 * gap + .9;          // half-width that must fit: phones show the centre pest, wide screens the whole loop
       const d = Math.max(5.6, span / (.92 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update(); floor();
     }

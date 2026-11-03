@@ -1258,18 +1258,19 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 /* ============================================================ "Pests We Treat" hologram band (3 Nov 2026)
    Dark navy stage. All pests in one row on a floor line; centre one sharp (front canvas), neighbours
    blurred (back canvas, CSS blur). Falls back to the plain list of links when WebGL is unavailable. */
-.holo{position:relative;height:clamp(520px,66vh,700px);background:radial-gradient(ellipse 70% 55% at 50% 60%,#10284f 0%,var(--teal-950) 72%);color:var(--lime);overflow:hidden;outline:none}
+.holo{position:relative;height:clamp(480px,62vh,640px);background:radial-gradient(ellipse 70% 55% at 50% 60%,#10284f 0%,var(--teal-950) 72%);color:var(--lime);overflow:hidden;outline:none}
 .holo canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .holo .holo-back{opacity:.6}
 .holo .holo-floor{position:absolute;left:0;right:0;top:var(--floor,64%);height:1px;background:linear-gradient(90deg,transparent,rgba(90,184,255,.5) 20%,rgba(90,184,255,.5) 80%,transparent);pointer-events:none}
 .holo .holo-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 2px,transparent 2px 5px);mix-blend-mode:multiply}
 .holo .holo-top{position:absolute;left:0;right:0;top:92px;text-align:center;pointer-events:none;padding:0 20px;z-index:2}
+.holo .holo-top .holo-cta a{pointer-events:auto}
 .holo .holo-top .h2{color:#fff;margin:0}
 .holo .holo-name{margin:14px 0 0;font-weight:300;font-size:clamp(20px,2.6vw,32px);letter-spacing:.24em;text-transform:uppercase;color:var(--lime);min-height:1.2em}
 .holo .holo-name span{display:inline-block;transition:opacity .35s var(--ease),transform .35s var(--ease)}
 .holo .holo-name.out span{opacity:0;transform:translateY(10px)}
 .holo .holo-blurb{max-width:560px;margin:12px auto 0;font-size:15px;line-height:1.6;color:rgba(247,249,252,.78);min-height:3.2em}
-.holo .holo-cta{position:absolute;left:0;right:0;bottom:96px;display:flex;justify-content:center;z-index:2}
+.holo .holo-cta{display:flex;justify-content:center;margin-top:18px;pointer-events:auto}
 .holo .holo-nav{position:absolute;left:0;right:0;bottom:36px;display:flex;flex-direction:column;align-items:center;gap:16px;z-index:2}
 .holo .holo-dots{display:flex;align-items:center}
 .holo .holo-dots button{appearance:none;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center;outline:none;position:relative;color:var(--lime)}
@@ -1290,12 +1291,22 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .holo.no3d .holo-top{position:static;padding:0 20px 24px}
 .holo.no3d .holo-list{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:0 20px}
 .holo.no3d .holo-list a{color:var(--cream);border:1px solid rgba(247,249,252,.35);border-radius:999px;padding:10px 18px;text-decoration:none;font-size:14px}
-@media(max-width:720px){.holo{height:clamp(500px,72vh,640px)}.holo .holo-arrow{display:none}.holo .holo-top{top:84px}.holo .holo-cta{bottom:104px}.holo .holo-nav{bottom:28px}.holo .holo-dots button+button::before{width:min(52px,9vw)}}
+@media(max-width:720px){.holo{height:clamp(480px,66vh,600px)}.holo .holo-arrow{display:none}.holo .holo-top{top:84px}.holo .holo-cta{bottom:104px}.holo .holo-nav{bottom:28px}.holo .holo-dots button+button::before{width:min(52px,9vw)}}
 /* Hologram band: small names under each pest, no dot line (3 Nov 2026) */
 .holo .holo-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
 .holo .holo-lbl{position:absolute;left:0;top:0;pointer-events:auto;appearance:none;background:none;border:0;padding:6px 8px;cursor:pointer;font-family:var(--font-body);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);opacity:.55;white-space:nowrap;transition:opacity .3s,color .3s;outline:none}
 .holo .holo-lbl:hover{opacity:.9}
 .holo .holo-lbl.on{opacity:1;color:#fff;font-weight:500}
 .holo .holo-lbl:focus-visible{text-decoration:underline}
-.holo .holo-cta{bottom:72px}
-@media(max-width:720px){.holo .holo-lbl{font-size:9.5px;padding:4px 6px}.holo .holo-cta{bottom:56px}}
+@media(max-width:720px){.holo .holo-lbl{font-size:9.5px;padding:4px 6px}.holo .holo-blurb{min-height:0}}
+/* Hologram band, wide screens (4 Nov 2026): heading left, pest name + text + button right, row raised into the middle */
+@media(min-width:1000px){
+  .holo{height:clamp(500px,60vh,640px)}
+  .holo .holo-top{top:76px;display:grid;grid-template-columns:1fr 1fr;align-items:start;text-align:left;padding:0 clamp(32px,7vw,110px)}
+  .holo .holo-top .h2{grid-column:1;max-width:380px;line-height:1.05}
+  .holo .holo-side{grid-column:2;justify-self:start;padding-left:40px;max-width:470px}
+  .holo .holo-name{margin-top:6px}
+  .holo .holo-blurb{margin-left:0;min-height:4.8em}
+  .holo .holo-cta{justify-content:flex-start;margin-top:14px}
+  .holo .holo-blurb{min-height:0}
+}
