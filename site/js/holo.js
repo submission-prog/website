@@ -88,7 +88,7 @@
     function resize() {
       const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
       camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
-      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .5 : .5, 0);
+      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .62 : .5, 0);
       const span = camera.aspect < 1 ? 1.25 : 3 * gap + .9;          // half-width that must fit: phones show the centre pest, wide screens the whole loop
       const d = Math.max(5.6, span / (.92 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update(); floor();
     }

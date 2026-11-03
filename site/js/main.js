@@ -331,6 +331,9 @@
   document.querySelectorAll('[data-lgrid]').forEach(grid => {
     let all; try { all = JSON.parse(grid.dataset.logos || '[]'); } catch { all = []; }
     const cells = [...grid.querySelectorAll('.lcell')];
+    // reveal order: column by column, left to right (rows within a column follow a beat behind)
+    const queue = () => { const g = grid.getBoundingClientRect(); cells.forEach(c => { const r = c.getBoundingClientRect(); const col = Math.round((r.left - g.left) / r.width), row = Math.round((r.top - g.top) / r.height); c.style.setProperty('--i', (col + row * .35).toFixed(2)); }); };
+    queue(); addEventListener('resize', queue);
     if (all.length <= cells.length || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     const shown = () => new Set(cells.map(c => c.querySelector('img')?.getAttribute('src')));
     const src = f => `assets/logos/clients/${f}.png`;

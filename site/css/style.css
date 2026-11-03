@@ -1199,19 +1199,19 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .lcell{position:relative;aspect-ratio:1;display:grid;place-items:center;border-top:1px solid var(--gl);border-left:1px solid var(--gl);transition:background-color .5s var(--ease);overflow:visible}
 .lcell:hover{background:var(--lime-100)}
 .lcell img{max-width:78%;max-height:42%;width:auto;height:auto;object-fit:contain;opacity:0;transform:translateY(24px);
-  transition:opacity .9s var(--ease) calc(var(--i)*60ms),transform .9s var(--ease) calc(var(--i)*60ms)}
+  transition:opacity .9s var(--ease) calc(var(--i)*120ms),transform .9s var(--ease) calc(var(--i)*120ms)}
 .lgrid.in .lcell img{opacity:1;transform:none}
 /* swap: old logo lifts out, new one rises in (js sets --i to 0 on the cell before swapping) */
 .lgrid.in .lcell.out img{opacity:0;transform:translateY(-18px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
 .lgrid.in .lcell.swap img{opacity:0;transform:translateY(24px);transition:none}
 /* crosses: 11px plus sign centred on each corner point */
-.lcell .x{position:absolute;width:11px;height:11px;pointer-events:none;z-index:2;transform:scale(0);transition:transform .35s var(--ease) calc(var(--i)*60ms + .1s)}
+.lcell .x{position:absolute;width:11px;height:11px;pointer-events:none;z-index:2;transform:scale(0);transition:transform .35s var(--ease) calc(var(--i)*120ms + .1s)}
 .lcell .x::before,.lcell .x::after{content:"";position:absolute;background:var(--gx)}
 .lcell .x::before{left:5px;top:0;width:1px;height:11px}
 .lcell .x::after{top:5px;left:0;height:1px;width:11px}
 .lcell .x.tl{top:-6px;left:-6px}.lcell .x.tr{top:-6px;right:-6px}.lcell .x.bl{bottom:-6px;left:-6px}.lcell .x.br{bottom:-6px;right:-6px}
 .lcell .x.tr,.lcell .x.bl,.lcell .x.br{display:none}
-.lgrid.in .lcell .x{transform:none;animation:xflick .5s steps(2,end) calc(var(--i)*60ms + .1s) both}
+.lgrid.in .lcell .x{transform:none;animation:xflick .5s steps(2,end) calc(var(--i)*120ms + .1s) both}
 @keyframes xflick{0%{opacity:0}30%{opacity:1}50%{opacity:.2}70%{opacity:1}100%{opacity:1}}
 /* outer lines run on past the grid and fade out */
 .lcell .ext{position:absolute;pointer-events:none;display:none;background:var(--gl)}
@@ -1299,14 +1299,17 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .holo .holo-lbl.on{opacity:1;color:#fff;font-weight:500}
 .holo .holo-lbl:focus-visible{text-decoration:underline}
 @media(max-width:720px){.holo .holo-lbl{font-size:9.5px;padding:4px 6px}.holo .holo-blurb{min-height:0}}
-/* Hologram band, wide screens (4 Nov 2026): heading left, pest name + text + button right, row raised into the middle */
+/* Hologram band, wide screens (4 Nov 2026): heading, pest name, text and button stacked at the left;
+   the row runs across the lower half; prev/next arrows sit side by side at the bottom centre */
 @media(min-width:1000px){
-  .holo{height:clamp(500px,60vh,640px)}
-  .holo .holo-top{top:76px;display:grid;grid-template-columns:1fr 1fr;align-items:start;text-align:left;padding:0 clamp(32px,7vw,110px)}
-  .holo .holo-top .h2{grid-column:1;max-width:380px;line-height:1.05}
-  .holo .holo-side{grid-column:2;justify-self:start;padding-left:40px;max-width:470px}
-  .holo .holo-name{margin-top:6px}
-  .holo .holo-blurb{margin-left:0;min-height:4.8em}
-  .holo .holo-cta{justify-content:flex-start;margin-top:14px}
-  .holo .holo-blurb{min-height:0}
+  .holo{height:clamp(520px,62vh,660px)}
+  .holo .holo-top{top:72px;left:0;right:auto;width:min(46%,560px);text-align:left;padding:0 0 0 clamp(32px,7vw,110px)}
+  .holo .holo-top .h2{max-width:420px;line-height:1.05}
+  .holo .holo-side{max-width:440px}
+  .holo .holo-name{margin-top:10px}
+  .holo .holo-blurb{margin-left:0;min-height:0}
+  .holo .holo-cta{justify-content:flex-start;margin-top:16px}
+  .holo .holo-arrow{top:auto;bottom:30px;transform:none;width:44px;height:44px}
+  .holo .holo-prev{left:calc(50% - 56px)}.holo .holo-next{right:calc(50% - 56px)}
+}
 }
