@@ -10,8 +10,11 @@
     const tr = team.getBoundingClientRect(), sr = sec.getBoundingClientRect(); const [fx, fy] = (team.dataset.finger || '0,0').split(',').map(Number);
     const sx = tr.left - sr.left + tr.width * fx, sy = tr.top - sr.top + tr.height * fy;
     sec.style.setProperty('--sx', sx + 'px'); sec.style.setProperty('--sy', sy + 'px');
+    const teamTop = tr.top - sr.top;
     cards.forEach(c => { const [px, py] = ((wide ? c.dataset.pos : c.dataset.mpos) || c.dataset.pos).split(',').map(Number);
-      const x = px * w, y = py * h; c.style.setProperty('--x', x + 'px'); c.style.setProperty('--y', y + 'px'); c.style.setProperty('--dx', (sx - x) + 'px'); c.style.setProperty('--dy', (sy - y) + 'px'); });
+      // phones: the y value is a row number (0 = upper row, 1 = lower row) sitting just above the team photo
+      const x = px * w, y = wide ? py * h : teamTop - (py < 2 ? (py === 0 ? 108 : 50) : py * h);
+      c.style.setProperty('--x', x + 'px'); c.style.setProperty('--y', y + 'px'); c.style.setProperty('--dx', (sx - x) + 'px'); c.style.setProperty('--dy', (sy - y) + 'px'); });
   };
   const go = () => { place(); if (reduce) { sec.classList.add('hh-in'); return; }
     sec.classList.add('emerging'); requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.add('hh-in')));

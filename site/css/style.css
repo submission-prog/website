@@ -1357,11 +1357,11 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 @keyframes hhbob{0%,100%{margin-top:0}50%{margin-top:-9px}}
 @media(max-width:900px){
   .hero-holo{min-height:100svh;align-items:flex-start}
-  .hero-holo .container{padding-top:100px;padding-bottom:44vh}
+  .hero-holo .container{padding-top:100px;padding-bottom:calc(40svh + 150px)}
   .hero-holo .hero-grid{max-width:none}
   .hero-holo .display{font-size:clamp(26px,8vw,40px)}
   .hero-holo .lead{font-size:15px}
-  .hero-holo .hh-team{height:auto;width:100%;max-width:none;max-height:48%;object-position:center bottom}
+  .hero-holo .hh-team{height:auto;width:100%;max-width:none;max-height:40svh;object-position:center bottom}
   .hero-holo .hh-card{width:112px;--tilt:rotateY(0)}
   .hero-holo .hh-card:nth-child(6){display:none}
   .hero-holo .hh-card .hh-body{padding:8px 10px;gap:8px}

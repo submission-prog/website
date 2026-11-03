@@ -80,7 +80,14 @@
     const next = () => go((cur + 1) % n), prev = () => go((cur - 1 + n) % n);
     const nb = sec.querySelector('.holo-next'), pb = sec.querySelector('.holo-prev'); if (nb) nb.onclick = next; if (pb) pb.onclick = prev;
     sec.addEventListener('keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
-    let sx = 0; sec.addEventListener('pointerdown', e => sx = e.clientX); sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) (d < 0 ? next : prev)(); });
+    // swipe to move the row; tap or click a pest to bring it to the centre
+    const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), frontC = sec.querySelector('.holo-front');
+    const pick = (cx, cy) => { const rc = frontC.getBoundingClientRect(); ndc.set((cx - rc.left) / rc.width * 2 - 1, 1 - (cy - rc.top) / rc.height * 2); ray.setFromCamera(ndc, camera);
+      const objs = []; models.forEach((m, i) => { if (m && m.visible) { m.userData.i = i; objs.push(m); } if (clones[i] && clones[i].visible) { clones[i].userData.i = i; objs.push(clones[i]); } });
+      const hit = ray.intersectObjects(objs, true)[0]; if (!hit) return -1; let o = hit.object; while (o && o.userData.i === undefined) o = o.parent; return o ? o.userData.i : -1; };
+    let sx = 0, sy = 0; sec.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; });
+    sec.addEventListener('pointerup', e => { const d = e.clientX - sx; if (Math.abs(d) > 90) return (d < 0 ? next : prev)(); if (Math.abs(d) < 8 && Math.abs(e.clientY - sy) < 8) { const i = pick(e.clientX, e.clientY); if (i >= 0) go(i); } });
+    frontC.addEventListener('pointermove', e => { if (e.pointerType === 'touch') return; frontC.style.cursor = pick(e.clientX, e.clientY) >= 0 ? 'pointer' : ''; });
     let timer = reduce ? null : setInterval(() => { if (!document.hidden) next(); }, 7000);
     ['pointerdown', 'keydown'].forEach(ev => sec.addEventListener(ev, () => { if (timer) clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!document.hidden) next(); }, 9000); }));
     const W = () => sec.clientWidth, H = () => sec.clientHeight;
@@ -98,7 +105,7 @@
     function resize() {
       const w = sec.clientWidth, h = sec.clientHeight; [rBack, rFront].forEach(r => r.setSize(w, h, false));
       camera.aspect = w / h; camera.fov = camera.aspect < 1 ? 46 : 30; camera.updateProjectionMatrix();
-      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .62 : .5, 0);
+      gap = camera.aspect < 1 ? 1.1 : 1.25; controls.target.set(0, w >= 1000 ? .62 : (camera.aspect < 1 ? .95 : .7), 0);
       shift = 0;
       const span = camera.aspect < 1 ? 1.25 : 3 * gap + .9;          // half-width that must fit: phones show the centre pest, wide screens the whole loop
       const d = Math.max(5.6, span / (.92 * Math.tan(camera.fov * Math.PI / 360) * camera.aspect)); camera.position.set(0, 1.1 * d / 5.6, d); controls.update(); floor();
