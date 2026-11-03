@@ -1185,3 +1185,9 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .stats.words b{margin-bottom:2px}
 @media(max-width:1000px){.stats.words .stat,.stats.words .stat:first-child{padding:20px 12px}}
 @media(max-width:560px){.stats.words{grid-template-columns:1fr 1fr;gap:8px}}
+
+/* Client logo rows (3 Nov 2026): slower drift, more white space below the rows */
+.marquee.logos .track{animation-duration:60s}
+.marquee.logos.rev .track{animation-duration:70s}
+#clients.section.tight{padding-bottom:120px}
+@media(max-width:800px){#clients.section.tight{padding-bottom:80px}}
