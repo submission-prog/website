@@ -1370,3 +1370,11 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
   .hero-holo .hh-card .hh-bar{padding:6px 10px;font-size:9.5px}
 }
 @media(prefers-reduced-motion:reduce){.hero-holo .hh-card{transition:none;animation:none!important}.hero-holo .hh-spark{animation:none}}
+
+/* WhatsApp buttons in WhatsApp green (client, 4 Nov 2026) */
+.btn-wa,.hero .btn-wa,.page-hero .btn-wa,.enquiry .btn-wa,.section.dark .btn-wa,.mobile-menu .btn-wa,.footer .btn-wa,.cta .btn-wa,.wa-float{background:#25d366!important;color:#fff!important;border-color:#25d366!important;--fill:#1fb858;--fill-ink:#fff}
+.btn-wa:hover,.btn-wa:focus-visible,.wa-float:hover{background:#1fb858!important;border-color:#1fb858!important;color:#fff!important}
+/* Home hero entrance (4 Nov 2026): preloader opens, the team rises in, then the screens fly out */
+.hero-holo .hh-team{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform 1s var(--ease)}
+.hero-holo.hh-team-in .hh-team{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.hero-holo .hh-team{opacity:1;transform:none;transition:none}}

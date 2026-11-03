@@ -16,6 +16,10 @@
   const go = () => { place(); if (reduce) { sec.classList.add('hh-in'); return; }
     sec.classList.add('emerging'); requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.add('hh-in')));
     setTimeout(() => sec.classList.remove('emerging'), 400 + cards.length * 180 + 1100); };
-  if (team.complete) go(); else { team.addEventListener('load', go, { once: true }); setTimeout(() => { if (!sec.classList.contains('hh-in')) go(); }, 1800); }
+  // sequence: wait for the preloader to open, bring the team in, then let the screens fly out
+  const imgReady = () => new Promise(res => { if (team.complete) res(); else { team.addEventListener('load', res, { once: true }); setTimeout(res, 2500); } });
+  const preloaderDone = () => new Promise(res => { if (!document.body.classList.contains('preloading')) return res();
+    const mo = new MutationObserver(() => { if (!document.body.classList.contains('preloading')) { mo.disconnect(); res(); } }); mo.observe(document.body, { attributes: true, attributeFilter: ['class'] }); setTimeout(() => { mo.disconnect(); res(); }, 6000); });
+  Promise.all([imgReady(), preloaderDone()]).then(() => { place(); setTimeout(() => { sec.classList.add('hh-team-in'); setTimeout(go, reduce ? 0 : 750); }, reduce ? 0 : 450); });
   addEventListener('resize', place);
 })();
