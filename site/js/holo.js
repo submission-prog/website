@@ -48,7 +48,8 @@
     let onScreen = false, pendingBirth = [], lastBirth = 0;
     const birthIO = new IntersectionObserver(es => { onScreen = es.some(e => e.isIntersecting); if (onScreen) { const q = pendingBirth; pendingBirth = []; q.forEach(born); } }, { threshold: .25 });
     birthIO.observe(sec);
-    function born(i) { if (!onScreen || reduce) { if (!reduce) pendingBirth.push(i); return; } const t = Math.max(performance.now(), lastBirth + 160); lastBirth = t; models[i].userData.born = t; sec.classList.add('emerging'); clearTimeout(born.t); born.t = setTimeout(() => sec.classList.remove('emerging'), t - performance.now() + 1200); }
+    function born(i) { return;   // no entrance animation: pests simply appear in place (client, 4 Nov 2026)
+      if (!onScreen || reduce) { if (!reduce) pendingBirth.push(i); return; } const t = Math.max(performance.now(), lastBirth + 160); lastBirth = t; models[i].userData.born = t; sec.classList.add('emerging'); clearTimeout(born.t); born.t = setTimeout(() => sec.classList.remove('emerging'), t - performance.now() + 1200); }
     let cur = 0, pos = 0, target = 0, gap = 1.25, shift = 0;
     const team = sec.querySelector('.holo-team'), finger = new THREE.Vector3(0, -1.6, 0); let fingerOn = false;
     const n = PESTS.length, half = n / 2;
