@@ -91,7 +91,7 @@
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
   }), { threshold: 0, rootMargin: '0px 0px -12% 0px' });   // fires as soon as any part enters, works for very tall blocks
-  $$('.reveal, .reveal-stagger, .line-reveal').forEach(el => io.observe(el));
+  $$('.reveal, .reveal-stagger, .line-reveal, [data-lgrid]').forEach(el => io.observe(el));
 
   /* ---- Counters ---- */
   const cio = new IntersectionObserver(es => es.forEach(e => {

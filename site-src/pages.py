@@ -81,13 +81,19 @@ CLIENT_LOGOS_ROW2 = [
 # ---------------------------------------------------------------- helpers
 
 def logo_rows():
-    """'Projects We Have Done': two client-logo marquees running in opposite directions."""
-    item = lambda f, n: f'<span class="item logo"><img src="assets/logos/clients/{f}.png" alt="{n}" title="{n}" loading="lazy"></span>'
-    row1 = "".join(item(f, n) for f, n in CLIENT_LOGOS_ROW1)
-    row2 = "".join(item(f, n) for f, n in CLIENT_LOGOS_ROW2)
-    return (f'<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2></div>'
-            f'<div class="marquee logos"><div class="track">{row1}</div></div>'
-            f'<div class="marquee logos rev"><div class="track">{row2}</div></div></section>')
+    """'Projects We Have Done': client logos in a square grid with hairline cells, corner crosses that flicker in
+    and logos that rise into place on scroll (after the terminal-industries.com logo wall). The grid is padded to
+    a multiple of every column count (8 / 6 / 4 / 3) with empty cells so each layout ends on a full row."""
+    logos = list(CLIENT_LOGOS_ROW1) + list(CLIENT_LOGOS_ROW2)
+    n = len(logos)
+    while any(n % c for c in (8, 6, 4, 3)): n += 1
+    cells = []
+    for i in range(n):
+        inner = f'<img src="assets/logos/clients/{logos[i][0]}.png" alt="{logos[i][1]}" title="{logos[i][1]}" loading="lazy">' if i < len(logos) else ''
+        cells.append(f'<div class="lcell" style="--i:{i}"><i class="x tl"></i><i class="x tr"></i><i class="x bl"></i><i class="x br"></i>'
+                     f'<i class="ext l"></i><i class="ext r"></i><i class="ext lb"></i><i class="ext rb"></i><i class="ext d"></i><i class="ext dr"></i>{inner}</div>')
+    return (f'<section class="section tight white" id="clients"><div class="container"><h2 class="h2 center logos-head">Projects We Have Done</h2>'
+            f'<div class="lgrid" data-lgrid>{"".join(cells)}</div></div></section>')
 
 
 # Google reviews, copied from the company's Google listing on 11 Oct 2026. Five-star reviews with text only.
@@ -218,10 +224,10 @@ def home():
 
 <section class="section white"><div class="container">
  <div class="stats words reveal-stagger">
-  <div class="stat"><span class="ic">{I["clock"]}</span><div><b>Since 2011</b><span>Singapore Experience</span></div></div>
-  <div class="stat"><span class="ic">{I["layers"]}</span><div><b>IPM</b><span>Prevention-led approach</span></div></div>
-  <div class="stat"><span class="ic">{I["shield"]}</span><div><b>Safety First</b><span>People &amp; Site Protection</span></div></div>
-  <div class="stat"><span class="ic">{I["leaf"]}</span><div><b>ESG</b><span>Responsible Growth</span></div></div>
+  <div class="stat"><span class="ic"><img src="assets/img/icon-clock.png" alt="" width="320" height="320" loading="lazy"></span><div><b>Since 2011</b><span>Singapore Experience</span></div></div>
+  <div class="stat"><span class="ic"><img src="assets/img/icon-layers.png" alt="" width="320" height="320" loading="lazy"></span><div><b>IPM</b><span>Prevention-led approach</span></div></div>
+  <div class="stat"><span class="ic"><img src="assets/img/icon-shield.png" alt="" width="320" height="320" loading="lazy"></span><div><b>Safety First</b><span>People &amp; Site Protection</span></div></div>
+  <div class="stat"><span class="ic"><img src="assets/img/icon-leaf.png" alt="" width="320" height="320" loading="lazy"></span><div><b>ESG</b><span>Responsible Growth</span></div></div>
  </div>
 </div></section>
 
