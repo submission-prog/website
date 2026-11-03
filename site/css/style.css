@@ -430,7 +430,7 @@ p+p{margin-top:1em}
 @media(max-width:560px){.footer .cols{grid-template-columns:1fr}}
 
 /* Floating WhatsApp */
-.wa-float{position:fixed;right:22px;bottom:22px;z-index:90;width:60px;height:60px;border-radius:50%;background:#1f9d55;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -8px rgba(18,40,77,.55);transition:transform .35s var(--ease)}
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:90;width:60px;height:60px;border-radius:50%;background:var(--teal-900);color:var(--cream);display:grid;place-items:center;box-shadow:0 14px 30px -8px rgba(18,40,77,.55);transition:transform .35s var(--ease)}
 .wa-float:hover{transform:scale(1.08) rotate(-8deg)}
 .wa-float svg{width:30px;height:30px}
 .wa-float::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(18,40,77,.5);animation:pulse 2s infinite}
@@ -1175,3 +1175,14 @@ h4{font-size:17px;font-weight:600;letter-spacing:-.012em}
 .enquiry::before{background:radial-gradient(circle,rgba(191,212,240,.2),transparent 70%)}
 .slant-card:hover{box-shadow:none}
 .cert .thumb.land img{background:#eef2f7}
+
+/* Home trust strip (3 Nov 2026): four centred columns, ring icon above the words, no divider lines */
+.stats.words{border:0;gap:24px}
+.stats.words .stat{flex-direction:column;text-align:center;gap:18px;border:0;padding:28px 16px}
+.stats.words .stat:first-child{padding:28px 16px}
+.stats.words .stat .ic,.stats.words .stat:nth-child(2n) .ic{width:84px;height:84px;background:var(--lime-100);color:var(--teal-900);border:1.5px solid var(--lime-600);box-shadow:inset 0 0 0 5px var(--white);transition:background-color .4s var(--ease),transform .4s var(--ease)}
+.stats.words .stat:hover .ic{background:var(--lime);transform:translateY(-3px)}
+.stats.words .stat .ic svg{width:34px;height:34px;stroke-width:1.6}
+.stats.words b{margin-bottom:2px}
+@media(max-width:1000px){.stats.words .stat,.stats.words .stat:first-child{padding:20px 12px}}
+@media(max-width:560px){.stats.words{grid-template-columns:1fr 1fr;gap:8px}}
