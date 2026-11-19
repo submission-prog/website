@@ -221,10 +221,6 @@ def home():
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
 </div></div>
-<div class="hb-strip" data-holo data-mode="row" aria-label="Pests we treat">
- <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
- <ul class="holo-list">{holo_items}</ul>
-</div>
 </section>
 </div></div>
 <section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
