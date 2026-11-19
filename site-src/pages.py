@@ -214,33 +214,10 @@ def home():
     # Columns 0-1 fall behind the headline veil, so they carry the supporting documents.
     slant_cols = slant_wall()
     body = f'''
-<section class="hero hero-holo" data-hero-holo>
-<img class="hh-team" src="assets/img/team-holo.webp" alt="The Pestimesh team" width="1400" height="933" fetchpriority="high" data-finger="0.02,0.23">
-<i class="hh-spark" aria-hidden="true"></i>
-<div class="hh-cards" aria-hidden="true">
- <a class="hh-card" href="technology.html" data-pos="0.45,0.24" data-mpos="0.17,0"><span class="hh-bar"><i></i><b>Technology</b><em>LIVE</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["chip"]}</span><span class="hh-tag">Science · Technology · Prevention · Sustainability</span></span></a>
- <a class="hh-card" href="termites.html" data-pos="0.60,0.17" data-mpos="0.50,0"><span class="hh-bar"><i></i><b>Termite</b><em>PROTECTION</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["termite"]}</span><ul><li>Inspection</li><li>Treatment</li><li>Monitoring</li></ul></span></a>
- <a class="hh-card" href="mosquitoes.html" data-pos="0.75,0.22" data-mpos="0.83,0"><span class="hh-bar"><i></i><b>Mosquito</b><em>DENGUE</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["mosquito"]}</span><span class="hh-bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:60%"></i><i style="--h:95%"></i><i style="--h:70%"></i></span></span></a>
- <a class="hh-card" href="rodents.html" data-pos="0.90,0.47" data-mpos="0.33,1"><span class="hh-bar"><i></i><b>Rodent</b><em>CONTROL</em></span><span class="hh-body"><span class="hh-ic">{HH_ICONS["rat"]}</span><ul><li>Activity</li><li>Entry points</li><li>Harbourage</li></ul></span></a>
- <a class="hh-card" href="sustainability.html" data-pos="0.89,0.27" data-mpos="0.67,1"><span class="hh-bar"><i></i><b>ESG</b><em>FY2025</em></span><span class="hh-body"><span class="hh-ring" style="--p:72%"></span><span class="hh-tag">Sustainability report, GRI-referenced</span></span></a>
- <a class="hh-card hh-wide" href="services.html" data-pos="0.52,0.40" data-mpos="0.50,1"><span class="hh-bar"><i></i><b>Monitoring</b><em>FOLLOW-UP</em></span><span class="hh-body"><svg class="hh-line" viewBox="0 0 160 44" preserveAspectRatio="none"><polyline points="0,34 18,30 36,33 54,22 72,26 90,14 108,18 126,9 144,12 160,4"/><polyline class="hh-area" points="0,34 18,30 36,33 54,22 72,26 90,14 108,18 126,9 144,12 160,4 160,44 0,44"/></svg></span></a>
-</div>
+<section class="hero hero-holo hero-b">
+<img class="hh-team" src="assets/img/team-holo.webp" alt="The Pestimesh team" width="1400" height="933" fetchpriority="high">
 <div class="container"><div class="hero-grid">
  <div><h1 class="display" data-split>Protecting People. Protecting Properties. Protecting Communities.</h1>
-  <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
-  <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
-</div></div>
-</section>
-</div></div>
-<section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
- <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
- <div class="holo-top"><h2 class="h2">Pests We Treat</h2><div class="holo-side"><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p><div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div></div></div>
- <ul class="holo-list">{holo_items}</ul>
-</section>
-<section class="hero hero-holo hero-b" aria-label="Hero option B">
-<img class="hh-team" src="assets/img/team-holo.webp" alt="The Pestimesh team" width="1400" height="933" loading="lazy">
-<div class="container"><div class="hero-grid">
- <div><h1 class="display">Protecting People. Protecting Properties. Protecting Communities.</h1>
   <p class="lead">Professional pest management and termite protection built around prevention, precision, safety and responsible innovation.</p>
   <div class="btn-row">{btn("WhatsApp us", WA, "wa", "wa")}{btn("Call us now", "tel:"+PHONE_TEL, "ghost", "phone")}</div></div>
 </div></div>
@@ -249,8 +226,13 @@ def home():
  <ul class="holo-list">{holo_items}</ul>
 </div>
 </section>
+</div></div>
+<section class="holo" data-holo tabindex="0" aria-label="Pests we treat">
+ <canvas class="holo-back" aria-hidden="true"></canvas><canvas class="holo-front" aria-hidden="true"></canvas>
+ <div class="holo-top"><h2 class="h2">Pests We Treat</h2><div class="holo-side"><h3 class="holo-name"><span>Termite</span></h3><p class="holo-blurb"></p><div class="holo-cta"><a class="btn btn-lime holo-link" href="termites.html">Learn more {I["arrow"]}</a></div></div></div>
+ <ul class="holo-list">{holo_items}</ul>
+</section>
 <script src="js/holo.js?v={BUILD}" defer></script>
-<script src="js/hero-holo.js?v={BUILD}" defer></script>
 
 
 {logo_rows()}
